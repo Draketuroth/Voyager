@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9833b9a3-2847-4de8-a0c9-fc5524a4aa71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Vector">
+      <UniqueIdentifier>{d55dc4f2-1422-4656-8a77-44e53c04e9d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{57df98c6-913e-401d-ba93-bba6004da720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Matrix">
+      <UniqueIdentifier>{3182c094-e536-44f8-b3e9-f1e8a01c146b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Includes\Math\Matrix\Matrix2D.h">
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Math\Vector\Vector2D.h">
+      <Filter>Header Files\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Math\Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Math\Matrix\Matrix3D.h">
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Math\Vector\Vector3D.h">
+      <Filter>Header Files\Vector</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Includes\Math\Matrix\Matrix2D.inl">
+      <Filter>Header Files\Matrix</Filter>
+    </None>
+    <None Include="..\Includes\Math\Vector\Vector2D.inl">
+      <Filter>Header Files\Vector</Filter>
+    </None>
+    <None Include="..\Includes\Math\Vector\Vector3D.inl">
+      <Filter>Header Files\Vector</Filter>
+    </None>
+    <None Include="..\Includes\Math\Matrix\Matrix3D.inl">
+      <Filter>Header Files\Matrix</Filter>
+    </None>
+  </ItemGroup>
+</Project>

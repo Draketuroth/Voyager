@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{52729d97-94bc-424f-8686-9439021a208e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2d4c683c-f8bd-48d3-bcd4-3aeb84136ff9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Timing">
+      <UniqueIdentifier>{4eb218f7-3ead-4ffa-9dc5-5f6bfd2d7677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Timing">
+      <UniqueIdentifier>{eb0c0b2a-f859-4139-bb94-19d452d24595}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DebugTools">
+      <UniqueIdentifier>{9eb4eeee-a116-46ac-ad50-34e49878fed4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DebugTools\Profiling">
+      <UniqueIdentifier>{627d6f70-79a9-486c-a4e0-100b547e79fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DebugTools">
+      <UniqueIdentifier>{196b3664-ca98-4267-8fa6-0f3ad892e72f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DebugTools\Profiler">
+      <UniqueIdentifier>{fbbf84c5-8c73-46b6-8046-9fb900768735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{f26f7ffc-8758-4c4a-b385-4464f4234240}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Includes\Core\Timing\Clock.h">
+      <Filter>Header Files\Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Core\DebugTools\Profiling\Profiler.h">
+      <Filter>Header Files\DebugTools\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Core\Misc\TypeDefs.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Core\DebugTools\Profiling\Profile.h">
+      <Filter>Header Files\DebugTools\Profiling</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Timing\Clock.cpp">
+      <Filter>Source Files\Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugTools\Profiling\Profiler.cpp">
+      <Filter>Source Files\DebugTools\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Includes\Core\DebugTools\Profiling\Profile.cpp">
+      <Filter>Source Files\DebugTools\Profiler</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
