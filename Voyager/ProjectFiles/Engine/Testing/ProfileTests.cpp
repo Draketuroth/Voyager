@@ -176,11 +176,15 @@ TEST(Profiler, AddingDuplicateCategoriesInOneFrame)
 	bool status;
 #if PROFILING_ON
 	profiler.checkStatus(&status);
+#else
+	status = true;
 #endif
 	EXPECT_TRUE(status);
 	profiler.addEntry("My Second Category", 2);
 #if PROFILING_ON
 	profiler.checkStatus(&status);
+#else
+		status = false;
 #endif
 	EXPECT_TRUE(!status);
 	profiler.shutdown();
