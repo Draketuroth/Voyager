@@ -1,4 +1,6 @@
-# Voyager
-Voyager - 3D Graphics Engine in development
+# Voyager - 3D Graphics Engine 
 
-Hobby project for the purpose of practicing engine architecture, rendering and test-driven development
+[![alt tag](https://draketuroth.files.wordpress.com/2018/08/voyager_logo.png?ssl=1&w=900)](https://vimeo.com/274004621)
+
+Voyager is a hobby project in development for the purpose of practicing engine architecture, rendering and test-driven development. 
+
