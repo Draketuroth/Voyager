@@ -11,7 +11,6 @@
 #include <QtOpenGL\qgl.h>
 #include <QtCore\qtimer.h>
 
-// Inherits from QGLWidget
 class GlWindow : public QGLWidget
 {
 	Q_OBJECT

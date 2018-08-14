@@ -69,7 +69,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(ProjectDir)\Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)\Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -88,6 +93,14 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\External\Qt\lib\x64\Debug;$(SolutionDir)..\External\glew\lib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5OpenGLd.lib;Qt5Widgetsd.lib;glew32d.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Cored.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Guid.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5OpenGLd.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Widgetsd.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Testd.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32d.dll" "$(OutDir)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -117,6 +130,14 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\External\Qt\lib\x64\Release;$(SolutionDir)..\External\glew\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5OpenGL.lib;Qt5Widgets.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Core.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Gui.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5OpenGL.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Widgets.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Test.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32.dll" "$(OutDir)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

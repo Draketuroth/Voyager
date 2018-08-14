@@ -24,7 +24,7 @@
     <ClCompile Include="SandboxGame.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Includes\Graphics\GlWindow.h" />
+    <ClInclude Include="..\Includes\Graphics\Window\GlWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

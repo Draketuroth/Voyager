@@ -8,7 +8,7 @@
 
 #include <QtWidgets\qapplication.h>
 #include <QtWidgets\qwidget.h>
-#include <Graphics\GlWindow.h>
+#include <Graphics\Window\GlWindow.h>
 #include <Windows.h>
 #include <QtCore\qdebug.h>
 

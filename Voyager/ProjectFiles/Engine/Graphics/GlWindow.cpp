@@ -7,7 +7,7 @@
 */
 
 #include <gl\glew.h>
-#include <Graphics\GlWindow.h>
+#include <Graphics/Window/GlWindow.h>
 #include <cassert>
 #include <QtGui\qevent.h>
 #include <Math\Vector\Vector3D.h>
