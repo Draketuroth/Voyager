@@ -1,3 +1,11 @@
+/*
+* Clock.cpp
+* Default clock system for delta time and profiling
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #include <Core\Timing\Clock.h>
 
 namespace Timing

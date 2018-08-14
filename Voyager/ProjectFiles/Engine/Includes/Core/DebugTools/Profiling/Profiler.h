@@ -1,3 +1,11 @@
+/*
+* Profiler.h
+* Default profiler
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #ifndef VE_CORE_DEBUG_PROFILER_H
 #define VE_CORE_DEBUG_PROFILER_H
 

@@ -1,3 +1,11 @@
+/*
+* GlWindow.h
+* Basic GL Window
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #ifndef VE_SANDBOX_GL_WINDOW_H
 #define VE_SANDBOX_GL_WINDOW_H
 #include <QtOpenGL\qgl.h>

@@ -1,3 +1,11 @@
+/*
+* Vector2DTests.cpp
+* 2D vector testing
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #include <gtest\gtest.h>
 #include <Math\Vector\Vector2D.h>
 using Math::Vector2D;

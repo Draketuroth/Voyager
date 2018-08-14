@@ -1,3 +1,11 @@
+/*
+* Profile.h
+* Helper class for profiler
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #ifndef VE_CORE_DEBUG_PROFILE_H
 #define VE_CORE_DEBUG_PROFILE_H
 #if PROFILING_ON

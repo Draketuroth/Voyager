@@ -15,6 +15,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Graphics\Graphics.vcxproj", "{5431AF0C-039B-45D5-8A9F-27A0E5C337A7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SandboxGame", "SandboxGame\SandboxGame.vcxproj", "{72E6A30B-352A-4EDC-9DE1-DADF7CE77726}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9CEB61DE-AC92-45AC-9E70-D1B112249434} = {9CEB61DE-AC92-45AC-9E70-D1B112249434}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

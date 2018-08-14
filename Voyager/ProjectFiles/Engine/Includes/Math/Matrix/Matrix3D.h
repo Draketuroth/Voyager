@@ -1,3 +1,11 @@
+/*
+* Matrix3D.h
+* Voyager 3D Matrix Class
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #ifndef VE_MATH_MATRIX_3D_H
 #define VE_MATH_MATRIX_3D_H
 

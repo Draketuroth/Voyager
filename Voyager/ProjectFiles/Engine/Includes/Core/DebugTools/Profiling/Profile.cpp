@@ -1,3 +1,11 @@
+/*
+* Profile.cpp
+* Helper class for profiler
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #if PROFILING_ON
 #include "Profile.h"
 #include <Core\DebugTools\Profiling\Profiler.h>

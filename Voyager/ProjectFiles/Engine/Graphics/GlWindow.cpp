@@ -1,3 +1,11 @@
+/*
+* GlWindow.cpp
+* Basic GL Window
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #include <gl\glew.h>
 #include <Graphics\GlWindow.h>
 #include <cassert>
@@ -22,19 +30,6 @@ namespace
 		Vector3D(+0.1f, -0.1f, 1),
 	};
 
-	struct Quads
-	{
-		int x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4;
-		float r, g, b;
-		int state;
-		int total;
-	}; Quads Q[100];
-
-	int cx = 0;
-	int cy = 0;
-	int cz = 0;
-	int cn;
-
 	// 6 * float (4 bytes) = 24 bytes 
 	// (*verts) = size of first element in array. 1 2D Vector = 2 floats = 8 bytes
 	// NUM_VERTS = 24 / 8 = 3
@@ -51,13 +46,6 @@ void GlWindow::initializeGL()
 	// Catch error code if glew could not be initialized properly.
 	GLenum error_code = glewInit();
 	assert(error_code == 0);
-
-	/*glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(35, 1.0f, 0.1f, 1000);
-	glMatrixMode(GL_MODELVIEW);
-	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.1, 0.1, 0.1, 1);*/
 
 	// 1. Specifies the number of buffer object names to be generated.
 	// 2. Specifies an array in which the generated buffer object names are stored. 

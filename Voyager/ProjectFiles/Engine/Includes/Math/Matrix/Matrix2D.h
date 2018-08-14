@@ -1,3 +1,11 @@
+/*
+* Matrix2D.h
+* Voyager 2D Matrix Class
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #ifndef VE_MATH_MATRIX_2D_H
 #define VE_MATH_MATRIX_2D_H
 

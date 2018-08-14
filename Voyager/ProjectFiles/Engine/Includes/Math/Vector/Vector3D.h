@@ -1,3 +1,11 @@
+/*
+* Vector3D.h
+* Voyager 3D Vector Class
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #ifndef VE_MATH_VECTOR_3D_H
 #define VE_MATH_VECTOR_3D_H
 

@@ -1,3 +1,11 @@
+/*
+* SandboxGame.cpp
+* Game initialization
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #include <QtWidgets\qapplication.h>
 #include <QtWidgets\qwidget.h>
 #include <Graphics\GlWindow.h>

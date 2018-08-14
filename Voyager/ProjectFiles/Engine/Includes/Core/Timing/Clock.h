@@ -1,3 +1,11 @@
+/*
+* Clock.h
+* Default clock system for delta time and profiling
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #ifndef VE_CORE_TIMING_CLOCK_H
 #define VE_CORE_TIMING_CLOCK_H
 

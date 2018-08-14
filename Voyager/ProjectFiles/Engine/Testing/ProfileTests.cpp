@@ -1,3 +1,10 @@
+/*
+* ProfileTests.cpp
+* Default profiler testing
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
 
 #include <gtest\gtest.h>
 #include <Core\DebugTools\Profiling\Profiler.h>
@@ -167,10 +174,14 @@ TEST(Profiler, AddingDuplicateCategoriesInOneFrame)
 	profiler.addEntry("My First Category", 1);
 	profiler.addEntry("My Second Category", 2);
 	bool status;
+#if PROFILING_ON
 	profiler.checkStatus(&status);
+#endif
 	EXPECT_TRUE(status);
 	profiler.addEntry("My Second Category", 2);
+#if PROFILING_ON
 	profiler.checkStatus(&status);
+#endif
 	EXPECT_TRUE(!status);
 	profiler.shutdown();
 }

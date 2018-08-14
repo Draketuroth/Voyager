@@ -1,3 +1,11 @@
+/*
+* Matrix2DTests.cpp
+* 2D matrix testing
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
+
 #include <cmath>
 #include <gtest\gtest.h>
 #include <Math\Matrix\Matrix2D.h>

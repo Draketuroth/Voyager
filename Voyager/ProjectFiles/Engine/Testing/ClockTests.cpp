@@ -1,3 +1,10 @@
+/*
+* ClockTests.cpp
+* Default clock system testing
+*
+*  Created on: Aug 14, 2018
+*      Author: Fredrik Linde
+*/
 
 #include <gtest\gtest.h>
 #include <Core\Timing\Clock.h>
