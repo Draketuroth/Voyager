@@ -11,12 +11,12 @@
 #include <cassert>
 #include <QtGui\qevent.h>
 #include <Math\Vector\Vector3D.h>
-#include <Math\Matrix\Matrix3D.h>
+#include <Math\Matrix\Matrix2DH.h>
 #include <Core\DebugTools\Profiling\Profile.h>
 #include <Core\DebugTools\Profiling\Profiler.h>
 #include <Core\Timing\Clock.h>
 using Math::Vector3D;
-using Math::Matrix3D;
+using Math::Matrix2DH;
 using Timing::Clock;
 using Profiling::Profiler;
 
@@ -86,11 +86,13 @@ void GlWindow::update()
 void GlWindow::doGl()
 {
 	// VIEWPORT SETUP
-	int min_size = std::min(width(), height());
-	Vector3D viewport_location;
-	viewport_location.x = width() / 2 - min_size / 2;
-	viewport_location.y = height() / 2 - min_size / 2;
-	glViewport(viewport_location.x, viewport_location.y, min_size, min_size);
+	// int min_size = std::min(width(), height());
+	// Vector3D viewport_location;
+	// viewport_location.x = width() / 2 - min_size / 2;
+	// viewport_location.y = height() / 2 - min_size / 2;
+	// glViewport(viewport_location.x, viewport_location.y, min_size, min_size);
+
+	glViewport(0, 0, width(), height());
 
 	// DATAPOINTERS SETUP
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -110,13 +112,25 @@ void GlWindow::doGl()
 void GlWindow::draw()
 {
 	// PAINT
-	Matrix3D translator = Matrix3D::translate(ship_pos.x, ship_pos.y);
-	Matrix3D rotator = Matrix3D::rotateZ(ship_orient);
+	Matrix2DH translator = Matrix2DH::translate(ship_pos.x, ship_pos.y);
+	Matrix2DH rotator = Matrix2DH::rotateZ(ship_orient);
 
-	Matrix3D op;
+	float aspect_ratio = static_cast<float>(width()) / height();
+	Matrix2DH scale;
+
+	if (aspect_ratio > 1)
+	{
+		scale = Matrix2DH::scale(1 / aspect_ratio, 1);
+	}
+	else
+	{
+		scale = Matrix2DH(1, aspect_ratio);
+	}
+
+	Matrix2DH op;
 	{
 		PROFILE("Matrix Multiplication");
-		op = translator * rotator;
+		op = translator * scale * rotator;
 	}
 
 	{
@@ -155,7 +169,7 @@ void GlWindow::updateVelocity()
 	Vector3D dir(-sin(ship_orient), cos(ship_orient));
 
 	Vector3D up(0, 1);
-	Matrix3D op = Matrix3D::rotateZ(ship_orient);
+	Matrix2DH op = Matrix2DH::rotateZ(ship_orient);
 	Vector3D dir_acc = op * up;
 
 	if (GetAsyncKeyState(VK_UP))

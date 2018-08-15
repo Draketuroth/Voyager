@@ -27,6 +27,7 @@ namespace Math
 			float _10 = 0, float _11 = 1, float _12 = 0);
 		inline static Matrix2DH rotateZ(float radians);
 		inline static Matrix2DH translate(float x, float y);
+		inline static Matrix2DH scale(float x, float y);
 	};
 
 	inline Vector3D operator*(const Matrix2DH& matrix, const Vector3D& vector);

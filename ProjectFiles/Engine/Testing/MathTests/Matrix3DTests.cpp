@@ -43,6 +43,16 @@ void evaluateLastRow(const T& op)
 }
 
 template<class T>
+void testScale()
+{
+	Vector3D victim(6.0f, 5.0f);
+	T op = T::scale(0.5f, 2.0f);
+	Vector3D victimPrime = op * victim;
+	EXPECT_FLOAT_EQ(victimPrime.x, 3.0f);
+	EXPECT_FLOAT_EQ(victimPrime.y, 10.0f);
+}
+
+template<class T>
 void testRotation()
 {
 	T op;
@@ -186,6 +196,12 @@ TEST(Matrix3D, Translation)
 {
 	testTranslation<Matrix3D>();
 	testTranslation<Matrix2DH>();
+}
+
+TEST(Matrix3D, Scaling)
+{
+	testScale<Matrix3D>();
+	testScale<Matrix2DH>();
 }
 
 TEST(Matrix3D, MatrixVectorMultiply)

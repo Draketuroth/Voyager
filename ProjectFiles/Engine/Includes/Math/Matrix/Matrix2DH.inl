@@ -3,7 +3,9 @@ Matrix2DH::Matrix2DH(
 	float _00, float _01, float _02,
 	float _10, float _11, float _12) :
 	m_00(_00), m_01(_01), m_02(_02),
-	m_10(_10), m_11(_11), m_12(_12) {}
+	m_10(_10), m_11(_11), m_12(_12)
+{
+}
 
 
 Matrix2DH Matrix2DH::rotateZ(float radians)
@@ -17,8 +19,16 @@ Matrix2DH Matrix2DH::rotateZ(float radians)
 
 Matrix2DH Matrix2DH::translate(float x, float y)
 {
-	return Matrix2DH(1, 0, x,
-					0, 1, y);
+	return Matrix2DH(
+		1, 0, x,
+		0, 1, y);
+}
+
+Matrix2DH Matrix2DH::scale(float x, float y)
+{
+	return Matrix2DH(
+		x, 0, 0,
+		0, y, 0);
 }
 
 Vector3D operator*(const Matrix2DH& matrix, const Vector3D& vector)

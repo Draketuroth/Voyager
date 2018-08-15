@@ -31,6 +31,7 @@ namespace Math
 			float _20 = 0, float _21 = 0, float _22 = 1);
 		inline static Matrix3D rotateZ(float radians);
 		inline static Matrix3D translate(float x, float y);
+		inline static Matrix3D scale(float x, float y);
 	};
 
 	inline Vector3D operator*(const Matrix3D& matrix, const Vector3D& vector);
