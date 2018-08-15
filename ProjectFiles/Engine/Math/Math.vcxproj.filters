@@ -30,6 +30,9 @@
     <ClInclude Include="..\Includes\Math\Vector\Vector3D.h">
       <Filter>Header Files\Vector</Filter>
     </ClInclude>
+    <ClInclude Include="..\Includes\Math\Matrix\Matrix2DH.h">
+      <Filter>Header Files\Matrix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Includes\Math\Matrix\Matrix2D.inl">
@@ -42,6 +45,9 @@
       <Filter>Header Files\Vector</Filter>
     </None>
     <None Include="..\Includes\Math\Matrix\Matrix3D.inl">
+      <Filter>Header Files\Matrix</Filter>
+    </None>
+    <None Include="..\Includes\Math\Matrix\Matrix2DH.inl">
       <Filter>Header Files\Matrix</Filter>
     </None>
   </ItemGroup>

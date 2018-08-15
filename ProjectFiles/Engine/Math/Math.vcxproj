@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClInclude Include="..\Includes\Math\Constants.h" />
     <ClInclude Include="..\Includes\Math\Matrix\Matrix2D.h" />
+    <ClInclude Include="..\Includes\Math\Matrix\Matrix2DH.h" />
     <ClInclude Include="..\Includes\Math\Matrix\Matrix3D.h" />
     <ClInclude Include="..\Includes\Math\Vector\Vector2D.h" />
     <ClInclude Include="..\Includes\Math\Vector\Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Includes\Math\Matrix\Matrix2D.inl" />
+    <None Include="..\Includes\Math\Matrix\Matrix2DH.inl" />
     <None Include="..\Includes\Math\Matrix\Matrix3D.inl" />
     <None Include="..\Includes\Math\Vector\Vector2D.inl" />
     <None Include="..\Includes\Math\Vector\Vector3D.inl" />

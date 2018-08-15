@@ -26,9 +26,9 @@ namespace Math
 		float m_21;
 		float m_22;
 		Matrix3D(
-			float _00 = 1, float _01 = 0, float _0 = 0,
-			float _10 = 0, float _11 = 1, float _1 = 0,
-			float _20 = 0, float _21 = 0, float _2 = 1);
+			float _00 = 1, float _01 = 0, float _02 = 0,
+			float _10 = 0, float _11 = 1, float _12 = 0,
+			float _20 = 0, float _21 = 0, float _22 = 1);
 		inline static Matrix3D rotateZ(float radians);
 		inline static Matrix3D translate(float x, float y);
 	};
