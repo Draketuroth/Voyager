@@ -34,6 +34,7 @@ protected:
 private slots:
 	void winupdate();
 	void updateVelocity();
+	void checkBoundaries();
 	void rotateShip();
 private:
 	void update();

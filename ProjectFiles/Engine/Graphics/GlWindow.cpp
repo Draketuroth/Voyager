@@ -80,6 +80,7 @@ void GlWindow::update()
 
 	rotateShip();
 	updateVelocity();
+	checkBoundaries();
 	ship_pos += ship_vel * internal_clock.lastLapTime();
 }
 
@@ -175,6 +176,18 @@ void GlWindow::updateVelocity()
 	if (GetAsyncKeyState(VK_UP))
 	{
 		ship_vel += dir_acc * acceleration;
+	}
+}
+
+void GlWindow::checkBoundaries()
+{
+	if (ship_pos.x < -1 || ship_pos.x > 1)
+	{
+		ship_vel.x *= -1;
+	}
+	if (ship_pos.y < -1 || ship_pos.y > 1)
+	{
+		ship_vel.y *= -1;
 	}
 }
 
