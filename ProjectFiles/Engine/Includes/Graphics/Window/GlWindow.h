@@ -15,7 +15,6 @@ class GlWindow : public QGLWidget
 {
 	Q_OBJECT
 
-	GLuint vertexBufferID;
 	QTimer timer;
 
 protected:
@@ -34,8 +33,8 @@ protected:
 private slots:
 	void winupdate();
 	void updateVelocity();
-	void checkBoundaries();
 	void rotateShip();
+	void handleBoundaries();
 private:
 	void update();
 	void draw();

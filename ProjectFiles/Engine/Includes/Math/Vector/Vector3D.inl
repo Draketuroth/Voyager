@@ -7,9 +7,45 @@ Vector3D& Vector3D::operator+=(const Vector3D& right)
 	return *this;
 }
 
+float Vector3D::dot(const Vector3D& other) const
+{
+	return x * other.x + y * other.y + z * other.z;
+}
+
+float Vector3D::magnitude() const
+{
+	return sqrt(magnitudeSquared());
+	// return sqrt(x * x + y * y + z * z);
+}
+
+float Vector3D::magnitudeSquared() const
+{
+	return this->dot(*this);
+}
+
+Vector3D Vector3D::normalized() const
+{
+	float inverseMagnitude = 1.0f / magnitude();
+	return inverseMagnitude * (*this);
+}
+
+Vector3D Vector3D::perpCwXy() const
+{
+	return Vector3D(y, -x);
+}
+Vector3D Vector3D::perpCCwXy() const
+{
+	return Vector3D(-y, x);
+}
+
 Vector3D operator+(const Vector3D& left, const Vector3D& right)
 {
 	return Vector3D(left.x + right.x, left.y + right.y, left.z + right.z);
+}
+
+Vector3D operator-(const Vector3D& left, const Vector3D& right)
+{
+	return Vector3D(left.x - right.x, left.y - right.y, left.z - right.z);
 }
 
 Vector3D operator*(float scalar, const Vector3D& vector)
