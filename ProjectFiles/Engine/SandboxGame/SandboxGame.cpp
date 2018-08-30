@@ -1,10 +1,11 @@
-/*
-* SandboxGame.cpp
-* Game initialization
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: SandboxGame.cpp
+// Module		: SandboxGame
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Experimental module entry point
+//============================================================================
 
 #include <QtWidgets\qapplication.h>
 #include <QtWidgets\qwidget.h>

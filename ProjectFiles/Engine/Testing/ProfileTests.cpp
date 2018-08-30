@@ -1,10 +1,11 @@
-/*
-* ProfileTests.cpp
-* Default profiler testing
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: ProfileTests.cpp
+// Module		: Testing
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Voyager default profiler testing
+//============================================================================
 
 #include <gtest\gtest.h>
 #include <Core\DebugTools\Profiling\Profiler.h>

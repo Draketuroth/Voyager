@@ -1,10 +1,11 @@
-/*
-* Vector3DTests.cpp
-* 3D matrix testing
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Vector3DTests.cpp
+// Module		: Testing
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: 3D vector testing
+//============================================================================
 
 #include <gtest\gtest.h>
 #include <Math\Vector\Vector3D.h>

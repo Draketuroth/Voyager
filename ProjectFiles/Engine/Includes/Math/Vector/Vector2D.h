@@ -1,10 +1,11 @@
-/*
-* Vector2D.h
-* Voyager 2D Vector Class
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Vector2D.h
+// Module		: Math
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Voyager 2D vector class
+//============================================================================
 
 #ifndef VE_MATH_VECTOR_2D_H
 #define VE_MATH_VECTOR_2D_H

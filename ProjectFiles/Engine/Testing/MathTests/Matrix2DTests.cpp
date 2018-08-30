@@ -1,10 +1,11 @@
-/*
-* Matrix2DTests.cpp
-* 2D matrix testing
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Matrix2DTests.cpp
+// Module		: Testing
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: 2D matrix testing
+//============================================================================
 
 #include <cmath>
 #include <gtest\gtest.h>

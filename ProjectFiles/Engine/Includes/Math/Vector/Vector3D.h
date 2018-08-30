@@ -1,10 +1,11 @@
-/*
-* Vector3D.h
-* Voyager 3D Vector Class
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Vector3D.h
+// Module		: Math
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Voyager 3D vector class
+//============================================================================
 
 #ifndef VE_MATH_VECTOR_3D_H
 #define VE_MATH_VECTOR_3D_H

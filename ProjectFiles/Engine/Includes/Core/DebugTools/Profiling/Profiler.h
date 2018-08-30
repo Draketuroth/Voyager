@@ -1,10 +1,11 @@
-/*
-* Profiler.h
-* Default profiler
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Profiler.h
+// Module		: Core
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Voyager custom profiler
+//============================================================================
 
 #ifndef VE_CORE_DEBUG_PROFILER_H
 #define VE_CORE_DEBUG_PROFILER_H

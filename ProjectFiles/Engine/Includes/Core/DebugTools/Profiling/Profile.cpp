@@ -1,10 +1,11 @@
-/*
-* Profile.cpp
-* Helper class for profiler
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Profile.cpp
+// Module		: Core
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Helper class for the Voyager custom profiler
+//============================================================================
 
 #if PROFILING_ON
 #include "Profile.h"

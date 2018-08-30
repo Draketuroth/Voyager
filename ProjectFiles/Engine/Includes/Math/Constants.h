@@ -1,10 +1,11 @@
-/*
-* Constants.h
-* Voyager Math Constants
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Constants.h
+// Module		: Math
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Voyager math constants
+//============================================================================
 
 #ifndef VE_MATH_CONSTANTS_H
 #define VE_MATH_CONSTANTS_H

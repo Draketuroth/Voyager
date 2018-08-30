@@ -1,10 +1,11 @@
-/*
-* Matrix2D.h
-* Voyager 2D Matrix Class
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Matrix2D.h
+// Module		: Math
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Voyager 2D matrix class
+//============================================================================
 
 #ifndef VE_MATH_MATRIX_2D_H
 #define VE_MATH_MATRIX_2D_H

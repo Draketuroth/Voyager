@@ -1,3 +1,12 @@
+//============================================================================
+// # VOYAGER ENGINE #
+// Name			: Matrix2D.h
+// Module		: Math
+// Author		: Fredrik Linde
+// Created on	: Aug 14, 2018
+// Description	: Voyager homogeneous 2D matrix class
+//============================================================================
+
 /*
 * Matrix2DH.h
 * Voyager Optimized 3D Matrix Class
