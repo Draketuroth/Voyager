@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: Matrix2DTests.cpp
-// Module		: Testing
-// Author		: Fredrik Linde
-// Created on	: Aug 14, 2018
-// Description	: 2D matrix testing
+// Name: Matrix2DTests.cpp
+// Module: Testing
+// Author: Fredrik Linde
+// Created on: Aug 14, 2018
+// Description: 2D matrix testing
 //============================================================================
 
 #include <cmath>

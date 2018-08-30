@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: Vector3DTests.cpp
-// Module		: Testing
-// Author		: Fredrik Linde
-// Created on	: Aug 14, 2018
-// Description	: 3D vector testing
+// Name: Vector3DTests.cpp
+// Module: Testing
+// Author: Fredrik Linde
+// Created on: Aug 14, 2018
+// Description: 3D vector testing
 //============================================================================
 
 #include <gtest\gtest.h>

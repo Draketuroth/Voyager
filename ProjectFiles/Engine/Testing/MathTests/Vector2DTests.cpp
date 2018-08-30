@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: Vector2DTests.cpp
-// Module		: Testing
-// Author		: Fredrik Linde
-// Created on	: Aug 14, 2018
-// Description	: 2D vector testing
+// Name: Vector2DTests.cpp
+// Module: Testing
+// Author: Fredrik Linde
+// Created on: Aug 14, 2018
+// Description: 2D vector testing
 //============================================================================
 
 #include <gtest\gtest.h>

@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: Matrix3D.h
-// Module		: Math
-// Author		: Fredrik Linde
-// Created on	: Aug 14, 2018
-// Description	: Voyager 3D matrix class
+// Name: Matrix3D.h
+// Module: Math
+// Author: Fredrik Linde
+// Created on: Aug 14, 2018
+// Description: Voyager 3D matrix class
 //============================================================================
 
 #ifndef VE_MATH_MATRIX_3D_H

@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: Matrix3DTests.cpp
-// Module		: Testing
-// Author		: Fredrik Linde
-// Created on	: Aug 14, 2018
-// Description	: 3D matrix testing
+// Name: Matrix3DTests.cpp
+// Module: Testing
+// Author: Fredrik Linde
+// Created on: Aug 14, 2018
+// Description: 3D matrix testing
 //============================================================================
 
 #include <gtest\gtest.h>

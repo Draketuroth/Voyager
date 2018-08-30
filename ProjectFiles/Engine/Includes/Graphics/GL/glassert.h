@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: glassert.h
-// Module		: Graphics
-// Author		: Fredrik Linde
-// Created on	: Aug 30, 2018
-// Description	: OpenGL error helper class
+// Name: glassert.h
+// Module: Graphics
+// Author: Fredrik Linde
+// Created on: Aug 30, 2018
+// Description: OpenGL error helper class
 //============================================================================
 
 #ifndef VE_GRAPHICS_GLASSERT_H

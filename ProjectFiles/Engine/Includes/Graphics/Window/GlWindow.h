@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: GLWindow.h
-// Module		: Graphics
-// Author		: Fredrik Linde
-// Created on	: Aug 30, 2018
-// Description	: Qt-based OpenGL window
+// Name: GLWindow.h
+// Module: Graphics
+// Author: Fredrik Linde
+// Created on: Aug 30, 2018
+// Description: Qt-based OpenGL window
 //============================================================================
 
 #ifndef VE_GRAPHICS_GLWINDOW_H

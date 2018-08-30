@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: Clock.cpp
-// Module		: Core
-// Author		: Fredrik Linde
-// Created on	: Aug 14, 2018
-// Description	: Custom Voyager clock system for delta time and profiling
+// Name: Clock.cpp
+// Module: Core
+// Author: Fredrik Linde
+// Created on: Aug 14, 2018
+// Description: Custom Voyager clock system for delta time and profiling
 //============================================================================
 
 #include <Core\Timing\Clock.h>

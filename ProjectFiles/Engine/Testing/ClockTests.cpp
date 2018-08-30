@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: ClockTests.cpp
-// Module		: Testing
-// Author		: Fredrik Linde
-// Created on	: Aug 14, 2018
-// Description	: Voyager default clock system testing
+// Name: ClockTests.cpp
+// Module: Testing
+// Author: Fredrik Linde
+// Created on: Aug 14, 2018
+// Description: Voyager default clock system testing
 //============================================================================
 
 #include <gtest\gtest.h>

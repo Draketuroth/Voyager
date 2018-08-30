@@ -1,10 +1,10 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name			: Shader.cpp
-// Module		: Graphics
-// Author		: Fredrik Linde
-// Created on	: Aug 30, 2018
-// Description	: OpenGL shader container
+// Name: Shader.cpp
+// Module: Graphics
+// Author: Fredrik Linde
+// Created on: Aug 30, 2018
+// Description: OpenGL shader container
 //============================================================================
 
 #include <Graphics/Shading/Shader.h>
