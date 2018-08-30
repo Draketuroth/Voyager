@@ -1,48 +1,42 @@
-/*
-* GlWindow.h
-* Basic GL Window
-*
-*  Created on: Aug 14, 2018
-*      Author: Fredrik Linde
-*/
+#ifndef VE_GRAPHICS_GLWINDOW_H
+#define VE_GRAPHICS_GLWINDOW_H
+#include <QtWidgets/qopenglwidget.h>
+#include <Graphics/Shading/Shader.h>
 
-#ifndef VE_SANDBOX_GL_WINDOW_H
-#define VE_SANDBOX_GL_WINDOW_H
-#include <QtOpenGL\qgl.h>
-#include <QtCore\qtimer.h>
+#if defined DLL_EXPORT_GRAPHICS
+#define DECLDIR_R __declspec(dllexport)
+#else
+#define DECLDIR_R __declspec(dllimport)
+#endif
 
-class GlWindow : public QGLWidget
+namespace Graphics
 {
-	Q_OBJECT
+	class DECLDIR_R GLWindow: public QOpenGLWidget
+	{
+	public:
 
-	QTimer timer;
+		void sendDataToOpenGL();
 
-protected:
+		void initializeShaders();
 
-	// This function is called once before the first call to paintGL or resizeGL. 
-	// This function should set up any required OpenGL context rendering flags, display lists, etc. 
-	void initializeGL();
+		bool checkShaderStatus(GLuint shader_id);
+		bool checkProgramStatus(GLuint program_id);
+		bool checkStatus(
+			GLuint object_id,
+			PFNGLGETSHADERIVPROC object_property_getter,
+			PFNGLGETSHADERINFOLOGPROC info_log_func,
+			GLenum status_type);
 
-	// This function is called whenever the widget has been resized.
-	// The new size is passed in width and height.
-	void resizeGL(int width, int height);
+		void sendAnotherTriangle();
 
-	// This function is called whenever the widget need to be painted. 
-	void paintGL();
 
-private slots:
-	void winupdate();
-	void updateVelocity();
-	void rotateShip();
-	void handleBoundaries();
-private:
-	void update();
-	void draw();
-	void doGl();
+	protected:
+		void initializeGL();
+		void paintGL();
 
-public:
-	bool initialize();
-	bool shutdown();
-};
+	private:
+		Shader shader;
+	};
+}
 
 #endif

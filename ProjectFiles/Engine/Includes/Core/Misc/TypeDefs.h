@@ -9,9 +9,7 @@
 #ifndef VE_CORE_TYPEDEFS_H
 #define VE_CORE_TYPEDEFS_H
 
-namespace VE
-{
-	typedef unsigned int uint;
-}
+typedef unsigned int Vuint;
+typedef unsigned int Vushort;
 
 #endif

@@ -38,6 +38,11 @@ Vector3D Vector3D::perpCCwXy() const
 	return Vector3D(-y, x);
 }
 
+Vector3D Vector3D::projectOnto(const Vector3D& target) const
+{
+	return (this->dot(target) / target.magnitudeSquared()) * target;
+}
+
 Vector3D operator+(const Vector3D& left, const Vector3D& right)
 {
 	return Vector3D(left.x + right.x, left.y + right.y, left.z + right.z);
@@ -56,4 +61,9 @@ Vector3D operator*(float scalar, const Vector3D& vector)
 Vector3D operator*(const Vector3D& vector, float scalar)
 {
 	return scalar * vector;
+}
+
+Vector3D lerp(float alpha, const Vector3D& source, const Vector3D& target)
+{
+	return (1.0f - alpha) * source + alpha * target;
 }

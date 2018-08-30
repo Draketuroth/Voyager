@@ -30,7 +30,7 @@ void evaluateLastRow(const T& op)
 		//					 ^
 
 		// The number of elements in the first two rows
-		const VE::uint PREVIOUS_ELEMENTS = 6;
+		const Vuint PREVIOUS_ELEMENTS = 6;
 
 		// Reinterpet Matrix member variables as a float array (which it is anyway in memory)
 		const float* p = reinterpret_cast<const float*>(&op);

@@ -22,7 +22,7 @@ namespace Math
 		float m_10;
 		float m_11;
 		float m_12;
-		Matrix2DH(
+		inline Matrix2DH(
 			float _00 = 1, float _01 = 0, float _02 = 0,
 			float _10 = 0, float _11 = 1, float _12 = 0);
 		inline static Matrix2DH rotateZ(float radians);

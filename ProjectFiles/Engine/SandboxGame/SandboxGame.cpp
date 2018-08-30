@@ -8,23 +8,19 @@
 
 #include <QtWidgets\qapplication.h>
 #include <QtWidgets\qwidget.h>
-#include <Graphics\Window\GlWindow.h>
-#include <Windows.h>
 #include <QtCore\qdebug.h>
+#include <Windows.h>
+
+#include <Graphics/Window/GLWindow.h>
 
 int main(int argc, char* argv[])
 {
 	QApplication application(argc, argv);
-	GlWindow gl_window;
-	if (!gl_window.initialize())
-	{
-		return -1;
-	}
-	gl_window.show();
-	int error_code =  application.exec();
-	if (!gl_window.shutdown())
-	{
-		error_code |= 1;
-	}
+	Graphics::GLWindow window;
+	window.resize(QSize(1024, 768));
+	window.show();
+
+	int error_code = application.exec();
+
 	return error_code;
 }
