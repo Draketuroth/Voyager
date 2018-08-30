@@ -36,8 +36,6 @@ namespace Graphics
 			PFNGLGETSHADERINFOLOGPROC info_log_func,
 			GLenum status_type);
 
-		void sendAnotherTriangle();
-
 
 	protected:
 		void initializeGL();

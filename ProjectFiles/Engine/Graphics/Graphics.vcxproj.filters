@@ -37,6 +37,15 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{4cac162f-8f0b-4ed6-a5ca-ef1bfc70841d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Datatypes">
+      <UniqueIdentifier>{ffff600f-90d7-4bf6-965c-2cf625b765ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Primitives">
+      <UniqueIdentifier>{0a7ff103-0c6a-4157-8707-34901c333a0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Primitives">
+      <UniqueIdentifier>{27dc709f-21df-40d6-8542-70603423375c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +57,9 @@
     <ClCompile Include="Shading\Shader.cpp">
       <Filter>Source Files\Shading</Filter>
     </ClCompile>
+    <ClCompile Include="Primitives\GeometryGenerator.cpp">
+      <Filter>Source Files\Primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Includes\Graphics\GL\glassert.h">
@@ -58,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Graphics\Shading\Shader.h">
       <Filter>Header Files\Shading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Rendering\Geometry.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Primitives\GeometryGenerator.h">
+      <Filter>Header Files\Primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

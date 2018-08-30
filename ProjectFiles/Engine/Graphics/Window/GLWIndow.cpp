@@ -12,16 +12,13 @@
 #include <Graphics/Window/GLWindow.h>
 #include <QtCore/qdebug.h>
 
+#include <Graphics/Primitives/Vertex.h>
+#include <Graphics/Primitives/GeometryGenerator.h>
+
+using Math::Vector3D;
+
 namespace Graphics
 {
-	const float X_DELTA = 0.1f;
-	const uint NUM_VERTICES_PER_TRI = 3;
-	const uint NUM_FLOATS_PER_VERTICE = 6;
-	const uint TRIANGLE_BYTE_SIZE = NUM_VERTICES_PER_TRI * NUM_FLOATS_PER_VERTICE * sizeof(float);
-	const uint MAX_TRIANGLES = 20;
-
-	uint num_tris = 0;
-
 	static void infoGL()
 	{
 		glCheckError();
@@ -40,11 +37,12 @@ namespace Graphics
 
 	void GLWindow::sendDataToOpenGL()
 	{
-		
+		Geometry tri = GeometryGenerator::makeTriangle();
+
 		GLuint vertex_buffer_ID;
 		glGenBuffers(1, &vertex_buffer_ID);
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_ID);
-		glBufferData(GL_ARRAY_BUFFER, MAX_TRIANGLES * TRIANGLE_BYTE_SIZE, NULL, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, tri.vertexBufferSize(), tri.vertices, GL_STATIC_DRAW);
 
 		// Stride is the distance from the beginning of the first attribute to the next occurence of it. 
 		// Stride = 0 means that data is tightly packed.
@@ -54,11 +52,12 @@ namespace Graphics
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (char*)(sizeof(float) * 3));
 
-		GLushort indices[] = { 0, 1, 2,  3, 4, 5 };
 		GLuint index_buffer_ID;
 		glGenBuffers(1, &index_buffer_ID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_ID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, tri.indexBufferSize(), tri.indices, GL_STATIC_DRAW);
+
+		tri.release();
 	}
 
 	void GLWindow::initializeShaders()
@@ -130,31 +129,6 @@ namespace Graphics
 		return true;
 	}
 
-	void GLWindow::sendAnotherTriangle()
-	{
-		if (num_tris == MAX_TRIANGLES)
-		{
-			return;
-		}
-		const GLfloat THIS_TRI_X = -1 + num_tris * X_DELTA;
-		GLfloat this_tri[] = {
-			THIS_TRI_X , 1.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,
-
-			THIS_TRI_X + X_DELTA , 1.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,
-
-			THIS_TRI_X, 0.0f, 0.0f,
-			1.0f, 0.0f, 0.0f,
-		};
-		glBufferSubData(
-			GL_ARRAY_BUFFER,
-			num_tris * TRIANGLE_BYTE_SIZE,
-			TRIANGLE_BYTE_SIZE,
-			this_tri);
-		num_tris++;
-	}
-
 	void GLWindow::initializeGL()
 	{
 		glewInit();
@@ -170,7 +144,6 @@ namespace Graphics
 
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width(), height());
-		sendAnotherTriangle();
-		glDrawArrays(GL_TRIANGLES, (num_tris - 1) * NUM_VERTICES_PER_TRI, NUM_VERTICES_PER_TRI);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
 	}
 }
