@@ -12,13 +12,19 @@
 #include <Graphics/Window/GLWindow.h>
 #include <QtCore/qdebug.h>
 
+#include <gtc/matrix_transform.hpp>
+
 #include <Graphics/Primitives/Vertex.h>
 #include <Graphics/Primitives/GeometryGenerator.h>
 
 using Math::Vector3D;
+using glm::vec3;
+using glm::mat4;
 
 namespace Graphics
 {
+	GLuint num_indices;
+
 	static void infoGL()
 	{
 		glCheckError();
@@ -37,12 +43,13 @@ namespace Graphics
 
 	void GLWindow::sendDataToOpenGL()
 	{
-		Geometry tri = GeometryGenerator::makeTriangle();
+		Geometry cube = GeometryGenerator::makeCube();
+		num_indices = cube.num_indices;
 
 		GLuint vertex_buffer_ID;
 		glGenBuffers(1, &vertex_buffer_ID);
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_ID);
-		glBufferData(GL_ARRAY_BUFFER, tri.vertexBufferSize(), tri.vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, cube.vertexBufferSize(), cube.vertices, GL_STATIC_DRAW);
 
 		// Stride is the distance from the beginning of the first attribute to the next occurence of it. 
 		// Stride = 0 means that data is tightly packed.
@@ -55,9 +62,9 @@ namespace Graphics
 		GLuint index_buffer_ID;
 		glGenBuffers(1, &index_buffer_ID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_ID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, tri.indexBufferSize(), tri.indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, cube.indexBufferSize(), cube.indices, GL_STATIC_DRAW);
 
-		tri.release();
+		cube.release();
 	}
 
 	void GLWindow::initializeShaders()
@@ -144,19 +151,15 @@ namespace Graphics
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width(), height());
 
-		glm::vec3 main_color(1.0f, 0.0f, 0.0f);
+		mat4 model_matrix = glm::translate(mat4(1.0f), vec3(+0.0f, +0.0f, -3.0f));
+		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
 
-		GLint main_color_uniform_location = glGetUniformLocation(_program_ID, "main_color");
-		GLint y_flip_uniform_location = glGetUniformLocation(_program_ID, "y_flip");
+		GLint model_matrix_uniform_location = glGetUniformLocation(_program_ID, "model_matrix");
+		GLint projection_matrix_uniform_location = glGetUniformLocation(_program_ID, "projection_matrix");
 
-		glUniform3fv(main_color_uniform_location, 1, &main_color[0]);
-		glUniform1f(y_flip_uniform_location, 1.0f);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
+		glUniformMatrix4fv(model_matrix_uniform_location, 1, GL_FALSE, &model_matrix[0][0]);
+		glUniformMatrix4fv(projection_matrix_uniform_location, 1, GL_FALSE, &projection_matrix[0][0]);
 
-		main_color.r = 0;
-		main_color.b = 1;
-		glUniform3fv(main_color_uniform_location, 1, &main_color[0]);
-		glUniform1f(y_flip_uniform_location, -1.0f);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
+		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_SHORT, 0);
 	}
 }

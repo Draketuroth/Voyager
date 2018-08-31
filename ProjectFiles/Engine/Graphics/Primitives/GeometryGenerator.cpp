@@ -12,7 +12,7 @@
 #include <Graphics/Primitives/Vertex.h>
 
 #define NUM_ARRAY_ELEMENTS(a) sizeof(a) / sizeof(*a);
-using namespace glm;
+using glm::vec3;
 
 namespace Graphics
 {
@@ -49,55 +49,73 @@ namespace Graphics
 		{
 			vec3(-1.0f, +1.0f, +1.0f),
 			vec3(+1.0f, +0.0f, +0.0f),
+
 			vec3(+1.0f, +1.0f, +1.0f),
 			vec3(+0.0f, +1.0f, +0.0f),
+
 			vec3(+1.0f, +1.0f, -1.0f),
 			vec3(+0.0f, +0.0f, +1.0f),
+
 			vec3(-1.0f, +1.0f, -1.0f),
 			vec3(+1.0f, +1.0f, +1.0f),
 
 			vec3(-1.0f, +1.0f, -1.0f),
 			vec3(+1.0f, +0.0f, +1.0f),
+
 			vec3(+1.0f, +1.0f, -1.0f),
 			vec3(+0.0f, +0.5f, +0.2f),
+
 			vec3(+1.0f, -1.0f, -1.0f),
 			vec3(+0.8f, +0.6f, +0.4f),
+
 			vec3(-1.0f, -1.0f, -1.0f),
 			vec3(+0.3f, +1.0f, +0.5f),
 
 			vec3(+1.0f, +1.0f, -1.0f),
 			vec3(+0.2f, +0.5f, +0.2f),
+
 			vec3(+1.0f, +1.0f, +1.0f),
 			vec3(+0.9f, +0.3f, +0.7f),
+
 			vec3(+1.0f, -1.0f, +1.0f),
 			vec3(+0.3f, +0.7f, +0.5f),
+
 			vec3(+1.0f, -1.0f, -1.0f),
 			vec3(+0.5f, +0.7f, +0.5f),
 
 			vec3(-1.0f, +1.0f, +1.0f),
 			vec3(+0.7f, +0.8f, +0.2f),
+
 			vec3(-1.0f, +1.0f, -1.0f),
 			vec3(+0.5f, +0.7f, +0.3f),
+
 			vec3(-1.0f, -1.0f, -1.0f),
 			vec3(+0.4f, +0.7f, +0.7f),
+
 			vec3(-1.0f, -1.0f, +1.0f),
 			vec3(+0.2f, +0.5f, +1.0f),
 
 			vec3(+1.0f, +1.0f, +1.0f),
 			vec3(+0.6f, +1.0f, +0.7f),
+
 			vec3(-1.0f, +1.0f, +1.0f),
 			vec3(+0.6f, +0.4f, +0.8f),
+
 			vec3(-1.0f, -1.0f, +1.0f),
 			vec3(+0.2f, +0.8f, +0.7f),
+
 			vec3(+1.0f, -1.0f, +1.0f),
 			vec3(+0.2f, +0.7f, +1.0f),
 
 			vec3(+1.0f, -1.0f, -1.0f),
 			vec3(+0.8f, +0.3f, +0.7f),
+
 			vec3(-1.0f, -1.0f, -1.0f),
 			vec3(+0.8f, +0.9f, +0.5f),
+
 			vec3(-1.0f, -1.0f, +1.0f),
 			vec3(+0.5f, +0.8f, +0.5f),
+
 			vec3(+1.0f, -1.0f, +1.0f),
 			vec3(+0.9f, +1.0f, +0.2f),
 		};
