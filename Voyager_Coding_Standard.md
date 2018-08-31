@@ -97,7 +97,7 @@ Maybe one of the most important rules is to always punctuate your comments, with
 argue that it looks more professional. 
 
 ```
-// This is a comment, but I most not forget to punctuate the comment. 
+// This is a comment, but I must not forget to punctuate the comment. 
 
 /* 
 I find it equally important over several lines.
