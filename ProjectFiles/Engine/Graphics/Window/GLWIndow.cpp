@@ -151,14 +151,14 @@ namespace Graphics
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width(), height());
 
-		mat4 model_matrix = glm::translate(mat4(1.0f), vec3(+0.0f, +0.0f, -3.0f));
+		mat4 translation_matrix = glm::translate(mat4(1.0f), vec3(+0.0f, +0.0f, -3.0f));
+		mat4 rotation_matrix = glm::rotate(mat4(1.0f), glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
 		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
+		mat4 mvp_matrix = projection_matrix * translation_matrix * rotation_matrix;
 
-		GLint model_matrix_uniform_location = glGetUniformLocation(_program_ID, "model_matrix");
-		GLint projection_matrix_uniform_location = glGetUniformLocation(_program_ID, "projection_matrix");
+		GLint mvp_matrix_uniform_location = glGetUniformLocation(_program_ID, "mvp_matrix");
 
-		glUniformMatrix4fv(model_matrix_uniform_location, 1, GL_FALSE, &model_matrix[0][0]);
-		glUniformMatrix4fv(projection_matrix_uniform_location, 1, GL_FALSE, &projection_matrix[0][0]);
+		glUniformMatrix4fv(mvp_matrix_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
 
 		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_SHORT, 0);
 	}
