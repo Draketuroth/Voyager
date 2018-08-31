@@ -57,7 +57,7 @@ struct AnotherExample{
 ```
 
 ## 5. Private data members
-Private datamembers should use underline prefix, which I find preferable compared to writing "this->". 
+Private data members should use underline prefix, which I find preferable compared to writing "this->". 
 
 ```
 class Example {
