@@ -151,6 +151,7 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32.dll" "$(OutDir)"</
   <ItemGroup>
     <ClInclude Include="..\Includes\Graphics\GL\glassert.h" />
     <ClInclude Include="..\Includes\Graphics\Primitives\GeometryGenerator.h" />
+    <ClInclude Include="..\Includes\Graphics\Primitives\Vertex.h" />
     <ClInclude Include="..\Includes\Graphics\Rendering\Geometry.h" />
     <ClInclude Include="..\Includes\Graphics\Shading\Shader.h" />
     <ClInclude Include="..\Includes\Graphics\Window\GLWindow.h" />

@@ -1,9 +1,9 @@
 #version 420
 
-out vec4 daColor;
-in vec3 theColor;
+out vec4 final_color;
+in vec3 color;
 
 void main()
 {
-	daColor = vec4(theColor, 1.0f);
+	final_color = vec4(color, 1.0f);
 }

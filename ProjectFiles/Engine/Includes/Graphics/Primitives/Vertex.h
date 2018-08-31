@@ -1,6 +1,6 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name: VertexDatatypes.h
+// Name: Vertex.h
 // Module: Graphics
 // Author: Fredrik Linde
 // Created on: Aug 30, 2018

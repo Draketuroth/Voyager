@@ -18,6 +18,7 @@ namespace Graphics
 	{
 	public:
 		static Geometry makeTriangle();
+		static Geometry makeCube();
 	};
 }
 

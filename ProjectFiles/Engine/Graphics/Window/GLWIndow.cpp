@@ -66,10 +66,10 @@ namespace Graphics
 		GLuint fragment_shader_ID = glCreateShader(GL_FRAGMENT_SHADER);	// FSO
 
 		const char* adapter[1];
-		std::string temp = shader.readShaderCode("Shaders\\vertex.glsl").c_str();
+		std::string temp = _shader.readShaderCode("Shaders\\vertex.glsl").c_str();
 		adapter[0] = temp.c_str();
 		glShaderSource(vertex_shader_ID, 1, adapter, 0);
-		temp = shader.readShaderCode("Shaders\\fragment.glsl").c_str();
+		temp = _shader.readShaderCode("Shaders\\fragment.glsl").c_str();
 		adapter[0] = temp.c_str();
 		glShaderSource(fragment_shader_ID, 1, adapter, 0);
 
@@ -81,17 +81,17 @@ namespace Graphics
 			return;
 		}
 
-		GLuint program_ID = glCreateProgram();
-		glAttachShader(program_ID, vertex_shader_ID);
-		glAttachShader(program_ID, fragment_shader_ID);
-		glLinkProgram(program_ID);
+		_program_ID = glCreateProgram();
+		glAttachShader(_program_ID, vertex_shader_ID);
+		glAttachShader(_program_ID, fragment_shader_ID);
+		glLinkProgram(_program_ID);
 
-		if (!checkProgramStatus(program_ID))
+		if (!checkProgramStatus(_program_ID))
 		{
 			return;
 		}
 
-		glUseProgram(program_ID);
+		glUseProgram(_program_ID);
 	}
 
 	bool GLWindow::checkShaderStatus(GLuint shader_id)
@@ -141,9 +141,22 @@ namespace Graphics
 	void GLWindow::paintGL()
 	{
 		glClearColor(0, 0, 0, 1);
-
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width(), height());
+
+		glm::vec3 main_color(1.0f, 0.0f, 0.0f);
+
+		GLint main_color_uniform_location = glGetUniformLocation(_program_ID, "main_color");
+		GLint y_flip_uniform_location = glGetUniformLocation(_program_ID, "y_flip");
+
+		glUniform3fv(main_color_uniform_location, 1, &main_color[0]);
+		glUniform1f(y_flip_uniform_location, 1.0f);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
+
+		main_color.r = 0;
+		main_color.b = 1;
+		glUniform3fv(main_color_uniform_location, 1, &main_color[0]);
+		glUniform1f(y_flip_uniform_location, -1.0f);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
 	}
 }

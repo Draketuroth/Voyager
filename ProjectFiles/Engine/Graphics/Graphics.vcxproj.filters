@@ -77,6 +77,9 @@
     <ClInclude Include="..\Includes\Graphics\Primitives\GeometryGenerator.h">
       <Filter>Header Files\Primitives</Filter>
     </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Primitives\Vertex.h">
+      <Filter>Header Files\Primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\vertex.glsl">

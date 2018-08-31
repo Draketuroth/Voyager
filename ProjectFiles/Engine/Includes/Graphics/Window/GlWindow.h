@@ -42,7 +42,8 @@ namespace Graphics
 		void paintGL();
 
 	private:
-		Shader shader;
+		GLuint _program_ID;
+		Shader _shader;
 	};
 }
 
