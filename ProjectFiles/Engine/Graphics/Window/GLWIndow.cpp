@@ -23,8 +23,6 @@ using glm::mat4;
 
 namespace Graphics
 {
-	GLuint num_indices;
-
 	static void infoGL()
 	{
 		glCheckError();
@@ -41,15 +39,41 @@ namespace Graphics
 		glCheckError();
 	}
 
+	GLWindow::GLWindow()
+	{
+
+	}
+	GLWindow::~GLWindow()
+	{
+
+	}
+
+	bool GLWindow::initialize()
+	{
+		return true;
+	}
+	bool GLWindow::shutdown()
+	{
+
+		glDeleteBuffers(1, &_vertex_buffer_ID);
+		glDeleteBuffers(1, &_vertex_buffer_ID);
+
+		glDeleteShader(_vertex_shader_ID);
+		glDeleteShader(_fragment_shader_ID);
+
+		glUseProgram(0);
+		glDeleteProgram(_program_ID);
+		return true;
+	}
+
 	void GLWindow::sendDataToOpenGL()
 	{
-		Geometry cube = GeometryGenerator::makeCube();
-		num_indices = cube.num_indices;
+		Geometry _cube = GeometryGenerator::makeCube();
 
-		GLuint vertex_buffer_ID;
-		glGenBuffers(1, &vertex_buffer_ID);
-		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_ID);
-		glBufferData(GL_ARRAY_BUFFER, cube.vertexBufferSize(), cube.vertices, GL_STATIC_DRAW);
+		_vertex_buffer_ID;
+		glGenBuffers(1, &_vertex_buffer_ID);
+		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer_ID);
+		glBufferData(GL_ARRAY_BUFFER, _cube.vertexBufferSize(), _cube.vertices, GL_STATIC_DRAW);
 
 		// Stride is the distance from the beginning of the first attribute to the next occurence of it. 
 		// Stride = 0 means that data is tightly packed.
@@ -59,38 +83,38 @@ namespace Graphics
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (char*)(sizeof(float) * 3));
 
-		GLuint index_buffer_ID;
-		glGenBuffers(1, &index_buffer_ID);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_ID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, cube.indexBufferSize(), cube.indices, GL_STATIC_DRAW);
+		_index_buffer_ID;
+		glGenBuffers(1, &_index_buffer_ID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer_ID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, _cube.indexBufferSize(), _cube.indices, GL_STATIC_DRAW);
 
-		cube.release();
+		_cube.release();
 	}
 
 	void GLWindow::initializeShaders()
 	{
-		GLuint vertex_shader_ID = glCreateShader(GL_VERTEX_SHADER);	// VSO
-		GLuint fragment_shader_ID = glCreateShader(GL_FRAGMENT_SHADER);	// FSO
+		_vertex_shader_ID = glCreateShader(GL_VERTEX_SHADER);	// VSO
+		_fragment_shader_ID = glCreateShader(GL_FRAGMENT_SHADER);	// FSO
 
 		const char* adapter[1];
 		std::string temp = _shader.readShaderCode("Shaders\\vertex.glsl").c_str();
 		adapter[0] = temp.c_str();
-		glShaderSource(vertex_shader_ID, 1, adapter, 0);
+		glShaderSource(_vertex_shader_ID, 1, adapter, 0);
 		temp = _shader.readShaderCode("Shaders\\fragment.glsl").c_str();
 		adapter[0] = temp.c_str();
-		glShaderSource(fragment_shader_ID, 1, adapter, 0);
+		glShaderSource(_fragment_shader_ID, 1, adapter, 0);
 
-		glCompileShader(vertex_shader_ID);
-		glCompileShader(fragment_shader_ID);
+		glCompileShader(_vertex_shader_ID);
+		glCompileShader(_fragment_shader_ID);
 
-		if (!checkShaderStatus(vertex_shader_ID) || !checkShaderStatus(fragment_shader_ID))
+		if (!checkShaderStatus(_vertex_shader_ID) || !checkShaderStatus(_fragment_shader_ID))
 		{
 			return;
 		}
 
 		_program_ID = glCreateProgram();
-		glAttachShader(_program_ID, vertex_shader_ID);
-		glAttachShader(_program_ID, fragment_shader_ID);
+		glAttachShader(_program_ID, _vertex_shader_ID);
+		glAttachShader(_program_ID, _fragment_shader_ID);
 		glLinkProgram(_program_ID);
 
 		if (!checkProgramStatus(_program_ID))
@@ -151,15 +175,19 @@ namespace Graphics
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width(), height());
 
-		mat4 translation_matrix = glm::translate(mat4(1.0f), vec3(+0.0f, +0.0f, -3.0f));
-		mat4 rotation_matrix = glm::rotate(mat4(1.0f), glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
 		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
-		mat4 mvp_matrix = projection_matrix * translation_matrix * rotation_matrix;
+		mat4 projection_translation_matrix = glm::translate(projection_matrix, vec3(+0.0f, +0.0f, -3.0f));
+		mat4 mvp_matrix = glm::rotate(projection_translation_matrix, glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
 
 		GLint mvp_matrix_uniform_location = glGetUniformLocation(_program_ID, "mvp_matrix");
 
 		glUniformMatrix4fv(mvp_matrix_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
 
-		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_SHORT, 0);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
+	}
+
+	void GLWindow::closeEvent(QCloseEvent *bar)
+	{
+		shutdown();
 	}
 }

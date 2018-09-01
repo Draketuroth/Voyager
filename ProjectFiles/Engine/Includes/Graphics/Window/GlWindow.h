@@ -23,6 +23,11 @@ namespace Graphics
 	class DECLDIR_R GLWindow: public QOpenGLWidget
 	{
 	public:
+		GLWindow();
+		~GLWindow();
+
+		bool initialize();
+		bool shutdown();
 
 		void sendDataToOpenGL();
 
@@ -42,6 +47,14 @@ namespace Graphics
 		void paintGL();
 
 	private:
+		void closeEvent(QCloseEvent *bar);
+
+		GLuint _vertex_buffer_ID;
+		GLuint _index_buffer_ID;
+
+		GLuint _vertex_shader_ID;
+		GLuint _fragment_shader_ID;
+
 		GLuint _program_ID;
 		Shader _shader;
 	};

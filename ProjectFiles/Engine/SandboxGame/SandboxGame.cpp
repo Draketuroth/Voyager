@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 	Graphics::GLWindow window;
 	window.resize(QSize(1024, 768));
 	window.show();
-
+	
 	int error_code = application.exec();
 
 	return error_code;
