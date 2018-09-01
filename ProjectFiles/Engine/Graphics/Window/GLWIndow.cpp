@@ -14,6 +14,9 @@
 
 #include <gtc/matrix_transform.hpp>
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <gtx/transform.hpp>
+
 #include <Graphics/Primitives/Vertex.h>
 #include <Graphics/Primitives/GeometryGenerator.h>
 
@@ -175,15 +178,34 @@ namespace Graphics
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width(), height());
 
+		// mat4 projection_translation_matrix = glm::translate(projection_matrix, vec3(+0.0f, +0.0f, -3.0f));
+		// mat4 mvp_matrix = glm::rotate(projection_translation_matrix, glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
+		// mat4 mvp_matrix = glm::rotate(projection_translation_matrix, glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
+
+		mat4 mvp_matrix;
 		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
-		mat4 projection_translation_matrix = glm::translate(projection_matrix, vec3(+0.0f, +0.0f, -3.0f));
-		mat4 mvp_matrix = glm::rotate(projection_translation_matrix, glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
+
+		// Cube 1
+		mat4 translation_matrix = glm::translate(vec3(-1.0f, +0.0f, -3.0f));
+		mat4 rotation_matrix = glm::rotate(glm::radians(36.0f), vec3(+1.0f, +0.0f, 0.0f));
+
+		mvp_matrix = projection_matrix * translation_matrix * rotation_matrix;
 
 		GLint mvp_matrix_uniform_location = glGetUniformLocation(_program_ID, "mvp_matrix");
+		glUniformMatrix4fv(mvp_matrix_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
+
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
+
+		// Cube 2
+		translation_matrix = glm::translate(vec3(1.0f, +0.0f, -3.75f));
+		rotation_matrix = glm::rotate(glm::radians(26.0f), vec3(+0.0f, +1.0f, 0.0f));
+
+		mvp_matrix = projection_matrix * translation_matrix * rotation_matrix;
 
 		glUniformMatrix4fv(mvp_matrix_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
 
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
+
 	}
 
 	void GLWindow::closeEvent(QCloseEvent *bar)
