@@ -92,6 +92,27 @@ namespace Graphics
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, _cube.indexBufferSize(), _cube.indices, GL_STATIC_DRAW);
 
 		_cube.release();
+
+		GLuint transformation_matrix_ID;
+		glGenBuffers(1, &transformation_matrix_ID);
+		glBindBuffer(GL_ARRAY_BUFFER, transformation_matrix_ID);
+
+		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
+		mat4 transforms[] = 
+		{
+			projection_matrix * glm::translate(vec3(-1.0f, +0.0f, -3.0f)) * glm::rotate(glm::radians(36.0f), vec3(+1.0f, +0.0f, 0.0f)),
+			projection_matrix * glm::translate(vec3(1.0f, +0.0f, -3.75f)) *  glm::rotate(glm::radians(26.0f), vec3(+0.0f, +1.0f, 0.0f)),
+		};
+		glBufferData(GL_ARRAY_BUFFER, sizeof(transforms), transforms, GL_STATIC_DRAW);
+
+		int offset = 0;
+		for (int i = 2; i <= 5; i++)
+		{
+			glVertexAttribPointer(i, 4, GL_FLOAT, GL_FALSE, sizeof(mat4), (void*)(sizeof(float) * offset));
+			glEnableVertexAttribArray(i);
+			glVertexAttribDivisor(i, 1);
+			offset += 4;
+		}
 	}
 
 	void GLWindow::initializeShaders()
@@ -181,30 +202,8 @@ namespace Graphics
 		// mat4 projection_translation_matrix = glm::translate(projection_matrix, vec3(+0.0f, +0.0f, -3.0f));
 		// mat4 mvp_matrix = glm::rotate(projection_translation_matrix, glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
 		// mat4 mvp_matrix = glm::rotate(projection_translation_matrix, glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
-
-		mat4 mvp_matrix;
-		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
-
-		// Cube 1
-		mat4 translation_matrix = glm::translate(vec3(-1.0f, +0.0f, -3.0f));
-		mat4 rotation_matrix = glm::rotate(glm::radians(36.0f), vec3(+1.0f, +0.0f, 0.0f));
-
-		mvp_matrix = projection_matrix * translation_matrix * rotation_matrix;
-
-		GLint mvp_matrix_uniform_location = glGetUniformLocation(_program_ID, "mvp_matrix");
-		glUniformMatrix4fv(mvp_matrix_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
-
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
-
-		// Cube 2
-		translation_matrix = glm::translate(vec3(1.0f, +0.0f, -3.75f));
-		rotation_matrix = glm::rotate(glm::radians(26.0f), vec3(+0.0f, +1.0f, 0.0f));
-
-		mvp_matrix = projection_matrix * translation_matrix * rotation_matrix;
-
-		glUniformMatrix4fv(mvp_matrix_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
-
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
+		
+		glDrawElementsInstanced(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0, 2);
 
 	}
 
