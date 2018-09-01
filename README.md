@@ -5,5 +5,5 @@
 Voyager is a hobby project in development for the purpose of practicing engine architecture, rendering and test-driven development.
 
 ## Documents
-[Voyager Code Standard.md](Voyager_Coding_Standard.md)
+[Documents/Voyager Code Standard.md](Voyager_Coding_Standard.md)
 
