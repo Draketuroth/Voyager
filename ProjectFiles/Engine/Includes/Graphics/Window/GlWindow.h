@@ -11,6 +11,8 @@
 #define VE_GRAPHICS_GLWINDOW_H
 #include <QtWidgets/qopenglwidget.h>
 #include <Graphics/Shading/Shader.h>
+#include <Graphics/Camera/Camera.h>
+
 
 #if defined DLL_EXPORT_GRAPHICS
 #define DECLDIR_R __declspec(dllexport)
@@ -45,9 +47,9 @@ namespace Graphics
 	protected:
 		void initializeGL();
 		void paintGL();
-
-	private:
+		void mouseMoveEvent(QMouseEvent *e);
 		void closeEvent(QCloseEvent *bar);
+	private:
 
 		GLuint _vertex_buffer_ID;
 		GLuint _index_buffer_ID;
@@ -57,6 +59,8 @@ namespace Graphics
 
 		GLuint _program_ID;
 		Shader _shader;
+
+		Camera _camera;
 	};
 }
 

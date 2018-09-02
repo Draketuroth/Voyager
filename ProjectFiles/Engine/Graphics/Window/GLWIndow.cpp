@@ -8,15 +8,15 @@
 //============================================================================
 
 #include <gl/glew.h>
-#include <Graphics/GL/glassert.h>
-#include <Graphics/Window/GLWindow.h>
+
+#include <Qt3DInput/qmouseevent.h>
 #include <QtCore/qdebug.h>
 
 #include <gtc/matrix_transform.hpp>
-
-#define GLM_ENABLE_EXPERIMENTAL
 #include <gtx/transform.hpp>
 
+#include <Graphics/GL/glassert.h>
+#include <Graphics/Window/GLWindow.h>
 #include <Graphics/Primitives/Vertex.h>
 #include <Graphics/Primitives/GeometryGenerator.h>
 
@@ -84,6 +84,7 @@ namespace Graphics
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0);
 
 		glEnableVertexAttribArray(1);
+		// glVertexAttrib3f(1, 0, 1, 0);	// Disable attribute 1 and force static data for all vertices rather than streaming. 
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (char*)(sizeof(float) * 3));
 
 		_index_buffer_ID;
@@ -97,13 +98,7 @@ namespace Graphics
 		glGenBuffers(1, &transformation_matrix_ID);
 		glBindBuffer(GL_ARRAY_BUFFER, transformation_matrix_ID);
 
-		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
-		mat4 transforms[] = 
-		{
-			projection_matrix * glm::translate(vec3(-1.0f, +0.0f, -3.0f)) * glm::rotate(glm::radians(36.0f), vec3(+1.0f, +0.0f, 0.0f)),
-			projection_matrix * glm::translate(vec3(1.0f, +0.0f, -3.75f)) *  glm::rotate(glm::radians(26.0f), vec3(+0.0f, +1.0f, 0.0f)),
-		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(transforms), transforms, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(mat4) * 2, 0, GL_DYNAMIC_DRAW);
 
 		int offset = 0;
 		for (int i = 2; i <= 5; i++)
@@ -139,12 +134,24 @@ namespace Graphics
 		_program_ID = glCreateProgram();
 		glAttachShader(_program_ID, _vertex_shader_ID);
 		glAttachShader(_program_ID, _fragment_shader_ID);
+
+		// Explicitly bind the vertex attributes.
+		// layout(location = N) is not necessary in shader.
+		glBindAttribLocation(_program_ID, 1, "position");
+
+		// Or let the linker handle the binding automatically.
+		// layout(location = N) is required in shader.
 		glLinkProgram(_program_ID);
 
 		if (!checkProgramStatus(_program_ID))
 		{
 			return;
 		}
+
+		// If the linker binds the attributes, make sure to query and verify their location!
+		GLint position_location = glGetAttribLocation(_program_ID, "position");
+		GLint color_location = glGetAttribLocation(_program_ID, "vertex_color");
+		GLint transform_location = glGetAttribLocation(_program_ID, "transform");
 
 		glUseProgram(_program_ID);
 	}
@@ -186,6 +193,7 @@ namespace Graphics
 
 	void GLWindow::initializeGL()
 	{
+		setMouseTracking(true);
 		glewInit();
 		glEnable(GL_DEPTH_TEST);
 		infoGL();
@@ -195,16 +203,27 @@ namespace Graphics
 
 	void GLWindow::paintGL()
 	{
+		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
+
+		mat4 transforms[] =
+		{
+			projection_matrix * _camera.getViewMatrix() * glm::translate(vec3(-1.0f, +0.0f, -3.0f)) * glm::rotate(glm::radians(36.0f), vec3(+1.0f, +0.0f, 0.0f)),
+			projection_matrix * _camera.getViewMatrix() * glm::translate(vec3(1.0f, +0.0f, -3.75f)) *  glm::rotate(glm::radians(126.0f), vec3(+0.0f, +1.0f, 0.0f)),
+		};
+		glBufferData(GL_ARRAY_BUFFER, sizeof(transforms), transforms, GL_DYNAMIC_DRAW);
+
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width(), height());
-
-		// mat4 projection_translation_matrix = glm::translate(projection_matrix, vec3(+0.0f, +0.0f, -3.0f));
-		// mat4 mvp_matrix = glm::rotate(projection_translation_matrix, glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
-		// mat4 mvp_matrix = glm::rotate(projection_translation_matrix, glm::radians(54.0f), vec3(+1.0f, +0.0f, 0.0f));
 		
 		glDrawElementsInstanced(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0, 2);
 
+	}
+
+	void GLWindow::mouseMoveEvent(QMouseEvent* e)
+	{
+		_camera.mouseUpdate(glm::vec2(e->x(), e->y()));
+		repaint();
 	}
 
 	void GLWindow::closeEvent(QCloseEvent *bar)

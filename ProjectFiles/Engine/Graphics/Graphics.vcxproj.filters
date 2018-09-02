@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Primitives">
       <UniqueIdentifier>{27dc709f-21df-40d6-8542-70603423375c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Camera">
+      <UniqueIdentifier>{10cc285d-09e9-4439-8dd4-4f3cf5a59006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{013aed56-48fe-428e-a020-77da4d41297c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="Primitives\GeometryGenerator.cpp">
       <Filter>Source Files\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\Camera.cpp">
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Graphics\Primitives\Vertex.h">
       <Filter>Header Files\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Camera\Camera.h">
+      <Filter>Header Files\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

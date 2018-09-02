@@ -90,7 +90,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)..\External\glew\include\;$(SolutionDir)..\External\Qt\include\;$(SolutionDir)..\External\glm\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DLL_EXPORT_GRAPHICS;OPENGL_ACTIVE_RENDERER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DLL_EXPORT_GRAPHICS;OPENGL_ACTIVE_RENDERER;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\External\Qt\lib\x64\Debug;$(SolutionDir)..\External\glew\lib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -143,12 +143,14 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32.dll" "$(OutDir)"</
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Primitives\GeometryGenerator.cpp" />
     <ClCompile Include="Shading\Shader.cpp" />
     <ClCompile Include="Window\GLWIndow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Includes\Graphics\Camera\Camera.h" />
     <ClInclude Include="..\Includes\Graphics\GL\glassert.h" />
     <ClInclude Include="..\Includes\Graphics\Primitives\GeometryGenerator.h" />
     <ClInclude Include="..\Includes\Graphics\Primitives\Vertex.h" />
