@@ -25,13 +25,14 @@ namespace Graphics
 	void Camera::mouseUpdate(const glm::vec2& new_mouse_pos)
 	{
 		glm::vec2 mouse_delta = new_mouse_pos - _old_mouse_pos;
-		if (glm::length(mouse_delta) > 10.0f)
+		if (glm::length(mouse_delta) > 50.0f)
 		{
 			_old_mouse_pos = new_mouse_pos;
-			return;
 		}
-		_view_dir = glm::mat3(glm::rotate(glm::radians (-mouse_delta.x) * 0.5f, _up)) * _view_dir;
-		_old_mouse_pos = new_mouse_pos;
-
+		else
+		{
+			_view_dir = glm::mat3(glm::rotate(glm::radians(-mouse_delta.x) * 0.5f, _up)) * _view_dir;
+			_old_mouse_pos = new_mouse_pos;
+		}
 	}
 }
