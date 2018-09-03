@@ -48,7 +48,8 @@ namespace Graphics
 		void initializeGL();
 		void paintGL();
 		void mouseMoveEvent(QMouseEvent *e);
-		void closeEvent(QCloseEvent *bar);
+		void closeEvent(QCloseEvent *e);
+		void keyPressEvent(QKeyEvent *e);
 	private:
 
 		GLuint _vertex_buffer_ID;

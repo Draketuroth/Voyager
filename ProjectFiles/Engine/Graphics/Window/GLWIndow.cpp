@@ -10,6 +10,7 @@
 #include <gl/glew.h>
 
 #include <Qt3DInput/qmouseevent.h>
+#include <Qt3DInput/qkeyevent.h>
 #include <QtCore/qdebug.h>
 
 #include <gtc/matrix_transform.hpp>
@@ -226,8 +227,34 @@ namespace Graphics
 		repaint();
 	}
 
-	void GLWindow::closeEvent(QCloseEvent *bar)
+	void GLWindow::closeEvent(QCloseEvent *e)
 	{
 		shutdown();
+	}
+
+	void GLWindow::keyPressEvent(QKeyEvent *e)
+	{
+		switch (e->key())
+		{
+		case Qt::Key::Key_W:
+			_camera.moveForward();
+			break;
+		case Qt::Key::Key_S:
+			_camera.moveBackward();
+			break;
+		case Qt::Key::Key_A:
+			_camera.strafeLeft();
+			break;
+		case Qt::Key::Key_D:
+			_camera.strafeRight();
+			break;
+		case Qt::Key::Key_R:
+			_camera.moveUp();
+			break;
+		case Qt::Key::Key_F:
+			_camera.moveDown();
+			break;
+		}
+		repaint();
 	}
 }

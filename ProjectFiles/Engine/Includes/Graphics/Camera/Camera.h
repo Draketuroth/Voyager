@@ -21,11 +21,21 @@ namespace Graphics
 		glm::mat4 getViewMatrix() const;
 		void mouseUpdate(const glm::vec2& new_mouse_pos);
 
+		void moveForward();
+		void moveBackward();
+		void strafeLeft();
+		void strafeRight();
+		void moveUp();
+		void moveDown();
+
 	private:
 		glm::vec3 _position;
 		glm::vec3 _view_dir;
+		glm::vec3 _right;
+
 		glm::vec2 _old_mouse_pos;
 		const glm::vec3 _up;
+		float _movement_speed;
 	};
 }
 

@@ -14,7 +14,8 @@ namespace Graphics
 {
 	Camera::Camera(): _position(1.0f, 0.0f, 0.0f), _view_dir(0.0f, 0.0f, -1.0f), _up(0.0f, 1.0f, 0.0f)
 	{
-
+		_right = glm::cross(_view_dir, _up);
+		_movement_speed = 0.1f;
 	}
 
 	glm::mat4 Camera::getViewMatrix() const
@@ -32,14 +33,44 @@ namespace Graphics
 		else
 		{
 			const float ROTATIONAL_SPEED = 0.5f;
-			glm::vec3 right = glm::cross(_view_dir, _up);
+			_right = glm::cross(_view_dir, _up);
 
 			glm::mat4 x_y_rotation = glm::rotate(glm::radians(-mouse_delta.x) * ROTATIONAL_SPEED, _up) * 
-								glm::rotate(glm::radians(-mouse_delta.y) * ROTATIONAL_SPEED, right);
+								glm::rotate(glm::radians(-mouse_delta.y) * ROTATIONAL_SPEED, _right);
 
 			_view_dir = glm::mat3(x_y_rotation) * _view_dir;
 
 			_old_mouse_pos = new_mouse_pos;
 		}
+	}
+
+	void Camera::moveForward()
+	{
+		_position += _movement_speed * _view_dir;
+	}
+
+	void Camera::moveBackward()
+	{
+		_position -= _movement_speed * _view_dir;
+	}
+
+	void Camera::strafeLeft()
+	{
+		_position -= _movement_speed * _right;
+	}
+
+	void Camera::strafeRight()
+	{
+		_position += _movement_speed * _right;
+	}
+
+	void Camera::moveUp()
+	{
+		_position += _movement_speed * _up;
+	}
+
+	void Camera::moveDown()
+	{
+		_position -= _movement_speed * _up;
 	}
 }
