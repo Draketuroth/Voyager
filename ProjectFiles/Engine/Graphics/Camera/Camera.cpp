@@ -31,7 +31,14 @@ namespace Graphics
 		}
 		else
 		{
-			_view_dir = glm::mat3(glm::rotate(glm::radians(-mouse_delta.x) * 0.5f, _up)) * _view_dir;
+			const float ROTATIONAL_SPEED = 0.5f;
+			glm::vec3 right = glm::cross(_view_dir, _up);
+
+			glm::mat4 x_y_rotation = glm::rotate(glm::radians(-mouse_delta.x) * ROTATIONAL_SPEED, _up) * 
+								glm::rotate(glm::radians(-mouse_delta.y) * ROTATIONAL_SPEED, right);
+
+			_view_dir = glm::mat3(x_y_rotation) * _view_dir;
+
 			_old_mouse_pos = new_mouse_pos;
 		}
 	}
