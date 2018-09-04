@@ -54,10 +54,10 @@ namespace Graphics
 
 		GLuint _cube_vao_ID;
 		GLuint _arrow_vao_ID;
+		GLuint _cube_index_buffer_offset;
 		GLuint _arrow_index_buffer_offset;
 
-		GLuint _vertex_buffer_ID;
-		GLuint _index_buffer_ID;
+		GLuint _buffer_ID;
 
 		GLuint _vertex_shader_ID;
 		GLuint _fragment_shader_ID;
