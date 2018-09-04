@@ -25,6 +25,9 @@ using Math::Vector3D;
 using glm::vec3;
 using glm::mat4;
 
+GLuint arrow_num_indices;
+GLuint cube_num_indices;
+
 namespace Graphics
 {
 	static void infoGL()
@@ -47,6 +50,7 @@ namespace Graphics
 	{
 
 	}
+
 	GLWindow::~GLWindow()
 	{
 
@@ -56,6 +60,7 @@ namespace Graphics
 	{
 		return true;
 	}
+
 	bool GLWindow::shutdown()
 	{
 
@@ -72,43 +77,50 @@ namespace Graphics
 
 	void GLWindow::sendDataToOpenGL()
 	{
-		Geometry _cube = GeometryGenerator::makeCube();
+		// Cube.
+		Geometry cube = GeometryGenerator::makeCube();
+		cube_num_indices = cube.num_indices;
 
-		_vertex_buffer_ID;
+		Geometry arrow = GeometryGenerator::makeArrow();
+		arrow_num_indices = arrow.num_indices;
+
 		glGenBuffers(1, &_vertex_buffer_ID);
 		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer_ID);
-		glBufferData(GL_ARRAY_BUFFER, _cube.vertexBufferSize(), _cube.vertices, GL_STATIC_DRAW);
-
-		// Stride is the distance from the beginning of the first attribute to the next occurence of it. 
-		// Stride = 0 means that data is tightly packed.
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0);
-
-		glEnableVertexAttribArray(1);
-		// glVertexAttrib3f(1, 0, 1, 0);	// Disable attribute 1 and force static data for all vertices rather than streaming. 
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (char*)(sizeof(float) * 3));
-
-		_index_buffer_ID;
+		glBufferData(GL_ARRAY_BUFFER, cube.vertexBufferSize() + arrow.vertexBufferSize(), 0, GL_STATIC_DRAW);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, cube.vertexBufferSize(), cube.vertices);
+		glBufferSubData(GL_ARRAY_BUFFER, cube.vertexBufferSize(), arrow.vertexBufferSize(), arrow.vertices);
+		
 		glGenBuffers(1, &_index_buffer_ID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer_ID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, _cube.indexBufferSize(), _cube.indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, cube.indexBufferSize() + arrow.indexBufferSize(), 0, GL_STATIC_DRAW);
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, cube.indexBufferSize(), cube.indices);
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, cube.indexBufferSize(), arrow.indexBufferSize(), arrow.indices);
 
-		_cube.release();
+		glGenVertexArrays(1, &_cube_vao_ID);
+		glGenVertexArrays(1, &_arrow_vao_ID);
 
-		GLuint transformation_matrix_ID;
-		glGenBuffers(1, &transformation_matrix_ID);
-		glBindBuffer(GL_ARRAY_BUFFER, transformation_matrix_ID);
+		// All cube bind and attrib functions stored in vertex array object.
+		glBindVertexArray(_cube_vao_ID);
+		
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer_ID);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)(sizeof(float) * 3));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer_ID);
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(mat4) * 2, 0, GL_DYNAMIC_DRAW);
+		glBindVertexArray(_arrow_vao_ID);
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer_ID);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)(cube.vertexBufferSize()));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void*)(cube.vertexBufferSize() + sizeof(float) * 3));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer_ID);
 
-		int offset = 0;
-		for (int i = 2; i <= 5; i++)
-		{
-			glVertexAttribPointer(i, 4, GL_FLOAT, GL_FALSE, sizeof(mat4), (void*)(sizeof(float) * offset));
-			glEnableVertexAttribArray(i);
-			glVertexAttribDivisor(i, 1);
-			offset += 4;
-		}
+		_arrow_index_buffer_offset = cube.indexBufferSize();
+
+		cube.release();
+		arrow.release();
 	}
 
 	void GLWindow::initializeShaders()
@@ -200,25 +212,44 @@ namespace Graphics
 		infoGL();
 		sendDataToOpenGL();
 		initializeShaders();
+
+		// Only necessary to do once after the shaders have been initialized! 
+		_mvp_uniform_location = glGetUniformLocation(_program_ID, "mvp_matrix");
 	}
 
 	void GLWindow::paintGL()
 	{
-		mat4 projection_matrix = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.0f);
-
-		mat4 transforms[] =
-		{
-			projection_matrix * _camera.getViewMatrix() * glm::translate(vec3(-1.0f, +0.0f, -3.0f)) * glm::rotate(glm::radians(36.0f), vec3(+1.0f, +0.0f, 0.0f)),
-			projection_matrix * _camera.getViewMatrix() * glm::translate(vec3(1.0f, +0.0f, -3.75f)) *  glm::rotate(glm::radians(126.0f), vec3(+0.0f, +1.0f, 0.0f)),
-		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(transforms), transforms, GL_DYNAMIC_DRAW);
-
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width(), height());
-		
-		glDrawElementsInstanced(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0, 2);
 
+		mat4 mvp_matrix;
+		mat4 view_to_proj = glm::perspective(glm::radians(60.0f), ((float)width()) / height(), 0.1f, 10.f);
+		mat4 world_to_view = _camera.getViewMatrix();
+		mat4 world_to_proj = view_to_proj * world_to_view;
+
+		// Cube. 
+		glBindVertexArray(_cube_vao_ID);
+		mat4 cube_1_model_to_world = 
+			glm::translate(vec3(-1.0f, 0.0f, -3.0f)) *
+			glm::rotate(36.0f, vec3(1.0f, 0.0f, 0.0f));
+		mvp_matrix = world_to_proj * cube_1_model_to_world;
+		glUniformMatrix4fv(_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
+		glDrawElements(GL_TRIANGLES, cube_num_indices, GL_UNSIGNED_SHORT, 0);
+
+		mat4 cube_2_model_to_world =
+			glm::translate(vec3(1.0f, 0.0f, -3.75f)) *
+			glm::rotate(126.0f, vec3(0.0f, 1.0f, 0.0f));
+		mvp_matrix = world_to_proj * cube_2_model_to_world;
+		glUniformMatrix4fv(_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
+		glDrawElements(GL_TRIANGLES, cube_num_indices, GL_UNSIGNED_SHORT, 0);
+
+		// Arrow.
+		glBindVertexArray(_arrow_vao_ID);
+		mat4 arrow_model_to_world = glm::translate(vec3(1.0f, 0.0f, -3.0f));
+		mvp_matrix = world_to_proj * arrow_model_to_world;
+		glUniformMatrix4fv(_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
+		glDrawElements(GL_TRIANGLES, arrow_num_indices, GL_UNSIGNED_SHORT, (void*)_arrow_index_buffer_offset);
 	}
 
 	void GLWindow::mouseMoveEvent(QMouseEvent* e)

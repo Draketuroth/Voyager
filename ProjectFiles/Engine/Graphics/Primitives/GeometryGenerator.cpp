@@ -139,4 +139,140 @@ namespace Graphics
 
 		return ret;
 	}
+
+	Geometry GeometryGenerator::makeArrow()
+	{
+		Geometry ret;
+		Vertex arrow_verts[] =
+		{
+			// Top side of arrow head.
+			vec3(+0.00f, +0.25f, -0.25f),
+			vec3(+1.00f, +0.00f, +0.00f),
+			vec3(+0.50f, +0.25f, -0.25f),
+			vec3(+1.00f, +0.00f, +0.00f),
+			vec3(+0.00f, +0.25f, -1.00f),
+			vec3(+1.00f, +0.00f, +0.00f),
+			vec3(-0.50f, +0.25f, -0.25f),
+			vec3(+1.00f, +0.00f, +0.00f),
+
+			// Bottom side of arrow head.
+			vec3(+0.00f, -0.25f, -0.25f),
+			vec3(+0.00f, +0.00f, +1.00f),
+			vec3(+0.50f, -0.25f, -0.25f),
+			vec3(+0.00f, +0.00f, +1.00f),
+			vec3(+0.00f, -0.25f, -1.00f),
+			vec3(+0.00f, +0.00f, +1.00f),
+			vec3(-0.50f, -0.25f, -0.25f),
+			vec3(+0.00f, +0.00f, +1.00f),
+
+			// Right side of arrow tip.
+			vec3(+0.50f, +0.25f, -0.25f),
+			vec3(+0.60f, +1.00f, +0.00f),
+			vec3(+0.00f, +0.25f, -1.00f),
+			vec3(+0.60f, +1.00f, +0.00f),
+			vec3(+0.00f, -0.25f, -1.00f),
+			vec3(+0.60f, +1.00f, +0.00f),
+			vec3(+0.50f, -0.25f, -0.25f),
+			vec3(+0.60f, +1.00f, +0.00f),
+
+			// Left side of arrow tip.
+			vec3(+0.00f, +0.25f, -1.00f),
+			vec3(+0.00f, +1.00f, +0.00f),
+			vec3(-0.50f, +0.25f, -0.25f),
+			vec3(+0.00f, +1.00f, +0.00f),
+			vec3(+0.00f, -0.25f, -1.00f),
+			vec3(+0.00f, +1.00f, +0.00f),
+			vec3(-0.50f, -0.25f, -0.25f),
+			vec3(+0.00f, +1.00f, +0.00f),
+
+			// Back side of arrow tip.
+			vec3(-0.50f, +0.25f, -0.25f),
+			vec3(+0.50f, +0.50f, +0.50f),
+			vec3(+0.50f, +0.25f, -0.25f),
+			vec3(+0.50f, +0.50f, +0.50f),
+			vec3(-0.50f, -0.25f, -0.25f),
+			vec3(+0.50f, +0.50f, +0.50f),
+			vec3(+0.50f, -0.25f, -0.25f),
+			vec3(+0.50f, +0.50f, +0.50f),
+
+			// Top side of back of arrow.
+			vec3(+0.25f, +0.25f, -0.25f),
+			vec3(+1.00f, +0.00f, +0.00f),
+			vec3(+0.25f, +0.25f, +1.00f),
+			vec3(+1.00f, +0.00f, +0.00f),
+			vec3(-0.25f, +0.25f, +1.00f),
+			vec3(+1.00f, +0.00f, +0.00f),
+			vec3(-0.25f, +0.25f, -0.25f),
+			vec3(+1.00f, +0.00f, +0.00f),
+
+			// Bottom side of back of arrow.
+			vec3(+0.25f, -0.25f, -0.25f),
+			vec3(+0.00f, +0.00f, +1.00f),
+			vec3(+0.25f, -0.25f, +1.00f),
+			vec3(+0.00f, +0.00f, +1.00f),
+			vec3(-0.25f, -0.25f, +1.00f),
+			vec3(+0.00f, +0.00f, +1.00f),
+			vec3(-0.25f, -0.25f, -0.25f),
+			vec3(+0.00f, +0.00f, +1.00f),
+
+			// Right side of back of arrow.
+			vec3(+0.25f, +0.25f, -0.25f),
+			vec3(+0.60f, +1.00f, +0.00f),
+			vec3(+0.25f, -0.25f, -0.25f),
+			vec3(+0.60f, +1.00f, +0.00f),
+			vec3(+0.25f, -0.25f, +1.00f),
+			vec3(+0.60f, +1.00f, +0.00f),
+			vec3(+0.25f, +0.25f, +1.00f),
+			vec3(+0.60f, +1.00f, +0.00f),
+
+			// Left side of back of arrow.
+			vec3(-0.25f, +0.25f, -0.25f),
+			vec3(+0.00f, +1.00f, +0.00f),
+			vec3(-0.25f, -0.25f, -0.25f),
+			vec3(+0.00f, +1.00f, +0.00f),
+			vec3(-0.25f, -0.25f, +1.00f),
+			vec3(+0.00f, +1.00f, +0.00f),
+			vec3(-0.25f, +0.25f, +1.00f),
+			vec3(+0.00f, +1.00f, +0.00f),
+
+			// Back side of back of arrow.
+			vec3(-0.25f, +0.25f, +1.00f),
+			vec3(+0.50f, +0.50f, +0.50f),
+			vec3(+0.25f, +0.25f, +1.00f),
+			vec3(+0.50f, +0.50f, +0.50f),
+			vec3(-0.25f, -0.25f, +1.00f),
+			vec3(+0.50f, +0.50f, +0.50f),
+			vec3(+0.25f, -0.25f, +1.00f),
+			vec3(+0.50f, +0.50f, +0.50f),
+		};
+		GLushort arrow_indices[] = {
+			0, 1, 2,
+			0, 2, 3,
+			4, 6, 5,
+			4, 7, 6,
+			8, 10, 9,
+			8, 11, 10,
+			12, 15, 13,
+			12, 14, 15,
+			16, 19, 17,
+			16, 18, 19,
+			20, 22, 21,
+			20, 23, 22,
+			24, 25, 26,
+			24, 26, 27,
+			28, 30, 29,
+			28, 31, 30,
+			32, 33, 34,
+			32, 34, 35,
+			36, 39, 37,
+			36, 38, 39,
+		};
+		ret.num_vertices = sizeof(arrow_verts) / sizeof(*arrow_verts);
+		ret.vertices = new Vertex[ret.num_vertices];
+		memcpy(ret.vertices, arrow_verts, sizeof(arrow_verts));
+		ret.num_indices = sizeof(arrow_indices) / sizeof(*arrow_indices);
+		ret.indices = new GLushort[ret.num_indices];
+		memcpy(ret.indices, arrow_indices, sizeof(arrow_indices));
+		return ret;
+	}
 }
