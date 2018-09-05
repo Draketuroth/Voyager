@@ -79,7 +79,9 @@ namespace Graphics
 
 		// Uniform locations.
 		GLuint _mvp_uniform_location;
+		GLuint _world_uniform_location;
 		GLuint _ambient_uniform_location;
+		GLuint _light_uniform_location;
 
 		// Indices.
 		GLuint _plane_num_indices;

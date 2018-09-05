@@ -12,7 +12,7 @@
 
 namespace Graphics
 {
-	Camera::Camera(): _position(1.0f, 0.0f, 0.0f), _view_dir(0.0f, 0.0f, -1.0f), _up(0.0f, 1.0f, 0.0f)
+	Camera::Camera(): _position(0.0f, 3.0f, 0.0f), _view_dir(0.0f, 0.0f, -1.0f), _up(0.0f, 1.0f, 0.0f)
 	{
 		_right = glm::cross(_view_dir, _up);
 		_movement_speed = 0.1f;

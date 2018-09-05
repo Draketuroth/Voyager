@@ -62,7 +62,6 @@ namespace Graphics
 
 	bool GLWindow::shutdown()
 	{
-
 		glDeleteBuffers(1, &_buffer_ID);
 
 		glDeleteShader(_vertex_shader_ID);
@@ -140,18 +139,22 @@ namespace Graphics
 		glBindVertexArray(_cube_vao_ID);
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
 		glBindBuffer(GL_ARRAY_BUFFER, _buffer_ID);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, 0);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, (void*)(sizeof(float) * 3));
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, (void*)(sizeof(float) * 6));
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_buffer_ID);
 
 		glBindVertexArray(_plane_vao_ID);
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
 		glBindBuffer(GL_ARRAY_BUFFER, _buffer_ID);
 		GLuint plane_byte_offset = cube.vertexBufferSize() + cube.indexBufferSize();
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, (void*)plane_byte_offset);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, (void*)(plane_byte_offset + sizeof(float) * 3));
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, (void*)(plane_byte_offset + sizeof(float) * 6));
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _buffer_ID);
 
 		// Bind normal vertex array objects.
@@ -204,7 +207,7 @@ namespace Graphics
 
 		// Explicitly bind the vertex attributes.
 		// layout(location = N) is not necessary in shader.
-		glBindAttribLocation(_program_ID, 1, "position");
+		// glBindAttribLocation(_program_ID, 1, "position");
 
 		// Or let the linker handle the binding automatically.
 		// layout(location = N) is required in shader.
@@ -216,9 +219,9 @@ namespace Graphics
 		}
 
 		// If the linker binds the attributes, make sure to query and verify their location!
-		GLint position_location = glGetAttribLocation(_program_ID, "position");
+		GLint position_location = glGetAttribLocation(_program_ID, "vertex_position");
 		GLint color_location = glGetAttribLocation(_program_ID, "vertex_color");
-		GLint transform_location = glGetAttribLocation(_program_ID, "transform");
+		GLint transform_location = glGetAttribLocation(_program_ID, "vertex_normal");
 
 		glUseProgram(_program_ID);
 	}
@@ -269,7 +272,9 @@ namespace Graphics
 
 		// Only necessary to do once after the shaders have been initialized! 
 		_mvp_uniform_location = glGetUniformLocation(_program_ID, "mvp_matrix");
+		_world_uniform_location = glGetUniformLocation(_program_ID, "world_matrix");
 		_ambient_uniform_location = glGetUniformLocation(_program_ID, "ambient_light");
+		_light_uniform_location = glGetUniformLocation(_program_ID, "light_position");
 	}
 
 	void GLWindow::paintGL()
@@ -286,6 +291,9 @@ namespace Graphics
 		vec3 ambient_light(1.0f, 1.0f, 1.0f);
 		glUniform3fv(_ambient_uniform_location, 1, &ambient_light[0]);
 
+		vec3 light_position(0.0f, 3.0f, 0.0f);
+		glUniform3fv(_light_uniform_location, 1, &light_position[0]);
+
 		// Cube. 
 		glBindVertexArray(_cube_vao_ID);
 		mat4 cube_1_model_to_world = 
@@ -293,6 +301,7 @@ namespace Graphics
 			glm::rotate(0.0f, vec3(1.0f, 0.0f, 0.0f));
 		mvp_matrix = world_to_proj * cube_1_model_to_world;
 		glUniformMatrix4fv(_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
+		glUniformMatrix4fv(_world_uniform_location, 1, GL_FALSE, &cube_1_model_to_world[0][0]);
 		glDrawElements(GL_TRIANGLES, _cube_num_indices, GL_UNSIGNED_SHORT, (void*)_cube_index_byte_offset);
 		glBindVertexArray(_cube_normal_vao_ID);
 		glDrawElements(GL_LINES, _cube_num_normal_indices, GL_UNSIGNED_SHORT, (void*)_cube_normal_byte_offset);
@@ -303,15 +312,17 @@ namespace Graphics
 			glm::rotate(0.0f, vec3(0.0f, 1.0f, 0.0f));
 		mvp_matrix = world_to_proj * cube_2_model_to_world;
 		glUniformMatrix4fv(_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
+		glUniformMatrix4fv(_world_uniform_location, 1, GL_FALSE, &cube_2_model_to_world[0][0]);
 		glDrawElements(GL_TRIANGLES, _cube_num_indices, GL_UNSIGNED_SHORT, (void*)_cube_index_byte_offset);
 		glBindVertexArray(_cube_normal_vao_ID);
 		glDrawElements(GL_LINES, _cube_num_normal_indices, GL_UNSIGNED_SHORT, (void*)_cube_normal_byte_offset);
 
 		// Plane.
 		glBindVertexArray(_plane_vao_ID);
-		mat4 arrow_model_to_world = glm::translate(vec3(0.5f, 0.0f, 0.0f));
-		mvp_matrix = world_to_proj * arrow_model_to_world;
+		mat4 plane_model_to_world = glm::translate(vec3(0.5f, 0.0f, 0.0f));
+		mvp_matrix = world_to_proj * plane_model_to_world;
 		glUniformMatrix4fv(_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
+		glUniformMatrix4fv(_world_uniform_location, 1, GL_FALSE, &plane_model_to_world[0][0]);
 		glDrawElements(GL_TRIANGLES, _plane_num_indices, GL_UNSIGNED_SHORT, (void*)_plane_index_byte_offset);
 		glBindVertexArray(_plane_normal_vao_ID);
 		glDrawElements(GL_LINES, _plane_num_normal_indices, GL_UNSIGNED_SHORT, (void*)_plane_normal_byte_offset);
