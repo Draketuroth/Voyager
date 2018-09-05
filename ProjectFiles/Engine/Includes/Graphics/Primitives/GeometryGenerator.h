@@ -20,6 +20,12 @@ namespace Graphics
 		static Geometry makeTriangle();
 		static Geometry makeCube();
 		static Geometry makeArrow();
+		static Geometry makePlane(unsigned int dimensions = 10);
+		static Geometry generateNormals(const Geometry& data);
+
+	private:
+		static Geometry makePlaneVerts(unsigned int dimensions);
+		static Geometry makePlaneIndices(unsigned int dimensions);
 	};
 }
 
