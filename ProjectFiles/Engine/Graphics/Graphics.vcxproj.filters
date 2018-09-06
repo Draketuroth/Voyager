@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Camera">
       <UniqueIdentifier>{013aed56-48fe-428e-a020-77da4d41297c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\QtCustomWidgets">
+      <UniqueIdentifier>{88fea7c5-eb0b-425a-8f03-7130d3e3f491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\QtCustomWidgets">
+      <UniqueIdentifier>{b774eef3-46e9-4f2c-ab6d-9e910aa7d6f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -19,6 +19,7 @@ namespace Graphics
 	public:
 		Camera();
 		glm::mat4 getViewMatrix() const;
+		glm::vec3 getPosition() const;
 		void mouseUpdate(const glm::vec2& new_mouse_pos);
 
 		void moveForward();

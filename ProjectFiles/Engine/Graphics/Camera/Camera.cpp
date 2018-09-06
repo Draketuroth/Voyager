@@ -23,6 +23,11 @@ namespace Graphics
 		return glm::lookAt(_position, _position + _view_dir, _up);
 	}
 
+	glm::vec3 Camera::getPosition() const
+	{
+		return _position;
+	}
+
 	void Camera::mouseUpdate(const glm::vec2& new_mouse_pos)
 	{
 		glm::vec2 mouse_delta = new_mouse_pos - _old_mouse_pos;

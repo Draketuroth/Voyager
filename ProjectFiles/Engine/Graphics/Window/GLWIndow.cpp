@@ -23,6 +23,7 @@
 
 using Math::Vector3D;
 using glm::vec3;
+using glm::vec4;
 using glm::mat4;
 
 const uint VERTEX_BYTE_SIZE = 9 * sizeof(float);
@@ -271,10 +272,11 @@ namespace Graphics
 		initializeShaders();
 
 		// Only necessary to do once after the shaders have been initialized! 
-		_mvp_uniform_location = glGetUniformLocation(_program_ID, "mvp_matrix");
-		_world_uniform_location = glGetUniformLocation(_program_ID, "world_matrix");
+		_mvp_uniform_location = glGetUniformLocation(_program_ID, "model_to_projection_matrix");
+		_world_uniform_location = glGetUniformLocation(_program_ID, "model_to_world_matrix");
 		_ambient_uniform_location = glGetUniformLocation(_program_ID, "ambient_light");
-		_light_uniform_location = glGetUniformLocation(_program_ID, "light_position");
+		_light_uniform_location = glGetUniformLocation(_program_ID, "light_position_world");
+		_camera_position_uniform_location = glGetUniformLocation(_program_ID, "eye_position_world");
 	}
 
 	void GLWindow::paintGL()
@@ -288,11 +290,14 @@ namespace Graphics
 		mat4 world_to_view = _camera.getViewMatrix();
 		mat4 world_to_proj = view_to_proj * world_to_view;
 
-		vec3 ambient_light(1.0f, 1.0f, 1.0f);
-		glUniform3fv(_ambient_uniform_location, 1, &ambient_light[0]);
+		vec3 eye_position = _camera.getPosition();
+		glUniform3fv(_camera_position_uniform_location, 1, &eye_position[0]);
 
-		vec3 light_position(0.0f, 3.0f, 0.0f);
-		glUniform3fv(_light_uniform_location, 1, &light_position[0]);
+		vec4 ambient_light(0.05f, 0.05f, 0.05f, 1.0f);
+		glUniform4fv(_ambient_uniform_location, 1, &ambient_light[0]);
+
+		vec3 light_position_world(0.0f, 1.0f, 0.0f);
+		glUniform3fv(_light_uniform_location, 1, &light_position_world[0]);
 
 		// Cube. 
 		glBindVertexArray(_cube_vao_ID);

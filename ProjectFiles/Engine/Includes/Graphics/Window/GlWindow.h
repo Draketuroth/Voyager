@@ -82,6 +82,7 @@ namespace Graphics
 		GLuint _world_uniform_location;
 		GLuint _ambient_uniform_location;
 		GLuint _light_uniform_location;
+		GLuint _camera_position_uniform_location;
 
 		// Indices.
 		GLuint _plane_num_indices;
