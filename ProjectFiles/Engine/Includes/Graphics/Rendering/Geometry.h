@@ -25,6 +25,7 @@ namespace Graphics
 		GLuint num_vertices;
 		GLushort* indices;
 		GLuint num_indices;
+		GLenum render_mode;
 
 		GLsizeiptr vertexBufferSize() const { return num_vertices * sizeof(Vertex); }
 		GLsizeiptr indexBufferSize() const { return num_indices * sizeof(GLushort); }

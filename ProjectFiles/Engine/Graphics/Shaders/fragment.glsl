@@ -19,9 +19,9 @@ void main()
 	// Specular lighting.
 	vec3 reflected_light_vector = reflect(-light_vector_world, world_normal);
 	vec3 eye_vector_world = normalize(eye_position_world - world_position);
-	float specularity = dot(reflected_light_vector, eye_vector_world);
+	float specularity = clamp(dot(reflected_light_vector, eye_vector_world), 0, 1);
 	specularity = pow(specularity, 50);
-	vec4 specular_light = vec4(specularity, specularity, specularity, 1.0f);
+	vec4 specular_light = vec4(specularity, 0.0f, 0.0f, 1.0f);
 
 	final_color = ambient_light + clamp(diffuse_light, 0, 1) + clamp(specular_light, 0, 1);
 }

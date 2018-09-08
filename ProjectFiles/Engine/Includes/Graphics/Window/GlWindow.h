@@ -9,10 +9,11 @@
 
 #ifndef VE_GRAPHICS_GLWINDOW_H
 #define VE_GRAPHICS_GLWINDOW_H
-#include <QtWidgets/qopenglwidget.h>
 #include <Graphics/Shading/Shader.h>
+#include <Graphics/Shading/ShaderProgram.h>
+#include <QtWidgets/qopenglwidget.h>
 #include <Graphics/Camera/Camera.h>
-
+#include <Graphics/Rendering/GLRenderer.h>
 
 #if defined DLL_EXPORT_GRAPHICS
 #define DECLDIR_R __declspec(dllexport)
@@ -22,10 +23,12 @@
 
 namespace Graphics
 {
+	struct Model;
+
 	class DECLDIR_R GLWindow: public QOpenGLWidget
 	{
 	public:
-		GLWindow();
+		GLWindow(Model* model);
 		~GLWindow();
 
 		bool initialize();
@@ -35,54 +38,25 @@ namespace Graphics
 
 		void initializeShaders();
 
-		bool checkShaderStatus(GLuint shader_id);
-		bool checkProgramStatus(GLuint program_id);
-		bool checkStatus(
-			GLuint object_id,
-			PFNGLGETSHADERIVPROC object_property_getter,
-			PFNGLGETSHADERINFOLOGPROC info_log_func,
-			GLenum status_type);
-
-
 	protected:
 		void initializeGL();
 		void paintGL();
 		void mouseMoveEvent(QMouseEvent *e);
 		void closeEvent(QCloseEvent *e);
 		void keyPressEvent(QKeyEvent *e);
+
 	private:
 
-		// Vertex Array objects.
-		GLuint _cube_vao_ID;
-		GLuint _cube_normal_vao_ID;
-
-		GLuint _plane_vao_ID;
-		GLuint _plane_normal_vao_ID;
-
-		// Buffer byte offset.
-		GLuint _cube_index_byte_offset;
-		GLuint _cube_normal_byte_offset;
-
-		GLuint _plane_index_byte_offset;
-		GLuint _plane_normal_byte_offset;
-
-		// Buffer objects.
-		GLuint _buffer_ID;
+		Model* _model;
 
 		// Shader objects.
-		Shader _shader;
-		GLuint _vertex_shader_ID;
-		GLuint _fragment_shader_ID;
+		Shader* _vertex_shader;
+		Shader* _fragment_shader;
 
 		// Shader program objects.
-		GLuint _program_ID;
+		ShaderProgram* _program;
 
-		// Uniform locations.
-		GLuint _mvp_uniform_location;
-		GLuint _world_uniform_location;
-		GLuint _ambient_uniform_location;
-		GLuint _light_uniform_location;
-		GLuint _camera_position_uniform_location;
+		GLRenderer* _renderer;
 
 		// Indices.
 		GLuint _plane_num_indices;

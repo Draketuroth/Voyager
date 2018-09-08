@@ -84,22 +84,22 @@ namespace Profiling
 
 	void Profiler::checkForDuplicateCategory(const char* category)
 	{
-		for (Vuint i = 0; i < _categoryIndex; i++)
+		for (uint i = 0; i < _categoryIndex; i++)
 		{
 			_status &= (strcmp(categories[i].name, category) != 0);
 		}
 	}
 
-	void Profiler::writeFrame(Vuint frame) const
+	void Profiler::writeFrame(uint frame) const
 	{
-		for (Vuint cat = 0; cat < _used_categories; cat++)
+		for (uint cat = 0; cat < _used_categories; cat++)
 		{
 			out_file << categories[cat].samples[frame];
 			out_file << getDelimiter(cat);
 		}
 	}
 
-	char Profiler::getDelimiter(Vuint index) const
+	char Profiler::getDelimiter(uint index) const
 	{
 		return ((index + 1) < _used_categories) ? ',' : '\n';
 	}
@@ -114,19 +114,19 @@ namespace Profiling
 		out_file.open(_filename, ios::trunc);
 
 		// Write category headers
-		for (Vuint i = 0; i < _used_categories; i++)
+		for (uint i = 0; i < _used_categories; i++)
 		{
 			out_file << categories[i].name;
 			out_file << getDelimiter(i);
 		}
 
-		Vuint end_index;
-		Vuint start_index;
+		uint end_index;
+		uint start_index;
 
 		if (wrapped())
 		{
-			Vuint end_index = _frame_index % MAX_FRAME_SAMPLES;
-			Vuint start_index = (end_index + 1) % MAX_FRAME_SAMPLES;
+			uint end_index = _frame_index % MAX_FRAME_SAMPLES;
+			uint start_index = (end_index + 1) % MAX_FRAME_SAMPLES;
 
 			while (start_index != end_index)
 			{
@@ -140,7 +140,7 @@ namespace Profiling
 		}
 		else
 		{
-			Vuint num_actual_frames = _frame_index;
+			uint num_actual_frames = _frame_index;
 			if (currentFrameComplete())
 			{
 				num_actual_frames++;

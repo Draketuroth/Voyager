@@ -75,6 +75,30 @@
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="QtCustomWidgets\Widget.cpp">
+      <Filter>Source Files\QtCustomWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="QtCustomWidgets\DebugSlider.cpp">
+      <Filter>Source Files\QtCustomWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="QtCustomWidgets\DebugSlider_moc.cpp">
+      <Filter>Source Files\QtCustomWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="QtCustomWidgets\Widget_moc.cpp">
+      <Filter>Source Files\QtCustomWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Shading\DebugHelper.cpp">
+      <Filter>Source Files\Shading</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\GLRenderer.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Shading\ShaderProgram.cpp">
+      <Filter>Source Files\Shading</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Renderable.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Includes\Graphics\GL\glassert.h">
@@ -97,6 +121,27 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Graphics\Camera\Camera.h">
       <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\QtCustomWidgets\Widget.h">
+      <Filter>Header Files\QtCustomWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\QtCustomWidgets\DebugSlider.h">
+      <Filter>Header Files\QtCustomWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Datatypes\Model.h">
+      <Filter>Header Files\Datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Shading\DebugHelper.h">
+      <Filter>Header Files\Shading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Rendering\Renderable.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Rendering\GLRenderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Shading\ShaderProgram.h">
+      <Filter>Header Files\Shading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

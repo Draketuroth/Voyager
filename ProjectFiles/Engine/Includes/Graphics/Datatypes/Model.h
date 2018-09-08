@@ -1,25 +1,22 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name: Vertex.h
+// Name: Model.h
 // Module: Graphics
 // Author: Fredrik Linde
-// Created on: Aug 30, 2018
-// Description: Voyager vertex datatypes
+// Created on: Sep 8, 2018
+// Description: Struct for Model View Component pattern.
 //============================================================================
 
-#ifndef VE_GRAPHICS_VERTEX_H
-#define VE_GRAPHICS_VERTEX_H
+#ifndef VE_GRAPHICS_MODEL_H
+#define VE_GRAPHICS_MODEL_H
 
-#include <Math/Vector/Vector3D.h>
 #include <glm.hpp>
 
 namespace Graphics
 {
-	struct Vertex
+	struct Model
 	{
-		glm::vec3 position;
-		glm::vec3 color;
-		glm::vec3 normal;
+		glm::vec3 light_position;
 	};
 }
 

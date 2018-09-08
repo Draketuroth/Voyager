@@ -10,7 +10,7 @@
 #ifndef VE_CORE_TYPEDEFS_H
 #define VE_CORE_TYPEDEFS_H
 
-typedef unsigned int Vuint;
-typedef unsigned int Vushort;
+typedef unsigned int uint;
+typedef unsigned int ushort;
 
 #endif

@@ -10,6 +10,7 @@
 #ifndef VE_GRAPHICS_SHADER_H
 #define VE_GRAPHICS_SHADER_H
 
+#include <gl/glew.h>
 #include <string>
 
 #if defined DLL_EXPORT_GRAPHICS
@@ -27,7 +28,17 @@ namespace Graphics
 		Shader();
 		~Shader();
 
+		GLuint getID() const;
+		GLenum getType() const;
+
+		bool initialize(const char* file_name, const GLenum type);
+		bool shutdown();
+	private:
 		std::string readShaderCode(const char* file_name);
+		bool checkShaderStatus(GLuint shader_id);
+
+		GLuint _id;
+		GLenum _type;
 	};
 }
 #endif
