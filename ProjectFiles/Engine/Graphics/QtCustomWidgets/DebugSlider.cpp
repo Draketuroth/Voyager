@@ -18,8 +18,10 @@ namespace Graphics
 	DebugSlider::DebugSlider(float value, float min, float max, bool text_left_align, float granularity)
 	{
 		QLayout* layout;
+
 		_min = min;
 		_max = max;
+
 		_slider_granularity = granularity;
 		setLayout(layout = text_left_align ? (QLayout*)new QHBoxLayout : new QVBoxLayout);
 		layout->addWidget(_label = new QLabel);
@@ -30,6 +32,7 @@ namespace Graphics
 		_slider->setMinimum(0);
 		_slider->setMaximum(_slider_granularity);
 		connect(_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged()));
+		setValue(value);
 	}
 
 	float DebugSlider::value() const

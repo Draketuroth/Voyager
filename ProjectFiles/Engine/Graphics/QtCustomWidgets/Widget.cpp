@@ -27,9 +27,9 @@ namespace Graphics
 
 		QHBoxLayout* light_position_layout;
 		controls_layout->addLayout(light_position_layout = new QHBoxLayout);
-		light_position_layout->addWidget(_light_x_slider = new DebugSlider);
-		light_position_layout->addWidget(_light_y_slider = new DebugSlider(3, 0));
-		light_position_layout->addWidget(_light_z_slider = new DebugSlider);
+		light_position_layout->addWidget(_light_x_slider = new DebugSlider(0.0f, -100.0f, 100.0f, true, 100.0f));
+		light_position_layout->addWidget(_light_y_slider = new DebugSlider(3.0f, -100.0f, 100.0f, true, 100.0f));
+		light_position_layout->addWidget(_light_z_slider = new DebugSlider(0.0f, -100.0f, 100.0f, true, 100.0f));
 
 		connect(_light_x_slider, SIGNAL(valueChanged(float)), this, SLOT(sliderValueChanged()));
 		connect(_light_y_slider, SIGNAL(valueChanged(float)), this, SLOT(sliderValueChanged()));
