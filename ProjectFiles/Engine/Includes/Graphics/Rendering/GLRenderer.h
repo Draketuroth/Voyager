@@ -20,6 +20,7 @@
 #include <Graphics/Rendering/Renderable.h>
 #include <Graphics/Shading/ShaderProgram.h>
 #include <Graphics/Camera/Camera.h>
+#include <Graphics/Texture/Texture.h>
 
 namespace Math { struct Vector3D; }
 
@@ -49,7 +50,7 @@ namespace Graphics
 
 		Geometry* addGeometry(
 			Vertex* vertices, uint num_vertices,
-			GLushort* indices, uint num_indices, GLenum render_mode = GL_TRIANGLES);
+			ushort* indices, uint num_indices, GLenum render_mode = GL_TRIANGLES);
 
 		void addRenderable(Geometry geometry, glm::mat4 transform);
 
@@ -74,6 +75,8 @@ namespace Graphics
 
 		Geometry _geometries[NUM_MAX_GEOMETRIES];
 		Renderable _renderables[NUM_MAX_RENDERABLES];
+
+		Texture* _texture;
 
 		ShaderProgram* _program;
 	};

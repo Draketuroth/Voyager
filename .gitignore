@@ -34,6 +34,10 @@
 # External Folders
 External/
 
+# Redundant folders
+Textures/
+Build/
+
 # Files built by Visual Studio
 *_i.c
 *_p.c

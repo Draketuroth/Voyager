@@ -22,9 +22,6 @@ int main(int argc, char* argv[])
 	Graphics::Widget widget;
 	widget.resize(1024, 768);
 	widget.show();
-	// Graphics::GLWindow window;
-	// window.resize(QSize(1024, 768));
-	// window.show();
 	
 	int error_code = application.exec();
 

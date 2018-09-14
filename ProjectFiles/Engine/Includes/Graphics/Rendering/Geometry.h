@@ -12,23 +12,22 @@
 
 #include <gl/glew.h>
 #include <Graphics/Primitives/Vertex.h>
+#include <Core/Misc/TypeDefs.h>
 
 namespace Graphics
 {
-#ifdef OPENGL_ACTIVE_RENDERER
-
 	struct Geometry
 	{
 		Geometry() : vertices(nullptr), num_vertices(0), indices(nullptr), num_indices(0) {}
 
 		Vertex* vertices;
 		GLuint num_vertices;
-		GLushort* indices;
+		ushort* indices;
 		GLuint num_indices;
 		GLenum render_mode;
 
 		GLsizeiptr vertexBufferSize() const { return num_vertices * sizeof(Vertex); }
-		GLsizeiptr indexBufferSize() const { return num_indices * sizeof(GLushort); }
+		GLsizeiptr indexBufferSize() const { return num_indices * sizeof(ushort); }
 		void release() 
 		{ 
 		delete[] vertices; 
@@ -37,7 +36,6 @@ namespace Graphics
 		}
 
 	};
-#endif
 }
 
 #endif

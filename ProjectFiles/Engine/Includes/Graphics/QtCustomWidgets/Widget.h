@@ -10,7 +10,7 @@
 #ifndef VE_GRAPHICS_WIDGET_H
 #define VE_GRAPHICS_WIDGET_H
 
-#include <QtWidgets\qwidget.h>
+#include <QtWidgets/qwidget.h>
 #include <Graphics/Datatypes/Model.h>
 
 #if defined DLL_EXPORT_GRAPHICS

@@ -45,7 +45,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -76,6 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)\Build\$(Platform)\$(Configuration)\</OutDir>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -89,8 +90,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\External\glew\include\;$(SolutionDir)..\External\Qt\include\;$(SolutionDir)..\External\glm\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DLL_EXPORT_GRAPHICS;OPENGL_ACTIVE_RENDERER;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\External\glew\include\;$(SolutionDir)..\External\Qt\include\;$(SolutionDir)..\External\glm\;$(SolutionDir)..\External\stb\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DLL_EXPORT_GRAPHICS;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\External\Qt\lib\x64\Debug;$(SolutionDir)..\External\glew\lib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -125,7 +126,8 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32d.dll" "$(OutDir)"<
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\External\glew\include\;$(SolutionDir)..\External\Qt\include\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\External\glew\include\;$(SolutionDir)..\External\Qt\include\;$(SolutionDir)..\External\glm\;$(SolutionDir)..\External\stb\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DLL_EXPORT_GRAPHICS;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -134,12 +136,12 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32d.dll" "$(OutDir)"<
       <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5OpenGL.lib;Qt5Widgets.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Core.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Gui.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5OpenGL.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Widgets.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Test.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Core.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Gui.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5OpenGL.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Widgets.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Test.dll" "$(OutDir)"
+xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Release\glew32.dll" "$(OutDir)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -155,6 +157,7 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32.dll" "$(OutDir)"</
     <ClCompile Include="Shading\DebugHelper.cpp" />
     <ClCompile Include="Shading\ShaderProgram.cpp" />
     <ClCompile Include="Shading\Shader.cpp" />
+    <ClCompile Include="Texture\Texture.cpp" />
     <ClCompile Include="Window\GLWIndow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +174,7 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32.dll" "$(OutDir)"</
     <ClInclude Include="..\Includes\Graphics\Shading\DebugHelper.h" />
     <ClInclude Include="..\Includes\Graphics\Shading\ShaderProgram.h" />
     <ClInclude Include="..\Includes\Graphics\Shading\Shader.h" />
+    <ClInclude Include="..\Includes\Graphics\Texture\Texture.h" />
     <ClInclude Include="..\Includes\Graphics\Window\GLWindow.h" />
   </ItemGroup>
   <ItemGroup>

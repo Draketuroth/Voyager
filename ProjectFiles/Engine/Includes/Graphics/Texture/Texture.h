@@ -1,17 +1,16 @@
 //============================================================================
 // # VOYAGER ENGINE #
-// Name: Shader.h
+// Name: Texture.h
 // Module: Graphics
 // Author: Fredrik Linde
-// Created on: Aug 30, 2018
-// Description: OpenGL shader wrapper.
+// Created on: Sep 14, 2018
+// Description: OpenGL texture wrapper.
 //============================================================================
 
-#ifndef VE_GRAPHICS_SHADER_H
-#define VE_GRAPHICS_SHADER_H
+#ifndef VE_GRAPHICS_TEXTURE_H
+#define VE_GRAPHICS_TEXTURE_H
 
 #include <gl/glew.h>
-#include <string>
 
 #if defined DLL_EXPORT_GRAPHICS
 #define DECLDIR_R __declspec(dllexport)
@@ -21,24 +20,26 @@
 
 namespace Graphics
 {
-	class DECLDIR_R Shader
+	class DECLDIR_R Texture
 	{
 	public:
 
-		Shader();
-		~Shader();
+		Texture();
+		~Texture();
 
 		GLuint getID() const;
-		GLenum getType() const;
 
-		bool initialize(const char* file_name, const GLenum type);
+		bool initialize(const char* file_name);
 		bool shutdown();
+
 	private:
-		std::string readShaderCode(const char* file_name);
-		bool checkShaderStatus(GLuint shader_id);
 
 		GLuint _id;
-		GLenum _type;
+
+		int _width;
+		int _height;
+		int _num_channels;
 	};
 }
+
 #endif

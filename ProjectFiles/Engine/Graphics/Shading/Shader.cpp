@@ -4,7 +4,7 @@
 // Module: Graphics
 // Author: Fredrik Linde
 // Created on: Aug 30, 2018
-// Description: OpenGL shader container
+// Description: OpenGL shader wrapper.
 //============================================================================
 
 #include <fstream>

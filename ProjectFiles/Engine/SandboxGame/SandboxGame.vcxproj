@@ -78,6 +78,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)\Build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)\Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -115,7 +118,8 @@ xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5OpenGLd.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Widgetsd.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32d.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Debug\Qt5Testd.dll" "$(OutDir)"
-xcopy /s /i /y "$(ProjectDir)..\Graphics\Shaders" "$(OutDir)\Shaders"</Command>
+xcopy /s /i /y "$(ProjectDir)..\Graphics\Shaders" "$(OutDir)\Shaders"
+xcopy /s /i /y "$(ProjectDir)..\Graphics\Textures" "$(OutDir)\Textures"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -138,13 +142,13 @@ xcopy /s /i /y "$(ProjectDir)..\Graphics\Shaders" "$(OutDir)\Shaders"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\External\Qt\include\;$(SolutionDir)..\External\glew\include\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\External\Qt\include\;$(SolutionDir)..\External\glew\include\;$(SolutionDir)..\External\glm\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\External\Qt\lib\x64\Release;$(SolutionDir)..\External\glew\lib\x64\Release;$(ProjectDir)..\Core\Build\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Core.lib;Qt5Core.lib;Qt5Gui.lib;Qt5OpenGL.lib;Qt5Widgets.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\External\Qt\lib\x64\Release;$(SolutionDir)..\External\glew\lib\x64\Release;$(ProjectDir)..\Core\Build\$(Platform)\$(Configuration)\;$(ProjectDir)..\Graphics\Build\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Core.lib;Graphics.lib;Qt5Core.lib;Qt5Gui.lib;Qt5OpenGL.lib;Qt5Widgets.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -152,12 +156,15 @@ xcopy /s /i /y "$(ProjectDir)..\Graphics\Shaders" "$(OutDir)\Shaders"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>xcopy /y "$(ProjectDir)..\Core\Build\$(Platform)\$(Configuration)\Core.dll" "$(OutDir)"
+xcopy /y "$(ProjectDir)..\Graphics\Build\$(Platform)\$(Configuration)\Graphics.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Core.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Gui.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5OpenGL.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Widgets.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Release\glew32.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Test.dll" "$(OutDir)"</Command>
+xcopy /y "$(SolutionDir)..\External\Qt\bin\x64\Release\Qt5Test.dll" "$(OutDir)"
+xcopy /s /i /y "$(ProjectDir)..\Graphics\Shaders" "$(OutDir)\Shaders"
+xcopy /s /i /y "$(ProjectDir)..\Graphics\Textures" "$(OutDir)\Textures"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

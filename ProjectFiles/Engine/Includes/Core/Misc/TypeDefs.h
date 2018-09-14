@@ -11,6 +11,6 @@
 #define VE_CORE_TYPEDEFS_H
 
 typedef unsigned int uint;
-typedef unsigned int ushort;
+typedef unsigned short ushort;
 
 #endif

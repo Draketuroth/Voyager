@@ -11,6 +11,7 @@
 #define VE_GRAPHICS_GEOMETRYGENERATOR_H
 
 #include <Graphics/Rendering/Geometry.h>
+#include <Core/Misc/TypeDefs.h>
 
 namespace Graphics
 {
@@ -19,13 +20,12 @@ namespace Graphics
 	public:
 		static Geometry makeTriangle();
 		static Geometry makeCube();
-		static Geometry makeArrow();
-		static Geometry makePlane(unsigned int dimensions = 10);
+		static Geometry makePlane(uint dimensions = 10);
 		static Geometry generateNormals(const Geometry& data);
 
 	private:
-		static Geometry makePlaneVerts(unsigned int dimensions);
-		static Geometry makePlaneIndices(unsigned int dimensions);
+		static Geometry makePlaneVerts(uint dimensions);
+		static Geometry makePlaneIndices(uint dimensions);
 	};
 }
 

@@ -26,7 +26,7 @@ using glm::mat4;
 
 using Math::Vector3D;
 
-const uint VERTEX_BYTE_SIZE = 9 * sizeof(float);
+const uint VERTEX_BYTE_SIZE = 8 * sizeof(float);
 
 namespace Graphics
 {
@@ -37,6 +37,9 @@ namespace Graphics
 
 	bool GLRenderer::initialize()
 	{
+		_texture = new Texture();
+		_texture->initialize("Textures\\uv_test.jpg");
+
 		_width = 0;
 		_height = 0;
 		return true;
@@ -44,7 +47,12 @@ namespace Graphics
 
 	bool GLRenderer::shutdown()
 	{
+		_texture->shutdown();
+		delete _texture;
+		_texture = nullptr;
+
 		_program = nullptr;
+
 		return true;
 	}
 
@@ -95,6 +103,7 @@ namespace Graphics
 			glUniform3fv(_program->_light_uniform_location, 1, &light_position_world[0]);
 
 			// Renderable Geometry.
+			glBindTexture(GL_TEXTURE_2D, _texture->getID());
 			glBindVertexArray(r._geometry_vao_ID);
 			mvp_matrix = world_to_proj * r.transform;
 			glUniformMatrix4fv(_program->_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
@@ -111,7 +120,7 @@ namespace Graphics
 
 	Geometry* GLRenderer::addGeometry(
 		Vertex* vertices, uint num_vertices,
-		GLushort* indices, uint num_indices, GLenum render_mode)
+		ushort* indices, uint num_indices, GLenum render_mode)
 	{
 		assert(_num_geometries != NUM_MAX_GEOMETRIES);
 		Geometry& g = _geometries[_num_geometries++];
@@ -179,7 +188,7 @@ namespace Graphics
 		glBindBuffer(GL_ARRAY_BUFFER, buffer_id);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, 0);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, (void*)(sizeof(float) * 3));
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, (void*)(sizeof(float) * 6));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, VERTEX_BYTE_SIZE, (void*)(sizeof(float) * 6));
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer_id);
 	}
 

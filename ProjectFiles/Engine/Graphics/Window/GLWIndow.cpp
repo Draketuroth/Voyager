@@ -65,13 +65,20 @@ namespace Graphics
 	bool GLWindow::shutdown()
 	{
 		_vertex_shader->shutdown();
+		delete _vertex_shader;
 		_vertex_shader = nullptr;
 
 		_fragment_shader->shutdown();
+		delete _fragment_shader;
 		_vertex_shader = nullptr;
 
 		_program->shutdown();
+		delete _program;
 		_program = nullptr;
+
+		_renderer->shutdown();
+		delete _renderer;
+		_renderer = nullptr;
 
 		return true;
 	}
@@ -125,9 +132,9 @@ namespace Graphics
 		GLuint _program_ID = _program->getID();
 
 		// If the linker binds the attributes, make sure to query and verify their location!
-		GLint position_location = glGetAttribLocation(_program_ID, "vertex_position");
-		GLint color_location = glGetAttribLocation(_program_ID, "vertex_color");
-		GLint transform_location = glGetAttribLocation(_program_ID, "vertex_normal");
+		GLint position_location = glGetAttribLocation(_program_ID, "vertex_position_model");
+		GLint transform_location = glGetAttribLocation(_program_ID, "vertex_normal_model");
+		GLint uv_location = glGetAttribLocation(_program_ID, "vertex_uv");
 
 		_program->use();
 		_renderer->setProgram(_program);

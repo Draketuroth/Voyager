@@ -58,6 +58,12 @@
     <Filter Include="Source Files\QtCustomWidgets">
       <UniqueIdentifier>{b774eef3-46e9-4f2c-ab6d-9e910aa7d6f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Texture">
+      <UniqueIdentifier>{f6fbf50b-101f-4393-970c-cf16f48124b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Texture">
+      <UniqueIdentifier>{31317c0f-02dd-44d5-9331-efb98669dc71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="Rendering\Renderable.cpp">
       <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture\Texture.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Graphics\Shading\ShaderProgram.h">
       <Filter>Header Files\Shading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Texture\Texture.h">
+      <Filter>Header Files\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

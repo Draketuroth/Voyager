@@ -157,8 +157,8 @@ TEST(Vector3D, ProjectOnto)
 		Vector3D(-3.2f, -4.9f, 6.7f),
 		Vector3D(2.4f,3.1f, -99.6f)
 	};
-	const Vuint NUM_VECTORS = sizeof(vectors) / sizeof(*vectors);
-	for (Vuint i = 0; i < NUM_VECTORS - 1; i++)
+	const uint NUM_VECTORS = sizeof(vectors) / sizeof(*vectors);
+	for (uint i = 0; i < NUM_VECTORS - 1; i++)
 	{
 		testProjectionAlgorithms(vectors[i], vectors[i + 1]);
 		testProjectionAlgorithms(vectors[i + 1], vectors[i]);
