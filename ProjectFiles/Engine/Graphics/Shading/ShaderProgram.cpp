@@ -10,16 +10,18 @@
 #include <Graphics/Shading/ShaderProgram.h>
 #include <Graphics/Shading/DebugHelper.h>
 
+#include <QtCore/qdebug.h>
+
 namespace Graphics
 {
 	ShaderProgram::ShaderProgram()
 	{
-
+		qDebug() << "Created ShaderProgram";
 	}
 
 	ShaderProgram::~ShaderProgram()
 	{
-
+		qDebug() << "Destroyed ShaderProgram";
 	}
 
 	bool ShaderProgram::initialize()
@@ -35,6 +37,7 @@ namespace Graphics
 		_ambient_uniform_location = glGetUniformLocation(_id, "ambient_light");
 		_light_uniform_location = glGetUniformLocation(_id, "light_position_world");
 		_camera_position_uniform_location = glGetUniformLocation(_id, "eye_position_world");
+		_diffuse_color_uniform_location = glGetUniformLocation(_id, "diffuse_color");
 	}
 
 	bool ShaderProgram::shutdown()
@@ -71,25 +74,36 @@ namespace Graphics
 		return _id;
 	}
 
-	void ShaderProgram::setShader(Shader* shader)
+	bool ShaderProgram::setVertexShader(const std::shared_ptr<Shader>& shader)
 	{
-		switch (shader->getType())
+		if (shader->getType() == GL_VERTEX_SHADER)
 		{
-		case GL_VERTEX_SHADER:
 			_vertex_shader = shader;
 			glAttachShader(_id, _vertex_shader->getID());
-			break;
+		}
+		return false;
+	}
 
-		case GL_GEOMETRY_SHADER:
+	bool ShaderProgram::setGeometryShader(const std::shared_ptr<Shader>& shader)
+	{
+		if (shader->getType() == GL_GEOMETRY_SHADER)
+		{
 			_geometry_shader = shader;
 			glAttachShader(_id, _geometry_shader->getID());
-			break;
+			return true;
+		}
+		return false;
+	}
 
-		case GL_FRAGMENT_SHADER:
+	bool ShaderProgram::setFragmentShader(const std::shared_ptr<Shader>& shader)
+	{
+		if (shader->getType() == GL_FRAGMENT_SHADER)
+		{
 			_fragment_shader = shader;
 			glAttachShader(_id, _fragment_shader->getID());
-			break;
+			return true;
 		}
+		return false;
 	}
 
 	bool ShaderProgram::checkProgramStatus(GLuint program_id)

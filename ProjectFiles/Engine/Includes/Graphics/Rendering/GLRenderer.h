@@ -38,14 +38,17 @@ namespace Graphics
 
 	public:
 		GLRenderer();
+		~GLRenderer();
 
 		bool initialize();
 		bool shutdown();
 		void update(float t);
-		void render(const Camera camera, Model* model);
+		void render(const Camera camera);
 		void resize(int width, int height);
 
-		void setProgram(ShaderProgram* program);
+		void setProgram(const std::shared_ptr<ShaderProgram> &program);
+		void setModelView(Model* model);
+
 		void updateViewport(const int width, const int height);
 
 		Geometry* addGeometry(
@@ -77,8 +80,10 @@ namespace Graphics
 		Renderable _renderables[NUM_MAX_RENDERABLES];
 
 		Texture* _texture;
+		bool switch_color;
 
-		ShaderProgram* _program;
+		Model* _model;
+		std::shared_ptr<ShaderProgram> _program;
 	};
 
 }

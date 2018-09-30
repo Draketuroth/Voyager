@@ -15,6 +15,8 @@
 #include <Graphics/Camera/Camera.h>
 #include <Graphics/Rendering/GLRenderer.h>
 
+#include <memory.h>
+
 #if defined DLL_EXPORT_GRAPHICS
 #define DECLDIR_R __declspec(dllexport)
 #else
@@ -47,16 +49,14 @@ namespace Graphics
 
 	private:
 
-		Model* _model;
-
 		// Shader objects.
-		Shader* _vertex_shader;
-		Shader* _fragment_shader;
+		std::shared_ptr<Shader> _vertex_shader;
+		std::shared_ptr<Shader> _fragment_shader;
 
 		// Shader program objects.
-		ShaderProgram* _program;
+		std::shared_ptr<ShaderProgram> _program;
 
-		GLRenderer* _renderer;
+		std::unique_ptr<GLRenderer> _renderer;
 
 		// Indices.
 		GLuint _plane_num_indices;

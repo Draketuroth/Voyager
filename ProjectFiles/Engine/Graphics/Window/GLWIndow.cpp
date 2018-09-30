@@ -47,14 +47,17 @@ namespace Graphics
 		glCheckError();
 	}
 
-	GLWindow::GLWindow(Model* model) : _model(model)
+	GLWindow::GLWindow(Model* model)
 	{
+		_renderer = std::make_unique<GLRenderer>();
+		_renderer->setModelView(model);
 
+		qDebug() << "Created GLWindow";
 	}
 
 	GLWindow::~GLWindow()
 	{
-
+		qDebug() << "Destroyed GLWindow";
 	}
 
 	bool GLWindow::initialize()
@@ -65,20 +68,14 @@ namespace Graphics
 	bool GLWindow::shutdown()
 	{
 		_vertex_shader->shutdown();
-		delete _vertex_shader;
 		_vertex_shader = nullptr;
 
 		_fragment_shader->shutdown();
-		delete _fragment_shader;
-		_vertex_shader = nullptr;
+		_fragment_shader = nullptr;
 
 		_program->shutdown();
-		delete _program;
-		_program = nullptr;
 
 		_renderer->shutdown();
-		delete _renderer;
-		_renderer = nullptr;
 
 		return true;
 	}
@@ -97,7 +94,6 @@ namespace Graphics
 		mat4 plane_model_to_world = glm::translate(vec3(0.5f, 0.0f, 0.0f));
 		Geometry plane_normals = GeometryGenerator::generateNormals(plane);
 
-		_renderer = new GLRenderer();
 		_renderer->initialize();
 
 		_renderer->addRenderable(cube, cube_1_model_to_world);
@@ -109,15 +105,16 @@ namespace Graphics
 
 	void GLWindow::initializeShaders()
 	{
-		_vertex_shader = new Shader();
+
+		_vertex_shader = std::make_shared<Shader>();
 		_vertex_shader->initialize("Shaders\\vertex.glsl", GL_VERTEX_SHADER);
-		_fragment_shader = new Shader();
+		_fragment_shader = std::make_shared<Shader>();
 		_fragment_shader->initialize("Shaders\\fragment.glsl", GL_FRAGMENT_SHADER);
 
-		_program = new ShaderProgram();
+		_program = std::make_shared<ShaderProgram>();
 		_program->initialize();
-		_program->setShader(_vertex_shader);
-		_program->setShader(_fragment_shader);
+		_program->setVertexShader(_vertex_shader);
+		_program->setFragmentShader(_fragment_shader);
 
 		// Explicitly bind the vertex attributes.
 		// layout(location = N) is not necessary in shader.
@@ -157,7 +154,7 @@ namespace Graphics
 	void GLWindow::paintGL()
 	{
 		_renderer->updateViewport(width(), height());
-		_renderer->render(_camera, _model);
+		_renderer->render(_camera);
 	}
 
 	void GLWindow::mouseMoveEvent(QMouseEvent* e)

@@ -17,6 +17,7 @@ namespace Graphics
 	struct Model
 	{
 		glm::vec3 light_position;
+		float lerp_value;
 	};
 }
 

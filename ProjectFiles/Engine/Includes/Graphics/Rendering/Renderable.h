@@ -14,6 +14,9 @@
 #include <glm.hpp>
 
 #include <Graphics/Rendering/Geometry.h>
+#include <Graphics/Texture/Texture.h>
+
+#include <memory.h>
 
 namespace Graphics
 {
@@ -38,6 +41,8 @@ namespace Graphics
 
 		Geometry _normal;
 		GLuint _normal_vao_ID;
+
+
 	};
 }
 

@@ -18,7 +18,6 @@ namespace Graphics
 	DebugSlider::DebugSlider(float value, float min, float max, bool text_left_align, float granularity)
 	{
 		QLayout* layout;
-
 		_min = min;
 		_max = max;
 
@@ -29,6 +28,7 @@ namespace Graphics
 		layout->addWidget(_slider = new QSlider);
 		_label->setAlignment(Qt::AlignCenter);
 		_slider->setOrientation(Qt::Horizontal);
+		_slider->setMinimumWidth(100);
 		_slider->setMinimum(0);
 		_slider->setMaximum(_slider_granularity);
 		connect(_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged()));

@@ -13,10 +13,14 @@
 
 #include <Graphics/Datatypes/Model.h>
 
+#include <Math/Utilz.h>
+
 #include <glm.hpp>
 
 #include <gtc/matrix_transform.hpp>
 #include <gtx/transform.hpp>
+
+#include <QtCore/qdebug.h>
 
 #include <cassert>
 
@@ -28,11 +32,18 @@ using Math::Vector3D;
 
 const uint VERTEX_BYTE_SIZE = 8 * sizeof(float);
 
+vec3 color;
+
 namespace Graphics
 {
 	GLRenderer::GLRenderer()
 	{
+		qDebug() << "Created GLRenderer";
+	}
 
+	GLRenderer::~GLRenderer()
+	{
+		qDebug() << "Destroyed GLRenderer";
 	}
 
 	bool GLRenderer::initialize()
@@ -42,6 +53,10 @@ namespace Graphics
 
 		_width = 0;
 		_height = 0;
+
+		color = vec3(0.0f, 0.0f, 0.0f);
+		switch_color = false;
+
 		return true;
 	}
 
@@ -66,9 +81,14 @@ namespace Graphics
 		glViewport(0, 0, width, height);
 	}
 
-	void GLRenderer::setProgram(ShaderProgram* program)
+	void GLRenderer::setProgram(const std::shared_ptr<ShaderProgram> &program)
 	{
 		_program = program;
+	}
+
+	void GLRenderer::setModelView(Model* model)
+	{
+		_model = model;
 	}
 
 	void GLRenderer::updateViewport(const int width, const int height)
@@ -79,7 +99,7 @@ namespace Graphics
 	}
 
 	// Replaced paint event. 
-	void GLRenderer::render(const Camera camera, Model* model)
+	void GLRenderer::render(const Camera camera)
 	{
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -93,13 +113,18 @@ namespace Graphics
 		{
 			const Renderable& r = _renderables[i];
 
+			float lerp_factor = _model->lerp_value;
+
+			color = vec3(Math::lerp(0.0f, 1.0f, lerp_factor), Math::lerp(0.0f, 1.0f, 1 - lerp_factor), 0.0f);
+			glUniform3fv(_program->_diffuse_color_uniform_location, 1, &color[0]);
+			
 			vec3 eye_position = camera.getPosition();
 			glUniform3fv(_program->_camera_position_uniform_location, 1, &eye_position[0]);
 
 			vec4 ambient_light(0.05f, 0.05f, 0.05f, 1.0f);
 			glUniform4fv(_program->_ambient_uniform_location, 1, &ambient_light[0]);
 
-			vec3 light_position_world = model->light_position;
+			vec3 light_position_world = _model->light_position;
 			glUniform3fv(_program->_light_uniform_location, 1, &light_position_world[0]);
 
 			// Renderable Geometry.
@@ -108,7 +133,7 @@ namespace Graphics
 			mvp_matrix = world_to_proj * r.transform;
 			glUniformMatrix4fv(_program->_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
 			glUniformMatrix4fv(_program->_world_uniform_location, 1, GL_FALSE, &r.transform[0][0]);
-			glDrawElements(GL_TRIANGLES, r._geometry.num_indices, GL_UNSIGNED_SHORT, (void*)r._geometry_index_byte_offset);
+			glDrawElements(r._geometry.render_mode, r._geometry.num_indices, GL_UNSIGNED_SHORT, (void*)r._geometry_index_byte_offset);
 
 			// Renderable Normal.
 			// glBindVertexArray(_cube_normal_vao_ID);
@@ -138,7 +163,10 @@ namespace Graphics
 		Renderable& r = _renderables[_num_renderables++];
 
 		r._geometry = geometry;
+		r._geometry.render_mode = GL_TRIANGLES;
+
 		r._normal = GeometryGenerator::generateNormals(r._geometry);
+		r._normal.render_mode = GL_LINES;
 
 		r.transform = transform;
 

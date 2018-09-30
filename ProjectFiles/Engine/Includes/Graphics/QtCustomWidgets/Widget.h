@@ -13,6 +13,8 @@
 #include <QtWidgets/qwidget.h>
 #include <Graphics/Datatypes/Model.h>
 
+#include <memory>
+
 #if defined DLL_EXPORT_GRAPHICS
 #define DECLDIR_R __declspec(dllexport)
 #else
@@ -38,8 +40,9 @@ namespace Graphics
 		DebugSlider* _light_x_slider;
 		DebugSlider* _light_y_slider;
 		DebugSlider* _light_z_slider;
+		DebugSlider* _lerp_slider;
 
-		GLWindow* _gl_window;
+		std::unique_ptr<GLWindow> _gl_window;
 
 		Model _model;
 	};

@@ -9,6 +9,7 @@ in vec2 uv;
 uniform vec3 light_position_world;
 uniform vec4 ambient_light;
 uniform vec3 eye_position_world;
+uniform vec3 diffuse_color;
 
 uniform sampler2D surface_texture;
 
@@ -43,6 +44,6 @@ void main()
 	specularity_coefficient = pow(specularity_coefficient, 50);
 	vec3 specular_light = vec3(1.0f, 1.0f, 1.0f) * specularity_coefficient * attenuation;
 
-	final_color = (ambient_light + vec4(diffuse_light, 1.0f) + vec4(specular_light, 1.0f)) * surface_color;
+	final_color = (ambient_light + vec4(diffuse_light, 1.0f) + vec4(specular_light, 1.0f)) * diffuse_color;
 	// final_color = surface_color;
 }
