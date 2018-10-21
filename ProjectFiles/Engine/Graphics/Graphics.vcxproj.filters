@@ -64,6 +64,12 @@
     <Filter Include="Source Files\Texture">
       <UniqueIdentifier>{31317c0f-02dd-44d5-9331-efb98669dc71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interfaces">
+      <UniqueIdentifier>{56147c01-d933-49cb-a073-a74ce949dfe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interfaces">
+      <UniqueIdentifier>{528f429d-7f2d-43a9-93f0-2b0815b06af0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="Texture\Texture.cpp">
       <Filter>Source Files\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaces\IRenderBackend.cpp">
+      <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="..\Includes\Graphics\Texture\Texture.h">
       <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Interfaces\IRenderBackend.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Graphics\Datatypes\Transform.h">
+      <Filter>Header Files\Datatypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

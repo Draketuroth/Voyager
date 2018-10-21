@@ -14,15 +14,15 @@
 class QSlider;
 class QLabel;
 
-#if defined DLL_EXPORT_GRAPHICS
-#define DECLDIR_R __declspec(dllexport)
+#if defined DLL_EXPORT
+#define EXPORT __declspec(dllexport)
 #else
-#define DECLDIR_R __declspec(dllimport)
+#define EXPORT __declspec(dllimport)
 #endif
 
 namespace Graphics
 {
-	class DECLDIR_R DebugSlider : public QWidget
+	class EXPORT DebugSlider : public QWidget
 	{
 		Q_OBJECT
 

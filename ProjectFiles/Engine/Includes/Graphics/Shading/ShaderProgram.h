@@ -23,15 +23,14 @@ namespace Graphics
 
 		bool initialize();
 		void initializeUniforms();
-		bool shutdown();
 
 		bool link();
 		void use();
 
 		GLuint getID() const;
-		bool setVertexShader(const std::shared_ptr<Shader> &shader);
-		bool setGeometryShader(const std::shared_ptr<Shader> &shader);
-		bool setFragmentShader(const std::shared_ptr<Shader> &shader);
+		bool setVertexShader(std::unique_ptr<Shader> shader);
+		bool setGeometryShader(std::unique_ptr<Shader> shader);
+		bool setFragmentShader(std::unique_ptr<Shader> shader);
 
 		GLuint _mvp_uniform_location;
 		GLuint _world_uniform_location;
@@ -44,9 +43,9 @@ namespace Graphics
 
 		bool checkProgramStatus(GLuint program_id);
 
-		std::shared_ptr<Shader> _vertex_shader;
-		std::shared_ptr<Shader> _geometry_shader;
-		std::shared_ptr<Shader> _fragment_shader;
+		std::unique_ptr<Shader> _vertex_shader;
+		std::unique_ptr<Shader> _geometry_shader;
+		std::unique_ptr<Shader> _fragment_shader;
 
 		GLuint _id;
 	};

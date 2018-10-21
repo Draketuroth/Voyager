@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)..\External\glew\include\;$(SolutionDir)..\External\Qt\include\;$(SolutionDir)..\External\glm\;$(SolutionDir)..\External\stb\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DLL_EXPORT_GRAPHICS;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DLL_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\External\Qt\lib\x64\Debug;$(SolutionDir)..\External\glew\lib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -127,7 +127,7 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Debug\glew32d.dll" "$(OutDir)"<
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)..\External\glew\include\;$(SolutionDir)..\External\Qt\include\;$(SolutionDir)..\External\glm\;$(SolutionDir)..\External\stb\;$(ProjectDir)..\Includes\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DLL_EXPORT_GRAPHICS;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DLL_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -146,6 +146,7 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Release\glew32.dll" "$(OutDir)"
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="Interfaces\IRenderBackend.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Primitives\GeometryGenerator.cpp" />
     <ClCompile Include="QtCustomWidgets\DebugSlider.cpp" />
@@ -163,7 +164,9 @@ xcopy /y "$(SolutionDir)..\External\glew\bin\x64\Release\glew32.dll" "$(OutDir)"
   <ItemGroup>
     <ClInclude Include="..\Includes\Graphics\Camera\Camera.h" />
     <ClInclude Include="..\Includes\Graphics\Datatypes\Model.h" />
+    <ClInclude Include="..\Includes\Graphics\Datatypes\Transform.h" />
     <ClInclude Include="..\Includes\Graphics\GL\glassert.h" />
+    <ClInclude Include="..\Includes\Graphics\Interfaces\IRenderBackend.h" />
     <ClInclude Include="..\Includes\Graphics\Primitives\GeometryGenerator.h" />
     <ClInclude Include="..\Includes\Graphics\Primitives\Vertex.h" />
     <ClInclude Include="..\Includes\Graphics\QtCustomWidgets\DebugSlider.h" />

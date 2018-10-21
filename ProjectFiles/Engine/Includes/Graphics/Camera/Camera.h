@@ -18,8 +18,13 @@ namespace Graphics
 	{
 	public:
 		Camera();
+
 		glm::mat4 getViewMatrix() const;
+		glm::mat4 getProjectionMatrix() const;
 		glm::vec3 getPosition() const;
+
+		void setAspectRatio(const float ratio);
+
 		void mouseUpdate(const glm::vec2& new_mouse_pos);
 
 		void moveForward();
@@ -32,11 +37,12 @@ namespace Graphics
 	private:
 		glm::vec3 _position;
 		glm::vec3 _view_dir;
+		glm::vec3 _up;
 		glm::vec3 _right;
 
 		glm::vec2 _old_mouse_pos;
-		const glm::vec3 _up;
 		float _movement_speed;
+		float _aspect_ratio;
 	};
 }
 

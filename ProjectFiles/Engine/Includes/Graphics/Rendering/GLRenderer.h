@@ -11,51 +11,48 @@
 #define VE_GRAPHICS_GLRENDERER_H
 
 #include <gl/glew.h>
-#include <QtOpenGL/qgl.h>
-#include <QtGui/qopenglvertexarrayobject.h>
-#include <QtGui/qopenglshaderprogram.h>
-#include <QtGui/qopenglbuffer.h>
 
-#include <Graphics/Rendering/Geometry.h>
-#include <Graphics/Rendering/Renderable.h>
-#include <Graphics/Shading/ShaderProgram.h>
-#include <Graphics/Camera/Camera.h>
-#include <Graphics/Texture/Texture.h>
+#include <Graphics/Interfaces/IRenderBackend.h>
+
+#include <memory.h>
+
+#if defined DLL_EXPORT
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT __declspec(dllimport)
+#endif
 
 namespace Math { struct Vector3D; }
 
-#if defined DLL_EXPORT_GRAPHICS
-#define DECLDIR_R __declspec(dllexport)
-#else
-#define DECLDIR_R __declspec(dllimport)
-#endif
+namespace Graphics { struct Model; class Camera; class Texture; }
 
 namespace Graphics
 {
-	struct Model;
-	class DECLDIR_R GLRenderer
+	class EXPORT GLRenderer : public IRenderBackend
 	{
 
 	public:
 		GLRenderer();
 		~GLRenderer();
 
-		bool initialize();
-		bool shutdown();
-		void update(float t);
-		void render(const Camera camera);
-		void resize(int width, int height);
+		int initialize() override;
 
-		void setProgram(const std::shared_ptr<ShaderProgram> &program);
-		void setModelView(Model* model);
+		void update(float t) override;
+		int render() override;
+		void resize(int width, int height) override;
 
-		void updateViewport(const int width, const int height);
+		void setProgram(std::unique_ptr<ShaderProgram> program) override;
+		void setModelView(Model* model) override;
+		void setActiveCamera(Camera* camera) override;
+
+		void updateViewport(const int width, const int height) override;
+		void updateView() override;
 
 		Geometry* addGeometry(
 			Vertex* vertices, uint num_vertices,
 			ushort* indices, uint num_indices, GLenum render_mode = GL_TRIANGLES);
 
-		void addRenderable(Geometry geometry, glm::mat4 transform);
+		void addRenderable(Geometry g, Transform t) override;
 
 	private:
 
@@ -73,17 +70,22 @@ namespace Graphics
 		int _width;
 		int _height;
 
+		glm::mat4 view_to_proj;
+		glm::mat4 world_to_view;
+		glm::mat4 world_to_proj;
+
 		uint _num_geometries;
 		uint _num_renderables;
 
 		Geometry _geometries[NUM_MAX_GEOMETRIES];
 		Renderable _renderables[NUM_MAX_RENDERABLES];
 
-		Texture* _texture;
+		std::shared_ptr<Texture> _texture;
 		bool switch_color;
 
+		Camera* _active_camera;
 		Model* _model;
-		std::shared_ptr<ShaderProgram> _program;
+		std::unique_ptr<ShaderProgram> _program;
 	};
 
 }

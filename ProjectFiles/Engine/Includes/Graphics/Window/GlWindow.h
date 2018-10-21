@@ -9,32 +9,28 @@
 
 #ifndef VE_GRAPHICS_GLWINDOW_H
 #define VE_GRAPHICS_GLWINDOW_H
-#include <Graphics/Shading/Shader.h>
-#include <Graphics/Shading/ShaderProgram.h>
 #include <QtWidgets/qopenglwidget.h>
 #include <Graphics/Camera/Camera.h>
-#include <Graphics/Rendering/GLRenderer.h>
 
 #include <memory.h>
 
-#if defined DLL_EXPORT_GRAPHICS
-#define DECLDIR_R __declspec(dllexport)
+#if defined DLL_EXPORT
+#define EXPORT __declspec(dllexport)
 #else
-#define DECLDIR_R __declspec(dllimport)
+#define EXPORT __declspec(dllimport)
 #endif
+
+namespace Graphics { class ShaderProgram; class IRenderBackend; }
 
 namespace Graphics
 {
 	struct Model;
 
-	class DECLDIR_R GLWindow: public QOpenGLWidget
+	class EXPORT GLWindow: public QOpenGLWidget
 	{
 	public:
 		GLWindow(Model* model);
 		~GLWindow();
-
-		bool initialize();
-		bool shutdown();
 
 		void sendDataToOpenGL();
 
@@ -49,14 +45,7 @@ namespace Graphics
 
 	private:
 
-		// Shader objects.
-		std::shared_ptr<Shader> _vertex_shader;
-		std::shared_ptr<Shader> _fragment_shader;
-
-		// Shader program objects.
-		std::shared_ptr<ShaderProgram> _program;
-
-		std::unique_ptr<GLRenderer> _renderer;
+		IRenderBackend* _renderer;
 
 		// Indices.
 		GLuint _plane_num_indices;

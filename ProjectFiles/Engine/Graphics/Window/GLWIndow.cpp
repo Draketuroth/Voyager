@@ -22,6 +22,11 @@
 #include <Graphics/Primitives/GeometryGenerator.h>
 #include <Graphics/Datatypes/Model.h>
 
+#include <Graphics/Interfaces/IRenderBackend.h>
+
+#include <Graphics/Shading/ShaderProgram.h>
+#include <Graphics/Shading/Shader.h>
+
 #include <cassert>
 
 using Math::Vector3D;
@@ -49,8 +54,9 @@ namespace Graphics
 
 	GLWindow::GLWindow(Model* model)
 	{
-		_renderer = std::make_unique<GLRenderer>();
+		_renderer = Graphics::CreateGLRenderer();
 		_renderer->setModelView(model);
+		_renderer->setActiveCamera(&_camera);
 
 		qDebug() << "Created GLWindow";
 	}
@@ -60,38 +66,30 @@ namespace Graphics
 		qDebug() << "Destroyed GLWindow";
 	}
 
-	bool GLWindow::initialize()
-	{
-		return true;
-	}
-
-	bool GLWindow::shutdown()
-	{
-		_vertex_shader->shutdown();
-		_vertex_shader = nullptr;
-
-		_fragment_shader->shutdown();
-		_fragment_shader = nullptr;
-
-		_program->shutdown();
-
-		_renderer->shutdown();
-
-		return true;
-	}
-
 	void GLWindow::sendDataToOpenGL()
 	{
 		// Generate cube geometry.
 		Geometry cube = GeometryGenerator::makeCube();
-		mat4 cube_1_model_to_world =
-			glm::translate(vec3(-3.0f, 1.0f, -2.0f)) *
-			glm::rotate(0.0f, vec3(1.0f, 0.0f, 0.0f));
+		Transform cube_1_model_to_world =
+		{ 
+			-3.0f, 1.0f, -2.0f,
+			1.0f, 1.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 0.0f
+		};
+			// glm::translate(vec3(-3.0f, 1.0f, -2.0f)) *
+			// glm::rotate(0.0f, vec3(1.0f, 0.0f, 0.0f));
 		Geometry cube_normals = GeometryGenerator::generateNormals(cube);
 
 		// Generate plane geometry.
 		Geometry plane = GeometryGenerator::makePlane();
-		mat4 plane_model_to_world = glm::translate(vec3(0.5f, 0.0f, 0.0f));
+		Transform plane_model_to_world = 
+		{
+			0.5f, 0.0f, 0.0f,
+			1.0f, 1.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 0.0f
+		};
+			
+			//glm::translate(vec3(0.5f, 0.0f, 0.0f));
 		Geometry plane_normals = GeometryGenerator::generateNormals(plane);
 
 		_renderer->initialize();
@@ -105,16 +103,16 @@ namespace Graphics
 
 	void GLWindow::initializeShaders()
 	{
-
-		_vertex_shader = std::make_shared<Shader>();
+		std::unique_ptr<Shader> _vertex_shader = std::make_unique<Shader>();
 		_vertex_shader->initialize("Shaders\\vertex.glsl", GL_VERTEX_SHADER);
-		_fragment_shader = std::make_shared<Shader>();
+
+		std::unique_ptr<Shader> _fragment_shader = std::make_unique<Shader>();
 		_fragment_shader->initialize("Shaders\\fragment.glsl", GL_FRAGMENT_SHADER);
 
-		_program = std::make_shared<ShaderProgram>();
+		std::unique_ptr<ShaderProgram> _program = std::make_unique<ShaderProgram>();
 		_program->initialize();
-		_program->setVertexShader(_vertex_shader);
-		_program->setFragmentShader(_fragment_shader);
+		_program->setVertexShader(std::move(_vertex_shader));
+		_program->setFragmentShader(std::move(_fragment_shader));
 
 		// Explicitly bind the vertex attributes.
 		// layout(location = N) is not necessary in shader.
@@ -134,7 +132,7 @@ namespace Graphics
 		GLint uv_location = glGetAttribLocation(_program_ID, "vertex_uv");
 
 		_program->use();
-		_renderer->setProgram(_program);
+		_renderer->setProgram(std::move(_program));
 	}
 
 	void GLWindow::initializeGL()
@@ -154,7 +152,8 @@ namespace Graphics
 	void GLWindow::paintGL()
 	{
 		_renderer->updateViewport(width(), height());
-		_renderer->render(_camera);
+		_renderer->updateView();
+		_renderer->render();
 	}
 
 	void GLWindow::mouseMoveEvent(QMouseEvent* e)
@@ -166,7 +165,7 @@ namespace Graphics
 
 	void GLWindow::closeEvent(QCloseEvent *e)
 	{
-		shutdown();
+		delete _renderer;
 	}
 
 	void GLWindow::keyPressEvent(QKeyEvent *e)

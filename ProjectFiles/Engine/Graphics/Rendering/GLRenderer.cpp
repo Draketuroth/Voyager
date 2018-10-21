@@ -13,6 +13,10 @@
 
 #include <Graphics/Datatypes/Model.h>
 
+#include <Graphics/Camera/Camera.h>
+
+#include <Graphics/Texture/Texture.h>
+
 #include <Math/Utilz.h>
 
 #include <glm.hpp>
@@ -46,29 +50,17 @@ namespace Graphics
 		qDebug() << "Destroyed GLRenderer";
 	}
 
-	bool GLRenderer::initialize()
+	int GLRenderer::initialize()
 	{
-		_texture = new Texture();
+		_texture = std::make_shared<Texture>();
 		_texture->initialize("Textures\\uv_test.jpg");
 
 		_width = 0;
 		_height = 0;
 
 		color = vec3(0.0f, 0.0f, 0.0f);
-		switch_color = false;
 
-		return true;
-	}
-
-	bool GLRenderer::shutdown()
-	{
-		_texture->shutdown();
-		delete _texture;
-		_texture = nullptr;
-
-		_program = nullptr;
-
-		return true;
+		return 0;
 	}
 
 	void GLRenderer::update(float t)
@@ -81,9 +73,9 @@ namespace Graphics
 		glViewport(0, 0, width, height);
 	}
 
-	void GLRenderer::setProgram(const std::shared_ptr<ShaderProgram> &program)
+	void GLRenderer::setProgram(std::unique_ptr<ShaderProgram> program)
 	{
-		_program = program;
+		_program = std::move(program);
 	}
 
 	void GLRenderer::setModelView(Model* model)
@@ -91,23 +83,31 @@ namespace Graphics
 		_model = model;
 	}
 
+	void GLRenderer::setActiveCamera(Camera * camera)
+	{
+		_active_camera = camera;
+	}
+
 	void GLRenderer::updateViewport(const int width, const int height)
 	{
 		_width = width;
 		_height = height;
+		_active_camera->setAspectRatio(((float)_width) / _height);
 		glViewport(0, 0, _width, _height);
 	}
 
+	void GLRenderer::updateView()
+	{
+		view_to_proj = _active_camera->getProjectionMatrix();
+		world_to_view = _active_camera->getViewMatrix();
+		world_to_proj = view_to_proj * world_to_view;
+	}
+
 	// Replaced paint event. 
-	void GLRenderer::render(const Camera camera)
+	int GLRenderer::render()
 	{
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
-		glm::mat4 mvp_matrix;
-		glm::mat4 view_to_proj = glm::perspective(glm::radians(60.0f), ((float)_width) / _height, 0.1f, 20.f);
-		glm::mat4 world_to_view = camera.getViewMatrix();
-		glm::mat4 world_to_proj = view_to_proj * world_to_view;
 
 		for (uint i = 0; i < _num_renderables; i++)
 		{
@@ -118,7 +118,7 @@ namespace Graphics
 			color = vec3(Math::lerp(0.0f, 1.0f, lerp_factor), Math::lerp(0.0f, 1.0f, 1 - lerp_factor), 0.0f);
 			glUniform3fv(_program->_diffuse_color_uniform_location, 1, &color[0]);
 			
-			vec3 eye_position = camera.getPosition();
+			vec3 eye_position = _active_camera->getPosition();
 			glUniform3fv(_program->_camera_position_uniform_location, 1, &eye_position[0]);
 
 			vec4 ambient_light(0.05f, 0.05f, 0.05f, 1.0f);
@@ -130,7 +130,7 @@ namespace Graphics
 			// Renderable Geometry.
 			glBindTexture(GL_TEXTURE_2D, _texture->getID());
 			glBindVertexArray(r._geometry_vao_ID);
-			mvp_matrix = world_to_proj * r.transform;
+			glm::mat4 mvp_matrix = world_to_proj * r.transform;
 			glUniformMatrix4fv(_program->_mvp_uniform_location, 1, GL_FALSE, &mvp_matrix[0][0]);
 			glUniformMatrix4fv(_program->_world_uniform_location, 1, GL_FALSE, &r.transform[0][0]);
 			glDrawElements(r._geometry.render_mode, r._geometry.num_indices, GL_UNSIGNED_SHORT, (void*)r._geometry_index_byte_offset);
@@ -141,6 +141,8 @@ namespace Graphics
 			// glBindVertexArray(_cube_vao_ID);
 			
 		}
+
+		return 0;
 	}
 
 	Geometry* GLRenderer::addGeometry(
@@ -157,17 +159,21 @@ namespace Graphics
 		return &g;
 	}
 
-	void GLRenderer::addRenderable(Geometry geometry, glm::mat4 transform)
+	void GLRenderer::addRenderable(Geometry g, Transform t)
 	{
 		assert(_num_renderables != NUM_MAX_RENDERABLES);
 		Renderable& r = _renderables[_num_renderables++];
 
-		r._geometry = geometry;
+		r._geometry = g;
 		r._geometry.render_mode = GL_TRIANGLES;
 
 		r._normal = GeometryGenerator::generateNormals(r._geometry);
 		r._normal.render_mode = GL_LINES;
 
+		glm::mat4 transform = 
+			glm::translate(vec3(t.p[0], t.p[1], t.p[2])) *
+			glm::rotate(t.r[0], vec3(t.r[1], t.r[2], t.r[3])) *
+			glm::scale(vec3(t.s[0], t.s[1], t.s[2]));
 		r.transform = transform;
 
 		setupBuffer(r._geometry_buffer_ID, r._geometry);

@@ -24,6 +24,7 @@ namespace Graphics
 		setLayout(main_layout = new QVBoxLayout);
 
 		_gl_window = std::make_unique<GLWindow>(&_model);
+
 		QVBoxLayout* controls_layout;
 		main_layout->addLayout(controls_layout = new QVBoxLayout);
 		main_layout->addWidget(_gl_window.get());

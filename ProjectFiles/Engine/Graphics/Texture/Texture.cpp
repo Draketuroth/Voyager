@@ -22,7 +22,7 @@ namespace Graphics
 
 	Texture::~Texture()
 	{
-
+		glDeleteTextures(1, &_id);
 	}
 
 	GLuint Texture::getID() const
@@ -55,12 +55,6 @@ namespace Graphics
 
 		stbi_image_free(data);
 		return true;
-	}
-
-	bool Texture::shutdown()
-	{
-		glDeleteTextures(1, &_id);
-		return false;
 	}
 }
 

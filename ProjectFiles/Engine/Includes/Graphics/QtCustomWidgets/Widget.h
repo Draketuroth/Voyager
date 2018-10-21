@@ -15,18 +15,18 @@
 
 #include <memory>
 
-#if defined DLL_EXPORT_GRAPHICS
-#define DECLDIR_R __declspec(dllexport)
+#if defined DLL_EXPORT
+#define EXPORT __declspec(dllexport)
 #else
-#define DECLDIR_R __declspec(dllimport)
+#define EXPORT __declspec(dllimport)
 #endif
+
+namespace Graphics{class DebugSlider; class GLWindow; }
 
 namespace Graphics
 {
-	class DebugSlider;
-	class GLWindow;
 
-	class DECLDIR_R Widget : public QWidget
+	class EXPORT Widget : public QWidget
 	{
 		Q_OBJECT
 	public:

@@ -22,7 +22,7 @@ namespace Graphics
 
 	Shader::~Shader()
 	{
-
+		glDeleteShader(_id);
 	}
 
 	GLuint Shader::getID() const
@@ -52,12 +52,6 @@ namespace Graphics
 		{
 			return false;
 		}
-		return true;
-	}
-
-	bool Shader::shutdown()
-	{
-		glDeleteShader(_id);
 		return true;
 	}
 

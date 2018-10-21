@@ -12,10 +12,16 @@
 
 namespace Graphics
 {
-	Camera::Camera(): _position(0.0f, 3.0f, 0.0f), _view_dir(0.0f, 0.0f, -1.0f), _up(0.0f, 1.0f, 0.0f)
+	Camera::Camera(): 
+		_position(0.0f, 3.0f, 0.0f), 
+		_view_dir(0.0f, 0.0f, -1.0f), 
+		_up(0.0f, 1.0f, 0.0f),
+		_right(1.0f, 0.0f, 0.0f),
+		_old_mouse_pos(0.0f, 0.0f),
+		_movement_speed(0.1f),
+		_aspect_ratio(1.0f)
 	{
-		_right = glm::cross(_view_dir, _up);
-		_movement_speed = 0.1f;
+
 	}
 
 	glm::mat4 Camera::getViewMatrix() const
@@ -23,9 +29,19 @@ namespace Graphics
 		return glm::lookAt(_position, _position + _view_dir, _up);
 	}
 
+	glm::mat4 Camera::getProjectionMatrix() const
+	{
+		return glm::perspective(glm::radians(60.0f), _aspect_ratio, 0.1f, 20.f);
+	}
+
 	glm::vec3 Camera::getPosition() const
 	{
 		return _position;
+	}
+
+	void Camera::setAspectRatio(const float ratio)
+	{
+		_aspect_ratio = ratio;
 	}
 
 	void Camera::mouseUpdate(const glm::vec2& new_mouse_pos)

@@ -13,15 +13,9 @@
 #include <gl/glew.h>
 #include <string>
 
-#if defined DLL_EXPORT_GRAPHICS
-#define DECLDIR_R __declspec(dllexport)
-#else
-#define DECLDIR_R __declspec(dllimport)
-#endif
-
 namespace Graphics
 {
-	class DECLDIR_R Shader
+	class Shader
 	{
 	public:
 
@@ -32,7 +26,7 @@ namespace Graphics
 		GLenum getType() const;
 
 		bool initialize(const char* file_name, const GLenum type);
-		bool shutdown();
+
 	private:
 		std::string readShaderCode(const char* file_name);
 		bool checkShaderStatus(GLuint shader_id);
