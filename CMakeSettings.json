@@ -1,0 +1,40 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\..\\Build\\${name}",
+      "installRoot": "${projectDir}\\..\\Install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "variables": [
+        {
+          "name": "CMAKE_INSTALL_PREFIX",
+          "value": "C:/Users/Fredrik/Desktop/Fredrik/Coding/Engine/Install",
+          "type": "PATH"
+        }
+      ]
+    },
+	{
+       "name": "x64-Release",
+       "generator": "Ninja",
+       "configurationType": "Release",
+       "inheritEnvironments": [ "msvc_x64_x64" ],
+       "buildRoot": "${projectDir}\\..\\Build\\${name}",
+       "installRoot": "${projectDir}\\..\\Install\\${name}",
+       "cmakeCommandArgs": "",
+       "buildCommandArgs": "-v",
+       "ctestCommandArgs": "",
+       "variables": [
+         {
+           "name": "CMAKE_INSTALL_PREFIX",
+           "value": "C:/Users/Fredrik/Desktop/Fredrik/Coding/Engine/Install",
+           "type": "PATH"
+         }
+     ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "document" : {
+    "version": 0.1,
+    "description" : "Views configuration allows the user to set default display properties"
+  },
+  "display" : { 
+		"title" : "VoyagerIG (Gremlin-2020-Dev1)",
+		"fullscreen" : false,
+		"width" : 1024,
+		"height" : 768
+  }
+}

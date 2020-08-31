@@ -1,0 +1,55 @@
+{
+  "document": {
+    "version": 0.1,
+    "description": "Materials specifies an array of shaders and attributes for a pipeline. Shader types are based on their extension"
+  },
+  "shadersets" : [
+    {
+      "name": "TexturedMaterial",
+	  "description" : "Default Phong shader",
+	  "renderpass": "Opaque",
+      "shaders": [
+        {
+          "path": "Shaders\\",
+          "file": "phong.vert"
+        },
+        {
+          "path": "Shaders\\",
+          "file": "phong.frag"
+        }
+      ]
+    },
+	{
+      "name": "GradientBackground",
+	  "description" : "Gradient background shader",
+	  "renderpass": "Opaque",
+      "shaders": [
+        {
+          "path": "Shaders\\",
+          "file": "quad.vert"
+        },
+        {
+          "path": "Shaders\\",
+          "file": "gradient.frag"
+        }
+      ]
+    },
+	{
+      "name": "ScreenOutput",
+	  "description" : "Final output shader",
+	  "renderpass": "Opaque",
+      "shaders": [
+        {
+          "path": "Shaders\\",
+          "file": "quad.vert"
+        },
+        {
+          "path": "Shaders\\",
+          "file": "screen.frag"
+        }
+      ]
+    }
+  ]
+}
+
+

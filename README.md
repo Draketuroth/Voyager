@@ -1,12 +1,25 @@
-# Voyager - 3D Graphics Engine 
+# VOYAGER ENGINE
 
-![alt tag](https://draketuroth.files.wordpress.com/2018/08/voyager_logo21.png?ssl=1&w=900)
+![alt text](Voyager_Logo.png "Logo Title")
 
-Voyager is a hobby project in development for the purpose of practicing engine architecture, rendering and test-driven development.
+Voyager is a program suite in development for the purpose of practicing engine architecture and rendering techniques.
+Drawing inspiration from Cherno's Hazel Engine, Voyager focuses on easy framework setup for 3D applications and implementation of rendering techniques. 
 
-## Documents
-[Voyager Code Standard.md](Documents/Voyager_Coding_Standard.md)
+## Building the project
 
-## Other links
-[Voyager Github Page](https://draketuroth.github.io/Voyager/)
-
+ ### Windows
+ Note: I have kept a CMakeSettings.json for Visual Studio holding custom configurations set up for quick startup. Feel free to modify for your own configurations.
+ 
+ #### Visual Studio 
+	 mkdir build
+	 cd build
+     cmake -G "Visual Studio 16 2019" -A x64 ..\"path_to_source"\
+	 
+ #### Ninja
+ In order to build with Ninja, the current terminal being used must have the Visual Studio compiler environment setup. 
+ 
+	mkdir build
+	cd build
+    cmake -G "Ninja" ..\"path_to_source"\
+ 
+ 
