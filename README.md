@@ -1,7 +1,5 @@
 # VOYAGER ENGINE
 
-![alt text](Voyager_Logo.png "Logo Title")
-
 Voyager is a program suite in development for the purpose of practicing engine architecture and rendering techniques.
 Drawing inspiration from Cherno's Hazel Engine, Voyager focuses on easy framework setup for 3D applications and implementation of rendering techniques. 
 
