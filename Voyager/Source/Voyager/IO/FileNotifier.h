@@ -27,9 +27,9 @@ namespace VE
 			FileNotifier(std::string baseFolderPath, Core::Scope<Event::Dispatcher> dispatcher) : _baseFolderPath(baseFolderPath), _dispatcher(std::move(dispatcher))
 			{
 				// Store and record files from a base directory with their last modifiction time.
-				for (auto& file : std::experimental::filesystem::recursive_directory_iterator(baseFolderPath))
+				for (auto& file : std::filesystem::recursive_directory_iterator(baseFolderPath))
 				{
-					_paths[file.path().string()] = std::experimental::filesystem::last_write_time(file);
+					_paths[file.path().string()] = std::filesystem::last_write_time(file);
 				}
 
 				// Start thread.
@@ -48,7 +48,7 @@ namespace VE
 					auto it = _paths.begin();
 					while (it != _paths.end())
 					{
-						if (!std::experimental::filesystem::exists(it->first))
+						if (!std::filesystem::exists(it->first))
 						{
 							VE::Event::FileDeletedEvent event(it->first);
 							_dispatcher->post(event);
@@ -63,11 +63,11 @@ namespace VE
 
 					// Check if a file was created or modified.
 					// That includes checking if the user removed the currently tracked folder.
-					if (std::experimental::filesystem::exists(_baseFolderPath))
+					if (std::filesystem::exists(_baseFolderPath))
 					{
-						for (auto& file : std::experimental::filesystem::recursive_directory_iterator(_baseFolderPath))
+						for (auto& file : std::filesystem::recursive_directory_iterator(_baseFolderPath))
 						{
-							auto currentLastWriteTime = std::experimental::filesystem::last_write_time(file);
+							auto currentLastWriteTime = std::filesystem::last_write_time(file);
 
 							std::string currentPath = file.path().string();
 
@@ -121,7 +121,7 @@ namespace VE
 
 			// Time interval to check the base folder for changes.
 			// std::chrono::duration<int, std::milli> _delay;
-			std::unordered_map<std::string, std::experimental::filesystem::file_time_type> _paths;
+			std::unordered_map<std::string, std::filesystem::file_time_type> _paths;
 
 			std::atomic<bool>running{ true };
 			std::thread thread;

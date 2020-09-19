@@ -50,7 +50,7 @@ namespace VE
 				}
 
 				// Iterate the list looking for the specified resource
-				for (std::vector<T*>::iterator i = _list->begin(); i != _list->end(); i++) 
+				for (auto i = _list->begin(); i != _list->end(); i++) 
 				{
 					if ((*i) != NULL) 
 					{
@@ -79,7 +79,7 @@ namespace VE
 
 			void emptyList() 
 			{
-				for (std::vector<T*>::iterator i = _list->begin(); i != _list->end(); i++) 
+				for (auto i = _list->begin(); i != _list->end(); i++) 
 				{
 					SAFE_DELETE(*i);
 				}
