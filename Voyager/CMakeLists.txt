@@ -215,6 +215,14 @@ use_props(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 set(ROOT_NAMESPACE Voyager)
 
 ################################################################################
+# Target standard
+################################################################################
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
+)
+
+################################################################################
 # Target name
 ################################################################################
 set_target_properties(${PROJECT_NAME} PROPERTIES
