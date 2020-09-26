@@ -51,6 +51,7 @@ set(Voyager_Folder_Core
 	Source/Voyager/Core/SystemManager.h
 	Source/Voyager/Core/ISystemManager.h
 	Source/Voyager/Core/ISystemManager.cpp
+	Source/Voyager/Core/Bitmask.h
 	
 )
 source_group("Voyager\\Core" FILES ${Voyager_Folder_Core})
@@ -108,6 +109,7 @@ set(Voyager_Folder_Renderer
 	Source/Voyager/Renderer/RenderJob.cpp
 	Source/Voyager/Renderer/Identifier.cpp
 	Source/Voyager/Renderer/Identifier.h
+	Source/Voyager/Renderer/RenderFlags.h
 )
 source_group("Voyager\\Renderer" FILES ${Voyager_Folder_Renderer})
 

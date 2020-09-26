@@ -2,6 +2,9 @@
 #define VE_RENDER_COMMAND_H
 
 #include "Voyager/Renderer/RendererAPI.h"
+#include "Voyager/Renderer/RenderFlags.h"
+
+#include "Voyager/Core/Bitmask.h"
 
 namespace VE
 {
@@ -30,9 +33,29 @@ namespace VE
 				_renderAPI->setDepthTest(enabled);
 			}
 
-			inline static void clear()
+			inline static void clear(Core::Bitmask<ClearFlags> clearFlags)
 			{
-				_renderAPI->clear();
+				unsigned char flags = 0x0;
+
+				// TODO: Improve api checking and eliminate magic bit values.
+				RendererAPI::API api = _renderAPI->GetAPI();
+				if (api == RendererAPI::API::OpenGL) 
+				{
+					if (clearFlags & ClearFlags::COLOR)
+					{
+						flags |= 0x00004000;
+					}
+					if (clearFlags & ClearFlags::DEPTH)
+					{
+						flags |= 0x00000100;
+					}
+				}
+				else 
+				{
+					return;
+				}
+
+				_renderAPI->clear(flags);
 			}
 
 			inline static void draw(unsigned int numVertices) 

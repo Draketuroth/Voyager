@@ -9,6 +9,8 @@
 #include "Platform/OpenGL/OpenGLShader.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
+#include "Voyager/Core/Bitmask.h"
+
 namespace VE
 {
 	namespace Rendering 
@@ -57,7 +59,7 @@ namespace VE
 				if (pipeline) 
 				{
 					pipeline->setActiveRenderTarget(VE::Rendering::Identifier::get("FrameBuffer", Identifier::IdentifierType::RENDERTARGET));
-					RenderCommand::clear();
+					RenderCommand::clear(ClearFlags::COLOR | ClearFlags::DEPTH);
 
 					// Draw six vertices, vertex shader creates the quad.
 					pipeline->setActiveRenderTarget(VE::Rendering::Identifier::get("FrameBuffer", Identifier::IdentifierType::RENDERTARGET));
@@ -88,7 +90,7 @@ namespace VE
 							RenderCommand::draw(renderable.geometry);
 							
 					        pipeline->resetRenderTarget();
-							glClear(GL_COLOR_BUFFER_BIT);
+							RenderCommand::clear(ClearFlags::COLOR);
 							
 							pipeline->setActiveShader(VE::Rendering::Identifier::get("ScreenOutput", Identifier::IdentifierType::SHADERSET));
 							pipeline->updateConstantInt("s_w", 1024);

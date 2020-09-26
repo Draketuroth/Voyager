@@ -4,6 +4,8 @@
 
 #include "Platform/OpenGL/OpenGLStatus.h"
 
+#include "Voyager/Renderer/RenderFlags.h"
+
 #include <glad/glad.h>
 
 namespace VE
@@ -47,9 +49,9 @@ namespace VE
 					glDisable(GL_DEPTH_TEST);
 				}
 			}
-			void OpenGLRendererAPI::clear()
+			void OpenGLRendererAPI::clear(unsigned char flags)
 			{
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				glClear(flags);
 			}
 			void OpenGLRendererAPI::draw(unsigned int numVertices)
 			{
