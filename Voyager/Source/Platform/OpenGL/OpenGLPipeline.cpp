@@ -43,6 +43,7 @@ namespace VE
 				
 				glGenFramebuffers(1, &target.bufferId);
 				glBindFramebuffer(GL_FRAMEBUFFER, target.bufferId);
+
 				glGenTextures(1, &target.colorTextureId);
 				glBindTexture(GL_TEXTURE_2D, target.colorTextureId);
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
@@ -52,13 +53,12 @@ namespace VE
 
 				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, target.colorTextureId, 0);
 
-				unsigned int rbo;
-				glGenRenderbuffers(1, &rbo);
-				glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+				glGenRenderbuffers(1, &target.depthTextureId);
+				glBindRenderbuffer(GL_RENDERBUFFER, target.depthTextureId);
 				glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
 				glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
-				glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+				glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, target.depthTextureId);
 
 				if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
 				{
@@ -152,6 +152,27 @@ namespace VE
 			void OpenGLPipeline::resetRenderTarget()
 			{
 				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			}
+
+			bool OpenGLPipeline::resizeRenderTarget(unsigned int targetId, unsigned int width, unsigned height)
+			{
+				auto it = _targets.find(targetId);
+				if (it != _targets.end()) 
+				{
+					glBindFramebuffer(GL_FRAMEBUFFER, it->second.bufferId);
+
+					glBindTexture(GL_TEXTURE_2D, it->second.colorTextureId);
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+					glBindTexture(GL_TEXTURE_2D, 0);
+
+					glBindRenderbuffer(GL_RENDERBUFFER, it->second.depthTextureId);
+					glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+					glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+					glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				}
+				// Log...
+				return false;
 			}
 
 			void OpenGLPipeline::updateConstantMatrix4D(const std::string& name, const VE::Math::Matrix4D& value, bool transpose)

@@ -29,12 +29,11 @@ namespace IG
 	VoyagerIG::VoyagerIG()
 	{
 		_scene = new Scene();
-		
-		
+
 		_baseLayer = new SceneLayer(_scene);
 		pushLayer(_baseLayer);
 
-		_resourceLayer = new ResourceLayer(_scene);
+		_resourceLayer = new ResourceLayer(_scene, _window->getWidth(), _window->getHeight());
 		pushLayer(_resourceLayer);
 
 		_renderLayer = new RenderLayer(_scene);
@@ -43,6 +42,13 @@ namespace IG
 
 	VoyagerIG::~VoyagerIG()
 	{
+		// Will trigger OnDetach for each layer.
+		popLayer(_renderLayer);
+		popLayer(_resourceLayer);
+		popLayer(_baseLayer);
 
+		delete _renderLayer;
+		delete _resourceLayer;
+		delete _baseLayer;
 	}
 }

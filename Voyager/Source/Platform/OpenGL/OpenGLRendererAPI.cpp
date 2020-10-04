@@ -49,7 +49,7 @@ namespace VE
 					glDisable(GL_DEPTH_TEST);
 				}
 			}
-			void OpenGLRendererAPI::clear(unsigned char flags)
+			void OpenGLRendererAPI::clear(unsigned int flags)
 			{
 				glClear(flags);
 			}

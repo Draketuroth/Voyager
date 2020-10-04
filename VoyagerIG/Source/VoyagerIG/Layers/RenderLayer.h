@@ -19,6 +19,9 @@ namespace IG
 		void onEvent(VE::Event::Event& event) override;
 
 	private:
+		RenderLayer(const RenderLayer&);
+		RenderLayer& operator=(const RenderLayer&);
+
 		VE::Core::Ref<RenderSystem> _renderSystem;
 		Scene* _scene;
 	};

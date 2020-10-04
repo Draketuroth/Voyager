@@ -48,8 +48,8 @@ namespace VE
 			};
 		private:
 
-			static std::unordered_map<unsigned int, Pipeline*>* _pipelines;
-			static std::vector<RenderJob>* _renderJobs;
+			static VE::Core::Scope<std::unordered_map<unsigned int, Pipeline*>> _pipelines;
+			static VE::Core::Scope<std::vector<RenderJob>> _renderJobs;
 		};
 	}
 };

@@ -11,7 +11,7 @@ namespace IG
 	class ResourceLayer : public VE::Core::Layer
 	{
 	public:
-		ResourceLayer(Scene* scene);
+		ResourceLayer(Scene* scene, unsigned int winSizeX, unsigned int winSizeY);
 		~ResourceLayer();
 
 		void onUpdate(VE::Core::Timestep ts) override;
@@ -19,6 +19,8 @@ namespace IG
 		void onEvent(VE::Event::Event& event) override;
 
 	private:
+		ResourceLayer(const ResourceLayer&);
+		ResourceLayer& operator=(const ResourceLayer&);
 
 		Scene* _scene;
 		VE::Core::Scope<VE::IO::FileNotifier> _fileNotifier;

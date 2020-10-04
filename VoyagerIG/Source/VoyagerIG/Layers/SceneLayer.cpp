@@ -52,8 +52,10 @@ namespace IG
 
 	SceneLayer::~SceneLayer()
 	{
-
+		_scene = nullptr;
+		delete _logo;
 	}
+
 	void SceneLayer::onUpdate(VE::Core::Timestep ts)
 	{
 		{

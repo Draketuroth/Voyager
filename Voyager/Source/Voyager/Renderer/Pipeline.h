@@ -32,6 +32,8 @@ namespace VE
 
 			virtual void resetRenderTarget() = 0;
 
+			virtual bool resizeRenderTarget(unsigned int targetId, unsigned int width, unsigned height) = 0;
+
 			virtual void updateConstantMatrix4D(const std::string& name, const VE::Math::Matrix4D& value, bool transpose) = 0;
 			virtual void updateConstantVector4D(const std::string& name, const VE::Math::Vector4D& value) = 0;
 			virtual void updateConstantVector3D(const std::string& name, const VE::Math::Vector3D& value) = 0;

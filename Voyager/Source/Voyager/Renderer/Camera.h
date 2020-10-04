@@ -33,7 +33,8 @@ namespace VE
 			virtual void rotateCCW(const Timestep ts) = 0;
 
 			virtual void update() = 0;
-			virtual void mouseUpdate(const Math::Vector2D& new_mouse_pos) = 0;
+			virtual void mouseUpdate(const Math::Vector2D& 
+				_mouse_pos) = 0;
 
 			virtual const Math::Matrix4D getViewMatrix() const = 0;
 			virtual const Math::Matrix4D getProjectionMatrix() const = 0;

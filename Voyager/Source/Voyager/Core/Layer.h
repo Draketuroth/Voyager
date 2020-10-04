@@ -22,6 +22,7 @@ namespace VE
 			virtual void onEvent(Event::Event& event) {}
 
 			inline const std::string& getName() const { return _debugName; }
+
 		protected:
 			std::string _debugName;
 		};

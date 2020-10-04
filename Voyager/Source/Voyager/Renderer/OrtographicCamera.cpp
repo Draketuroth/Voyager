@@ -87,7 +87,8 @@ namespace VE
 			recalculateViewMatrix();
 		}
 
-		void OrtographicCamera::mouseUpdate(const VE::Math::Vector2D& new_mouse_pos)
+		void OrtographicCamera::mouseUpdate(const VE::Math::Vector2D& 
+			_mouse_pos)
 		{
 			recalculateViewMatrix();
 		}

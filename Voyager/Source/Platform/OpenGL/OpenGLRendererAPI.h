@@ -16,7 +16,7 @@ namespace VE
 				virtual void setClearColor(float r, float g, float b, float a) override;
 				virtual void setBackfaceCulling(bool enabled) override;
 				virtual void setDepthTest(bool enabled) override;
-				virtual void clear(unsigned char flags) override;
+				virtual void clear(unsigned int flags) override;
 
 				virtual void draw(unsigned int numVertices) override;
 				virtual void draw(Rendering::Geometry* geometry) override;

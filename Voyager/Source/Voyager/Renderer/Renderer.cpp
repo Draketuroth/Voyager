@@ -15,8 +15,8 @@ namespace VE
 {
 	namespace Rendering 
 	{
-		std::vector<RenderJob>* Renderer::_renderJobs = new std::vector<RenderJob>;
-		std::unordered_map<unsigned int, Pipeline*>* Renderer::_pipelines = new std::unordered_map<unsigned int, Pipeline*>;
+		VE::Core::Scope<std::vector<RenderJob>> Renderer::_renderJobs(new std::vector<RenderJob>);
+		VE::Core::Scope <std::unordered_map<unsigned int, Pipeline*>> Renderer::_pipelines(new std::unordered_map<unsigned int, Pipeline*>);
 
 		void Renderer::onWindowResize(std::uint32_t width, std::uint32_t height)
 		{
@@ -29,6 +29,7 @@ namespace VE
 			if (simplePipeline)
 			{
 				simplePipeline->updateSharedBuffer(VE::Rendering::Identifier::get("DisplayData", VE::Rendering::Identifier::IdentifierType::BUFFER), sizeof(DisplayData), &displayData);
+				simplePipeline->resizeRenderTarget(VE::Rendering::Identifier::get("FrameBuffer", Identifier::IdentifierType::RENDERTARGET), width, height);
 			}
 		}
 
@@ -50,6 +51,9 @@ namespace VE
 
 		void Renderer::endScene()
 		{
+			// Clear default framebuffer object.
+			RenderCommand::clear(ClearFlags::COLOR | ClearFlags::DEPTH);
+
 			for (RenderJob& renderJob : *_renderJobs) 
 			{
 				const unsigned int pipelineId = renderJob.getPipelineId();
@@ -62,7 +66,6 @@ namespace VE
 					RenderCommand::clear(ClearFlags::COLOR | ClearFlags::DEPTH);
 
 					// Draw six vertices, vertex shader creates the quad.
-					pipeline->setActiveRenderTarget(VE::Rendering::Identifier::get("FrameBuffer", Identifier::IdentifierType::RENDERTARGET));
 					pipeline->setActiveShader(VE::Rendering::Identifier::get("GradientBackground", Identifier::IdentifierType::SHADERSET));
 					RenderCommand::setDepthTest(false);
 					RenderCommand::draw(6);
@@ -93,16 +96,12 @@ namespace VE
 							RenderCommand::clear(ClearFlags::COLOR);
 							
 							pipeline->setActiveShader(VE::Rendering::Identifier::get("ScreenOutput", Identifier::IdentifierType::SHADERSET));
-							pipeline->updateConstantInt("s_w", 1024);
-							pipeline->updateConstantInt("s_h", 768);
-							pipeline->updateConstantVector2D("center", Math::Vector2D(1024 / 2, 768 / 2));
 							RenderCommand::setDepthTest(false);
 							pipeline->setColorAttachment(VE::Rendering::Identifier::get("FrameBuffer", Identifier::IdentifierType::RENDERTARGET));
 							RenderCommand::draw(6);
 							RenderCommand::setDepthTest(true);
 
 						}
-						
 					}
 				}
 			}

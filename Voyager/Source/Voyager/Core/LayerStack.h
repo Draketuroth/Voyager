@@ -16,6 +16,7 @@ namespace VE
 			LayerStack();
 			~LayerStack();
 
+			bool empty();
 			void pushLayer(Layer* layer);
 			void pushOverlay(Layer* overlay);
 			void popLayer(Layer* layer);

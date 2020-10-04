@@ -18,6 +18,11 @@ namespace VE
 			}
 		}
 
+		bool LayerStack::empty()
+		{
+			return _layers.empty();
+		}
+
 		void LayerStack::pushLayer(Layer* layer)
 		{
 			_layers.emplace(_layers.begin() + _layerInsertIndex, layer);

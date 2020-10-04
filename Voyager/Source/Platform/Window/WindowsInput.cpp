@@ -6,7 +6,7 @@
 
 namespace VE
 {
-	Core::Input* Core::Input::_instance = new Platform::Window::WindowsInput();
+	VE::Core::Scope<Core::Input> Core::Input::_instance(new Platform::Window::WindowsInput());
 
 	namespace Platform 
 	{

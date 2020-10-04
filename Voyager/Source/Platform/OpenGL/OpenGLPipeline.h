@@ -20,9 +20,17 @@ namespace VE
 				class RenderTarget 
 				{
 				public:
-					RenderTarget() : bufferId(0), colorTextureId(0) {}
+					RenderTarget() : bufferId(0), colorTextureId(0), depthTextureId(0),  _width(256), _height(256) {}
 					unsigned int bufferId;
 					unsigned int colorTextureId;
+					unsigned int depthTextureId;
+
+					void setWidth(unsigned int width) { _width = width; };
+					void setHeight(unsigned int height) { _height = height; };
+
+				private:
+					unsigned int _width;
+					unsigned int _height;
 				};
 
 				OpenGLPipeline();
@@ -41,6 +49,8 @@ namespace VE
 				virtual bool setColorAttachment(unsigned int renderTargetId) override;
 
 				virtual void resetRenderTarget() override;
+
+				virtual bool resizeRenderTarget(unsigned int targetId, unsigned int width, unsigned height) override;
 
 				virtual void updateConstantMatrix4D(const std::string& name, const VE::Math::Matrix4D& value, bool transpose) override;
 				virtual void updateConstantVector4D(const std::string& name, const VE::Math::Vector4D& value) override;

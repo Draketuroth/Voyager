@@ -26,6 +26,8 @@ namespace IG
 		virtual void onImGuiRender() override;
 
 	private:
+		SceneLayer(const SceneLayer&);
+		SceneLayer& operator=(const SceneLayer&);
 
 		Scene* _scene;
 

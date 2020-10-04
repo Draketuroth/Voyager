@@ -31,7 +31,8 @@ namespace VE
 			virtual void rotateCCW(const Core::Timestep ts) override;
 
 			virtual void update() override;
-			virtual void mouseUpdate(const VE::Math::Vector2D& new_mouse_pos) override;
+			virtual void mouseUpdate(const VE::Math::Vector2D& 
+				_mouse_pos) override;
 
 			virtual const VE::Math::Matrix4D getViewMatrix() const override;
 			virtual const VE::Math::Matrix4D getProjectionMatrix() const override;

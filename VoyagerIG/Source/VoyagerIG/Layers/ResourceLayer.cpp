@@ -6,6 +6,8 @@
 #include "Voyager/Components/Material.h"
 #include "Voyager/Components/Geometry.h"
 
+#include "Voyager/Math/Vector/Vector2D.h"
+
 #include "Voyager/Renderer/Renderer.h"
 #include "Voyager/Renderer/Identifier.h"
 
@@ -16,7 +18,7 @@
 
 namespace IG
 {
-	ResourceLayer::ResourceLayer(Scene* scene) : Layer("Resource")
+	ResourceLayer::ResourceLayer(Scene* scene, unsigned int winSizeX, unsigned int winSizeY) : Layer("Resource")
 	{
 		_scene = scene;
 
@@ -47,12 +49,17 @@ namespace IG
 
 		VE::Rendering::Renderer::registerPipeline(simplePipelineId);
 		VE::Rendering::Pipeline* simplePipeline = VE::Rendering::Renderer::getPipeline(simplePipelineId);
-		if (simplePipeline) 
+		if (simplePipeline)
 		{
 			simplePipeline->createSharedBuffer(sceneDataBufferId, sizeof(VE::Rendering::Renderer::SceneData));
 			simplePipeline->createSharedBuffer(displayDataBufferId, sizeof(VE::Rendering::Renderer::DisplayData));
 
-			simplePipeline->createRenderTarget(VE::Rendering::Identifier::get("FrameBuffer", VE::Rendering::Identifier::IdentifierType::RENDERTARGET), 1024, 768);
+			simplePipeline->createRenderTarget(VE::Rendering::Identifier::get("FrameBuffer", VE::Rendering::Identifier::IdentifierType::RENDERTARGET), winSizeX, winSizeY);
+
+			VE::Rendering::Renderer::DisplayData displayData;
+			displayData.resolution = VE::Math::Vector2D(static_cast<double>(winSizeX), static_cast<double>(winSizeY));
+
+			simplePipeline->updateSharedBuffer(VE::Rendering::Identifier::get("DisplayData", VE::Rendering::Identifier::IdentifierType::BUFFER), sizeof(VE::Rendering::Renderer::DisplayData), &displayData);
 		}
 
 		std::string shaderSetConfigPath = "Config\\Shadersets.json";
@@ -99,7 +106,7 @@ namespace IG
 
 	ResourceLayer::~ResourceLayer()
 	{
-
+		_scene = nullptr;
 	}
 
 	void ResourceLayer::onUpdate(VE::Core::Timestep ts)
@@ -196,10 +203,3 @@ namespace IG
 		}
 	}
 }
-
-/*
-	unsigned int squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-	VE::Core::Ref<VE::Rendering::IndexBuffer> squareIB;
-	squareIB.reset(VE::Rendering::IndexBuffer::create(squareIndices, sizeof(squareIndices) / sizeof(unsigned int)));
-	geometryRes->setIndexBuffer(squareIB);
-*/

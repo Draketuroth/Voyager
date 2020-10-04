@@ -32,7 +32,7 @@ namespace IG
 
 	RenderLayer::~RenderLayer()
 	{
-
+		_scene = nullptr;
 	}
 
 	void RenderLayer::onUpdate(VE::Core::Timestep ts)

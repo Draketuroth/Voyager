@@ -26,7 +26,7 @@ namespace VE
 			virtual float getMouseYImpl() = 0;
 
 		private:
-			static Input* _instance;
+			static VE::Core::Scope<Input> _instance;
 		};
 	}
 };

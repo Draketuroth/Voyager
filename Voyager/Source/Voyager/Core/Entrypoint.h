@@ -25,7 +25,9 @@ int main(int argc, char** argv)
 	VE::Core::Log::init();
 	VE_CORE_WARN("Initalized log");
 	auto app = VE::Core::CreateApplication();
+
 	app->execute();
+
 	delete app;
 	return 0;
 }

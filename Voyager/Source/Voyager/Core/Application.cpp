@@ -56,7 +56,15 @@ namespace VE
 
 		Application::~Application()
 		{
+			popOverlay(_imGuiLayer);
+			delete _imGuiLayer;
 
+			if (!_layerStack.empty()) 
+			{
+				// TODO: Raise warning.
+			}
+
+			_instance = nullptr;
 		}
 
 		void Application::execute()
@@ -112,6 +120,16 @@ namespace VE
 		void Application::pushOverlay(Layer* layer)
 		{
 			_layerStack.pushOverlay(layer);
+		}
+
+		void Application::popLayer(Layer* layer)
+		{
+			_layerStack.popLayer(layer);
+		}
+
+		void Application::popOverlay(Layer* layer)
+		{
+			_layerStack.popOverlay(layer);
 		}
 
 		bool Application::onWindowClose(Event::WindowCloseEvent& e)

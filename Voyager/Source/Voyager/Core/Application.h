@@ -39,6 +39,9 @@ namespace VE
 			void pushLayer(Layer* layer);
 			void pushOverlay(Layer* layer);
 
+			void popLayer(Layer* layer);
+			void popOverlay(Layer* layer);
+
 			inline Window& getWindow() { return *_window; }
 
 			inline static Application& Get() { return *_instance; }
@@ -48,7 +51,10 @@ namespace VE
 			bool onWindowResize(Event::WindowResizeEvent& e);
 			bool onMouseCaptured(Event::KeyPressedEvent& e);
 
+		protected:
 			VE::Core::Scope<Window> _window;
+
+		private:
 			ImGuiLayer* _imGuiLayer;
 			static Application* _instance;
 

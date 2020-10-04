@@ -42,7 +42,7 @@ namespace VE
 			}
 
 		private:
-			static std::map<std::string, unsigned int>* _stringTable;
+			static VE::Core::Scope<std::map<std::string, unsigned int>> _stringTable;
 		};
 	}
 }

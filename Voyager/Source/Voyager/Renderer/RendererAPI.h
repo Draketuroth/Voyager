@@ -26,7 +26,7 @@ namespace VE
 			virtual void setClearColor(float r, float g, float b, float a) = 0;
 			virtual void setBackfaceCulling(bool enable) = 0;
 			virtual void setDepthTest(bool enable) = 0;
-			virtual void clear(unsigned char flags) = 0;
+			virtual void clear(unsigned int flags) = 0;
 
 			virtual void draw(unsigned int numVertices) = 0;
 			virtual void draw(Rendering::Geometry* geometry) = 0;

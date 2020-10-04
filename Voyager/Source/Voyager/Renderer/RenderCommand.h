@@ -35,7 +35,7 @@ namespace VE
 
 			inline static void clear(Core::Bitmask<ClearFlags> clearFlags)
 			{
-				unsigned char flags = 0x0;
+				unsigned int flags = 0x00000000;
 
 				// TODO: Improve api checking and eliminate magic bit values.
 				RendererAPI::API api = _renderAPI->GetAPI();
