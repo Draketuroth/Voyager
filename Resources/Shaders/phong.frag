@@ -16,6 +16,11 @@ layout(std140, binding = 1) uniform DisplayData
     vec2 resolution;
 };
 
+layout(std140, binding = 2) uniform TimeData
+{
+    float timeSec;
+};
+
 uniform int wireframe;
 
 in vec3 surface_position_world;

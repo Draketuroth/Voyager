@@ -14,7 +14,7 @@ namespace IG
 		RenderLayer(Scene* scene);
 		~RenderLayer();
 
-		void onUpdate(VE::Core::Timestep ts) override;
+		void onUpdate(VE::Core::Timestep delta, VE::Core::Timestep timeMs) override;
 
 		void onEvent(VE::Event::Event& event) override;
 

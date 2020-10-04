@@ -8,17 +8,17 @@ namespace VE
 		class Timestep
 		{
 		public:
-			Timestep(float time = 0.0f) : _time(time)
+			Timestep(double time = 0.0) : _time(time)
 			{
 			}
 
-			operator float() const { return _time; }
+			operator double() const { return _time; }
 
-			float getSeconds() const { return _time; }
-			float getMilliSeconds() const { return _time * 1000.0f; }
+			double toSeconds() const { return _time / 1000.0; }
+			float toSecondsFloat() const { return static_cast<float>(_time) / 1000.0f; }
 
 		private:
-			float _time;
+			double _time;
 		};
 	}
 };

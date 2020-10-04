@@ -35,7 +35,7 @@ namespace IG
 		_scene = nullptr;
 	}
 
-	void RenderLayer::onUpdate(VE::Core::Timestep ts)
+	void RenderLayer::onUpdate(VE::Core::Timestep delta, VE::Core::Timestep timeMs)
 	{
 		if (_scene->_pipelineToRecompile.size() > 0) 
 		{
@@ -58,8 +58,8 @@ namespace IG
 			_scene->_pipelineToRecompile.clear();
 		}
 
-		VE::Rendering::Renderer::beginScene(_scene->_camera);
-		std::vector<VE::Rendering::Renderable> renderables = _renderSystem->update(_scene, ts);
+		VE::Rendering::Renderer::beginScene(_scene->_camera, timeMs);
+		std::vector<VE::Rendering::Renderable> renderables = _renderSystem->update(_scene, delta);
 
 		if (!renderables.empty()) 
 		{

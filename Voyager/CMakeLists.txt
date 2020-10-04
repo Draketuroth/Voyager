@@ -35,6 +35,7 @@ set(Voyager_Folder_Core
 	Source/Voyager/Core/Window.h
 	Source/Voyager/Core/Input.h
 	Source/Voyager/Core/Timestep.h
+	Source/Voyager/Core/Timing.h
 	Source/Voyager/Core/KeyCodes.h
 	Source/Voyager/Core/MouseButtonCodes.h
 	Source/Voyager/Core/Types.h

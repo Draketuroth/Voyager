@@ -17,7 +17,7 @@ namespace VE
 
 			virtual void onAttach() {}
 			virtual void onDetach() {}
-			virtual void onUpdate(Timestep ts) {}
+			virtual void onUpdate(Timestep delta, Timestep timeMs) {}
 			virtual void onImGuiRender() {}
 			virtual void onEvent(Event::Event& event) {}
 

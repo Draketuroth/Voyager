@@ -33,7 +33,7 @@ namespace VE
 			}
 		}
 
-		void Renderer::beginScene(Core::Camera& camera)
+		void Renderer::beginScene(Core::Camera& camera, VE::Core::Timestep timeMs)
 		{
 			SceneData sceneData;
 			sceneData.eye = camera.getPosition();
@@ -42,10 +42,14 @@ namespace VE
 			sceneData.projectionMatrix = camera.getProjectionMatrix();
 			sceneData.viewProjectionMatrix = camera.getViewProjectionMatrix();
 
+			TimeData timeData;
+			timeData.timeSec = timeMs.toSecondsFloat();
+
 			VE::Rendering::Pipeline* simplePipeline = getPipeline( VE::Rendering::Identifier::get("Simple", VE::Rendering::Identifier::IdentifierType::PIPELINE));
 			if (simplePipeline) 
 			{
 				simplePipeline->updateSharedBuffer(VE::Rendering::Identifier::get("SceneData", VE::Rendering::Identifier::IdentifierType::BUFFER), sizeof(SceneData), &sceneData);
+				simplePipeline->updateSharedBuffer(VE::Rendering::Identifier::get("TimeData", VE::Rendering::Identifier::IdentifierType::BUFFER), sizeof(TimeData), &timeData);
 			}
 		}
 

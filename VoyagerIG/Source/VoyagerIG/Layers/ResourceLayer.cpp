@@ -46,6 +46,7 @@ namespace IG
 		unsigned int simplePipelineId = VE::Rendering::Identifier::get("Simple", VE::Rendering::Identifier::IdentifierType::PIPELINE);
 		unsigned int sceneDataBufferId = VE::Rendering::Identifier::get("SceneData", VE::Rendering::Identifier::IdentifierType::BUFFER);
 		unsigned int displayDataBufferId = VE::Rendering::Identifier::get("DisplayData", VE::Rendering::Identifier::IdentifierType::BUFFER);
+		unsigned int timeDataBufferId = VE::Rendering::Identifier::get("TimeData", VE::Rendering::Identifier::IdentifierType::BUFFER);
 
 		VE::Rendering::Renderer::registerPipeline(simplePipelineId);
 		VE::Rendering::Pipeline* simplePipeline = VE::Rendering::Renderer::getPipeline(simplePipelineId);
@@ -53,13 +54,17 @@ namespace IG
 		{
 			simplePipeline->createSharedBuffer(sceneDataBufferId, sizeof(VE::Rendering::Renderer::SceneData));
 			simplePipeline->createSharedBuffer(displayDataBufferId, sizeof(VE::Rendering::Renderer::DisplayData));
+			simplePipeline->createSharedBuffer(timeDataBufferId, sizeof(VE::Rendering::Renderer::TimeData));
 
 			simplePipeline->createRenderTarget(VE::Rendering::Identifier::get("FrameBuffer", VE::Rendering::Identifier::IdentifierType::RENDERTARGET), winSizeX, winSizeY);
 
 			VE::Rendering::Renderer::DisplayData displayData;
 			displayData.resolution = VE::Math::Vector2D(static_cast<double>(winSizeX), static_cast<double>(winSizeY));
-
 			simplePipeline->updateSharedBuffer(VE::Rendering::Identifier::get("DisplayData", VE::Rendering::Identifier::IdentifierType::BUFFER), sizeof(VE::Rendering::Renderer::DisplayData), &displayData);
+
+			VE::Rendering::Renderer::TimeData timeData;
+			timeData.timeSec = 0.0f;
+			simplePipeline->updateSharedBuffer(VE::Rendering::Identifier::get("TimeData", VE::Rendering::Identifier::IdentifierType::BUFFER), sizeof(VE::Rendering::Renderer::TimeData), &timeData);
 		}
 
 		std::string shaderSetConfigPath = "Config\\Shadersets.json";
@@ -95,6 +100,7 @@ namespace IG
 				simplePipeline->attachShaderset(shadersetId, shaderSet);
 				simplePipeline->registerToBuffer(shadersetId, sceneDataBufferId, 0);
 				simplePipeline->registerToBuffer(shadersetId, displayDataBufferId, 1);
+				simplePipeline->registerToBuffer(shadersetId, timeDataBufferId, 2);
 			}
 		}
 		else
@@ -109,7 +115,7 @@ namespace IG
 		_scene = nullptr;
 	}
 
-	void ResourceLayer::onUpdate(VE::Core::Timestep ts)
+	void ResourceLayer::onUpdate(VE::Core::Timestep delta, VE::Core::Timestep timeMs)
 	{
 		if (_scene->_pipelineToRecompile.size() > 0) 
 		{

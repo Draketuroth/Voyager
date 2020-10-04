@@ -14,7 +14,7 @@ namespace IG
 		ResourceLayer(Scene* scene, unsigned int winSizeX, unsigned int winSizeY);
 		~ResourceLayer();
 
-		void onUpdate(VE::Core::Timestep ts) override;
+		void onUpdate(VE::Core::Timestep delta, VE::Core::Timestep timeMs) override;
 
 		void onEvent(VE::Event::Event& event) override;
 

@@ -23,7 +23,7 @@ namespace VE
 		public:
 			static void onWindowResize(std::uint32_t width, std::uint32_t height);
 
-			static void beginScene(Core::Camera& camera);
+			static void beginScene(Core::Camera& camera, VE::Core::Timestep timeMs);
 			static void endScene();
 
 			static void submit(RenderJob& renderJob);
@@ -45,6 +45,10 @@ namespace VE
 			struct DisplayData 
 			{
 				VE::Math::Vector2D resolution;
+			};
+			struct TimeData 
+			{
+				float timeSec;
 			};
 		private:
 

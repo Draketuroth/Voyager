@@ -10,6 +10,8 @@
 
 #include "Voyager/IO/JSONParser.h"
 
+#include "Voyager/Core/Timing.h"
+
 #include <fstream>
 
 #include <glfw3.h>
@@ -71,15 +73,18 @@ namespace VE
 		{
 			while (_running)
 			{
-				float time = (float)glfwGetTime();
-				Timestep timestep = time - _lastFrameTime;
-				_lastFrameTime = time;
+				double timeMs = GetQueryPerformanceMs();
+
+				Timestep deltaTime = timeMs - _lastFrameTimeMs;
+				Timestep timeStamp = timeMs;
+
+				_lastFrameTimeMs = timeMs;
 
 				if (!_minimized)
 				{
 					for (Layer* layer : _layerStack)
 					{
-						layer->onUpdate(timestep);
+						layer->onUpdate(deltaTime.toSeconds(), timeStamp.toSeconds());
 					}
 				}
 
@@ -89,7 +94,6 @@ namespace VE
 					layer->onImGuiRender();
 				}
 				_imGuiLayer->end();
-
 
 				_window->onUpdate();
 			}

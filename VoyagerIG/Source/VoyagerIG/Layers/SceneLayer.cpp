@@ -56,34 +56,34 @@ namespace IG
 		delete _logo;
 	}
 
-	void SceneLayer::onUpdate(VE::Core::Timestep ts)
+	void SceneLayer::onUpdate(VE::Core::Timestep delta, VE::Core::Timestep timeMs)
 	{
 		{
 			if (!_imGuiMenuActive)
 			{
 				if (VE::Core::Input::isKeyPressed(VE_KEY_A))
 				{
-					_scene->_camera.moveLeft(ts);
+					_scene->_camera.moveLeft(delta);
 				}
 				if (VE::Core::Input::isKeyPressed(VE_KEY_D))
 				{
-					_scene->_camera.moveRight(ts);
+					_scene->_camera.moveRight(delta);
 				}
 				if (VE::Core::Input::isKeyPressed(VE_KEY_S))
 				{
-					_scene->_camera.moveBackward(ts);
+					_scene->_camera.moveBackward(delta);
 				}
 				if (VE::Core::Input::isKeyPressed(VE_KEY_W))
 				{
-					_scene->_camera.moveForward(ts);
+					_scene->_camera.moveForward(delta);
 				}
 				if (VE::Core::Input::isKeyPressed(VE_KEY_Q))
 				{
-					_scene->_camera.rotateCW(ts);
+					_scene->_camera.rotateCW(delta);
 				}
 				if (VE::Core::Input::isKeyPressed(VE_KEY_E))
 				{
-					_scene->_camera.rotateCCW(ts);
+					_scene->_camera.rotateCCW(delta);
 				}
 			}
 

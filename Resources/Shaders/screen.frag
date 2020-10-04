@@ -6,6 +6,11 @@ layout(std140, binding = 1) uniform DisplayData
 {
     vec2 resolution;
 };
+
+layout(std140, binding = 2) uniform TimeData
+{
+    float timeSec;
+};
   
 in vec2 uv;
 

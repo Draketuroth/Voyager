@@ -62,7 +62,7 @@ namespace VE
 			bool _minimized = false;
 			LayerStack _layerStack;
 
-			float _lastFrameTime = 0.0f;
+			double _lastFrameTimeMs = 0.0;
 		};
 
 		// To be defined in client.

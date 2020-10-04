@@ -7,6 +7,11 @@ layout(std140, binding = 1) uniform DisplayData
     vec2 resolution;
 };
 
+layout(std140, binding = 2) uniform TimeData
+{
+    float timeSec;
+};
+
 in vec2 uv;
 
 vec3 palette(in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d)
