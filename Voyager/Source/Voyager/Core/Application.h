@@ -6,6 +6,7 @@
 #include "Voyager/Core/Window.h"
 #include "Voyager/Core/LayerStack.h"
 #include "Voyager/Core/Timestep.h"
+#include "Voyager/Core/Timer.h"
 
 #include "Voyager/Event/Event.h"
 #include "Voyager/Event/ApplicationEvent.h"
@@ -61,6 +62,7 @@ namespace VE
 			bool _running = true;
 			bool _minimized = false;
 			LayerStack _layerStack;
+			Timer _timer;
 
 			double _lastFrameTimeMs = 0.0;
 		};

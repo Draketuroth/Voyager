@@ -11,10 +11,10 @@ float clamp(float value, float lower, float upper)
 
 float toRadians(float angleDegrees)
 {
-	return angleDegrees * (PI / 180.0);
+	return angleDegrees * (VE::Math::PI / 180.0);
 }
 
 float toDegrees(float angleRadians)
 {
-	return angleRadians * (180.0 / PI);
+	return angleRadians * (180.0 / VE::Math::PI);
 }

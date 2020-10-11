@@ -10,8 +10,6 @@
 
 #include "Voyager/IO/JSONParser.h"
 
-#include "Voyager/Core/Timing.h"
-
 #include <fstream>
 
 #include <glfw3.h>
@@ -28,6 +26,8 @@ namespace VE
 		{
 			VE_ASSERT(!_instance, "Application already exist!");
 			_instance = this;
+
+			_timer.initTimer();
 
 			WindowProperties windowProps;
 
@@ -73,7 +73,7 @@ namespace VE
 		{
 			while (_running)
 			{
-				double timeMs = GetQueryPerformanceMs();
+				double timeMs = _timer.getTime();
 
 				Timestep deltaTime = timeMs - _lastFrameTimeMs;
 				Timestep timeStamp = timeMs;
