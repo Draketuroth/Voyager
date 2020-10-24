@@ -5,8 +5,8 @@
 
 #include "Voyager/Geometry/GeometryGenerator.h"
 
-#include "Voyager/Math/Vector/Vector3D.h"
-#include "Voyager/Math/Vector/Vector2D.h"
+#include "Voyager/Math/Vector/Vector3.h"
+#include "Voyager/Math/Vector/Vector2.h"
 
 namespace VE 
 {
@@ -29,9 +29,9 @@ namespace VE
 					{
 						// Temporary in vectors used to compile final model data.
 						std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
-						std::vector<Math::Vector3D> inVertices;
-						std::vector<Math::Vector2D> inUVs;
-						std::vector<Math::Vector3D> inNormals;
+						std::vector<Math::Vector3> inVertices;
+						std::vector<Math::Vector2> inUVs;
+						std::vector<Math::Vector3> inNormals;
 
 						std::ifstream input(path);
 						for (std::string line; getline(input, line); )
@@ -42,18 +42,18 @@ namespace VE
 							std::getline(linestream, lineHeader, ' ');
 
 							if (lineHeader == "v") {
-								VE::Math::Vector3D vertex;
+								VE::Math::Vector3 vertex;
 								linestream >> vertex.x >> vertex.y >> vertex.z;
 								inVertices.push_back(vertex);
 							}
 							else if (lineHeader == "vt") 
 							{
-								VE::Math::Vector2D uv;
+								VE::Math::Vector2 uv;
 								linestream >> uv.x >> uv.y;
 								inUVs.push_back(uv);
 							}
 							else if (lineHeader == "vn") {
-								VE::Math::Vector3D normal;
+								VE::Math::Vector3 normal;
 								linestream >> normal.x >> normal.y >> normal.z;
 								inNormals.push_back(normal);
 							}
@@ -91,19 +91,19 @@ namespace VE
 						for (unsigned int i = 0; i < vertexIndices.size(); i++)
 						{
 							unsigned int vertexIndex = vertexIndices[i];
-							Math::Vector3D vertex = inVertices[vertexIndex - 1];
+							Math::Vector3 vertex = inVertices[vertexIndex - 1];
 							data.positions.push_back(vertex);
 						}
 						for (unsigned int i = 0; i < uvIndices.size(); i++)
 						{
 							unsigned int uvIndex = uvIndices[i];
-							Math::Vector2D uv = inUVs[uvIndex - 1];
+							Math::Vector2 uv = inUVs[uvIndex - 1];
 							data.uvs.push_back(uv);
 						}
 						for (unsigned int i = 0; i < normalIndices.size(); i++)
 						{
 							unsigned int normalIndex = normalIndices[i];
-							Math::Vector3D normal = inNormals[normalIndex - 1];
+							Math::Vector3 normal = inNormals[normalIndex - 1];
 							data.normals.push_back(normal);
 						}
 

@@ -1,7 +1,7 @@
 #ifndef VE_MATH_MATRIX_3D_H
 #define VE_MATH_MATRIX_3D_H
 
-#include "Voyager/Math/Vector/Vector3D.h"
+#include "Voyager/Math/Vector/Vector3.h"
 
 namespace VE 
 {
@@ -23,7 +23,7 @@ namespace VE
 			inline static Matrix3D scale(float x, float y);
 		};
 
-		inline Vector3D operator*(const Vector3D& vector, const Matrix3D& matrix);
+		inline Vector3 operator*(const Vector3& vector, const Matrix3D& matrix);
 		inline Matrix3D operator*(const Matrix3D& left, const Matrix3D& right);
 
 #include "Voyager/Math/Matrix/Matrix3D.inl"

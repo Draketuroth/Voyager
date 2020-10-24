@@ -151,10 +151,12 @@ set(Voyager_Folder_Math
 	Source/Voyager/Math/Matrix/Matrix2DH.h
 	Source/Voyager/Math/Matrix/Matrix3D.h
 	Source/Voyager/Math/Matrix/Matrix4D.h
+	Source/Voyager/Math/Vector/Base.h
+	Source/Voyager/Math/Vector/Descriptor.h
 	Source/Voyager/Math/Vector/Rotation.h
-	Source/Voyager/Math/Vector/Vector2D.h
-	Source/Voyager/Math/Vector/Vector3D.h
-	Source/Voyager/Math/Vector/Vector4D.h
+	Source/Voyager/Math/Vector/Vector2.h
+	Source/Voyager/Math/Vector/Vector3.h
+	Source/Voyager/Math/Vector/Vector4.h
 )
 source_group("Voyager\\Math" FILES ${Voyager_Folder_Math})
 

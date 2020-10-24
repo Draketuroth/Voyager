@@ -31,12 +31,12 @@ namespace VE
 				return _transform->getTransformMatrix();
 			}
 
-			VE::Math::Vector3D getPosition() const 
+			VE::Math::Vector3 getPosition() const 
 			{
 				return _transform->getPosition();
 			}
 
-			VE::Math::Vector3D getScale() const 
+			VE::Math::Vector3 getScale() const 
 			{
 				return _transform->getScale();
 			}
@@ -46,12 +46,12 @@ namespace VE
 				return _transform->getYawPitchRoll();
 			}
 
-			void setPosition(VE::Math::Vector3D& pos) 
+			void setPosition(VE::Math::Vector3& pos) 
 			{
 				_transform->setPosition(pos);
 			}
 
-			void setScale(VE::Math::Vector3D& scale) 
+			void setScale(VE::Math::Vector3& scale) 
 			{
 				_transform->setScale(scale);
 			}

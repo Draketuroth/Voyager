@@ -53,9 +53,9 @@ namespace VE
 				virtual bool resizeRenderTarget(unsigned int targetId, unsigned int width, unsigned height) override;
 
 				virtual void updateConstantMatrix4D(const std::string& name, const VE::Math::Matrix4D& value, bool transpose) override;
-				virtual void updateConstantVector4D(const std::string& name, const VE::Math::Vector4D& value) override;
-				virtual void updateConstantVector3D(const std::string& name, const VE::Math::Vector3D& value) override;
-				virtual void updateConstantVector2D(const std::string& name, const VE::Math::Vector2D& value) override;
+				virtual void updateConstantVector4(const std::string& name, const VE::Math::Vector4& value) override;
+				virtual void updateConstantVector3(const std::string& name, const VE::Math::Vector3& value) override;
+				virtual void updateConstantVector2D(const std::string& name, const VE::Math::Vector2& value) override;
 				virtual void updateConstantInt(const std::string& name, int value) override;
 
 			private:

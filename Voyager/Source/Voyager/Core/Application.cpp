@@ -84,7 +84,7 @@ namespace VE
 				{
 					for (Layer* layer : _layerStack)
 					{
-						layer->onUpdate(deltaTime.toSeconds(), timeStamp.toSeconds());
+						layer->onUpdate(deltaTime, timeStamp.toSeconds());
 					}
 				}
 

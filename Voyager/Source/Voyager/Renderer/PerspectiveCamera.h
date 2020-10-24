@@ -3,8 +3,8 @@
 
 #include "Voyager/Renderer/Camera.h"
 
-#include "Voyager/Math/Vector/Vector2D.h"
-#include "Voyager/Math/Vector/Vector4D.h"
+#include "Voyager/Math/Vector/Vector2.h"
+#include "Voyager/Math/Vector/Vector4.h"
 
 namespace VE 
 {
@@ -17,7 +17,7 @@ namespace VE
 			virtual ~PerspectiveCamera() {}
 
 			virtual void setAspectRatio(const float ratio) override;
-			virtual void setPosition(const VE::Math::Vector3D) override;
+			virtual void setPosition(const VE::Math::Vector3) override;
 			virtual void setRotation(float rotation) override;
 
 			virtual void moveForward(const Core::Timestep ts) override;
@@ -31,14 +31,13 @@ namespace VE
 			virtual void rotateCCW(const Core::Timestep ts) override;
 
 			virtual void update() override;
-			virtual void mouseUpdate(const VE::Math::Vector2D& 
-				_mouse_pos) override;
+			virtual void mouseUpdate(const VE::Math::Vector2& _mouse_pos) override;
 
 			virtual const VE::Math::Matrix4D getViewMatrix() const override;
 			virtual const VE::Math::Matrix4D getProjectionMatrix() const override;
 			virtual const VE::Math::Matrix4D getViewProjectionMatrix() const override;
-			virtual const VE::Math::Vector4D getDirection() const override;
-			virtual const VE::Math::Vector4D getPosition() const override;
+			virtual const VE::Math::Vector4 getDirection() const override;
+			virtual const VE::Math::Vector4 getPosition() const override;
 			virtual float getRotation() const override;
 		private:
 			void recalculateViewMatrix();
@@ -47,12 +46,12 @@ namespace VE
 			float _aspect_ratio;
 			float _rotation;
 
-			VE::Math::Vector3D _position;
-			VE::Math::Vector3D _view_dir;
-			VE::Math::Vector3D _right;
-			VE::Math::Vector3D _up;
+			VE::Math::Vector3 _position;
+			VE::Math::Vector3 _view_dir;
+			VE::Math::Vector3 _right;
+			VE::Math::Vector3 _up;
 
-			VE::Math::Vector2D _old_mouse_pos;
+			VE::Math::Vector2 _old_mouse_pos;
 
 			VE::Math::Matrix4D _viewMatrix;
 			VE::Math::Matrix4D _projectionMatrix;

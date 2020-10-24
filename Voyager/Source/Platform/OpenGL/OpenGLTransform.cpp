@@ -20,11 +20,11 @@ namespace VE
 			{
 				return _matrix;
 			}
-			Math::Vector3D OpenGLTransform::getPosition() const
+			Math::Vector3 OpenGLTransform::getPosition() const
 			{
 				return _position;
 			}
-			Math::Vector3D OpenGLTransform::getScale() const
+			Math::Vector3 OpenGLTransform::getScale() const
 			{
 				return _scale;
 			}
@@ -32,11 +32,11 @@ namespace VE
 			{
 				return _rotation;
 			}
-			void OpenGLTransform::setPosition(Math::Vector3D& pos)
+			void OpenGLTransform::setPosition(Math::Vector3& pos)
 			{
 				_position = pos;
 			}
-			void OpenGLTransform::setScale(Math::Vector3D& scale)
+			void OpenGLTransform::setScale(Math::Vector3& scale)
 			{
 				_scale = scale;
 			}

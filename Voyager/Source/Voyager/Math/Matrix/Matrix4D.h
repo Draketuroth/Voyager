@@ -1,8 +1,8 @@
 #ifndef VE_MATH_MATRIX_4D_H
 #define VE_MATH_MATRIX_4D_H
 
-#include "Voyager/Math/Vector/Vector4D.h"
-#include "Voyager/Math/Vector/Vector3D.h"
+#include "Voyager/Math/Vector/Vector4.h"
+#include "Voyager/Math/Vector/Vector3.h"
 #include "Voyager/Math/Utils.h"
 
 #include <algorithm>
@@ -22,13 +22,13 @@ namespace VE
 			    float _30 = 0, float _31 = 0, float _32 = 0, float _33 = 1);
 
 			inline Matrix4D(
-				Vector4D r0,
-				Vector4D r1,
-				Vector4D r2,
-				Vector4D r3);
+				Vector4 r0,
+				Vector4 r1,
+				Vector4 r2,
+				Vector4 r3);
 		};
 
-		inline Vector4D operator*(const Matrix4D& matrix, const Vector4D& vector);
+		inline Vector4 operator*(const Matrix4D& matrix, const Vector4& vector);
 
 		inline Matrix4D operator*(const Matrix4D& left, const Matrix4D& right);
 
@@ -38,7 +38,7 @@ namespace VE
 
 		inline Matrix4D orthoRH(float left, float right, float bottom, float top, float zNear, float zFar);
 
-		inline Matrix4D lookAtRH(const Vector3D& eye, const Vector3D& at, const Vector3D& up);
+		inline Matrix4D lookAtRH(const Vector3& eye, const Vector3& at, const Vector3& up);
 
 		inline float minor(float(&m)[4][4], int r0, int r1, int r2, int c0, int c1, int c2);
 
@@ -50,22 +50,22 @@ namespace VE
 
 		inline Matrix4D translate(float x, float y, float z);
 
-		inline Matrix4D translate(const Vector3D& vec);
+		inline Matrix4D translate(const Vector3& vec);
 
 		inline Matrix4D scale(float x, float y, float z);
 
-		inline Matrix4D scale(const Vector3D& vec);
+		inline Matrix4D scale(const Vector3& vec);
 
 		inline Matrix4D yaw(float angle);
 		inline Matrix4D pitch(float angle);
 		inline Matrix4D roll(float angle);
 
 		inline Matrix4D rotate(float y, float p, float r);
-		inline Matrix4D rotate(const Vector3D& vec);
+		inline Matrix4D rotate(const Vector3& vec);
 
-		inline Matrix4D rotateNormalAxis(float angle, const Vector3D& u);
+		inline Matrix4D rotateNormalAxis(float angle, const Vector3& u);
 
-		inline Matrix4D rotateAxis(float angle, const Vector3D& u);
+		inline Matrix4D rotateAxis(float angle, const Vector3& u);
 
 #include "Voyager/Math/Matrix/Matrix4D.inl"
 	}

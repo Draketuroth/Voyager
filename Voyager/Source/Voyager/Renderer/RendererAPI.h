@@ -4,7 +4,7 @@
 #include "Voyager/Renderer/RenderSettings.h"
 
 #include "Voyager/Renderer/Geometry.h"
-#include "Voyager/Math/Vector/Vector4D.h"
+#include "Voyager/Math/Vector/Vector4.h"
 
 namespace VE
 {

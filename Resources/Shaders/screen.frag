@@ -42,6 +42,6 @@ vec4 twirl(sampler2D tex, vec2 uv)
 
 void main()
 { 
-    // FragColor = texture(screenTexture, uv);
-	FragColor = twirl(screenTexture, uv);
+    FragColor = texture(screenTexture, uv);
+	//FragColor = twirl(screenTexture, uv);
 }

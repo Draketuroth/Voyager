@@ -58,9 +58,9 @@ Matrix3D Matrix3D::scale(float x, float y)
 		0, 0, 1);
 }
 
-Vector3D operator*(const Vector3D& vector, const Matrix3D& matrix)
+Vector3 operator*(const Vector3& vector, const Matrix3D& matrix)
 {
-	return Vector3D(
+	return Vector3(
 		vector.x * matrix.m[0][0] + vector.y * matrix.m[1][0] + vector.z * matrix.m[2][0],
 		vector.x * matrix.m[0][1] + vector.y * matrix.m[1][1] + vector.z * matrix.m[2][1],
 		vector.x * matrix.m[0][2] + vector.y * matrix.m[1][2] + vector.z * matrix.m[2][2]

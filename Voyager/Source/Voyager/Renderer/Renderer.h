@@ -36,15 +36,15 @@ namespace VE
 
 			struct SceneData
 			{
-				VE::Math::Vector4D eye;
-				VE::Math::Vector4D center;
+				VE::Math::Vector4 eye;
+				VE::Math::Vector4 center;
 				VE::Math::Matrix4D viewMatrix;
 				VE::Math::Matrix4D projectionMatrix;
 				VE::Math::Matrix4D viewProjectionMatrix;
 			};
 			struct DisplayData 
 			{
-				VE::Math::Vector2D resolution;
+				VE::Math::Vector2 resolution;
 			};
 			struct TimeData 
 			{

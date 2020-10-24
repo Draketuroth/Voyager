@@ -27,10 +27,10 @@ Matrix4D::Matrix4D(
 }
 
 Matrix4D::Matrix4D(
-	Vector4D r0,
-	Vector4D r1,
-	Vector4D r2,
-	Vector4D r3)
+	Vector4 r0,
+	Vector4 r1,
+	Vector4 r2,
+	Vector4 r3)
 {
 	m[0][0] = r0.x;
 	m[0][1] = r0.y;
@@ -53,9 +53,9 @@ Matrix4D::Matrix4D(
 	m[3][3] = r3.w;
 }
 
-Vector4D operator*(const Matrix4D& matrix, const Vector4D& vector)
+Vector4 operator*(const Matrix4D& matrix, const Vector4& vector)
 {
-	return Vector4D(
+	return Vector4(
 		matrix.m[0][0] * vector.x + matrix.m[0][1] * vector.y + matrix.m[0][2] * vector.z + matrix.m[0][3] * vector.w,
 		matrix.m[1][0] * vector.x + matrix.m[1][1] * vector.y + matrix.m[1][2] * vector.z + matrix.m[1][3] * vector.w,
 		matrix.m[2][0] * vector.x + matrix.m[2][1] * vector.y + matrix.m[2][2] * vector.z + matrix.m[2][3] * vector.w,
@@ -112,19 +112,19 @@ Matrix4D operator*(const Matrix4D& left, const Matrix4D& right)
 
 Matrix4D transpose(const Matrix4D& in) 
 {
-	Vector4D M0, M1, M2, M3;
-	M0 = Vector4D(in.m[0][0], in.m[0][1], in.m[0][2], in.m[0][3]);
-	M1 = Vector4D(in.m[1][0], in.m[1][1], in.m[1][2], in.m[1][3]);
-	M2 = Vector4D(in.m[2][0], in.m[2][1], in.m[2][2], in.m[2][3]);
-	M3 = Vector4D(in.m[3][0], in.m[3][1], in.m[3][2], in.m[3][3]);
+	Vector4 M0, M1, M2, M3;
+	M0 = Vector4(in.m[0][0], in.m[0][1], in.m[0][2], in.m[0][3]);
+	M1 = Vector4(in.m[1][0], in.m[1][1], in.m[1][2], in.m[1][3]);
+	M2 = Vector4(in.m[2][0], in.m[2][1], in.m[2][2], in.m[2][3]);
+	M3 = Vector4(in.m[3][0], in.m[3][1], in.m[3][2], in.m[3][3]);
 
-	Vector4D P0, P1, P2, P3;
+	Vector4 P0, P1, P2, P3;
 	P0 = mergeXY(M0, M2); // m00m20m01m21
 	P1 = mergeXY(M1, M3); // m10m30m11m31
 	P2 = mergeZW(M0, M2); // m02m22m03m23
 	P3 = mergeZW(M1, M3); // m12m32m13m33
 
-	Vector4D T0, T1, T2, T3;
+	Vector4 T0, T1, T2, T3;
 	T0 = mergeXY(P0, P1); // m00m10m20m30
 	T1 = mergeZW(P0, P1); // m01m11m21m31
 	T2 = mergeXY(P2, P3); // m02m12m22m32
@@ -162,11 +162,11 @@ Matrix4D orthoRH(float left, float right, float bottom, float top, float zNear, 
 		-(left + right) * ReciprocalWidth, -(top + bottom) * ReciprocalHeight, fRange * zNear, 1.0f);
 }
 
-Matrix4D lookAtRH(const Vector3D& eye, const Vector3D& at, const Vector3D& up)
+Matrix4D lookAtRH(const Vector3& eye, const Vector3& at, const Vector3& up)
 {
-	Vector3D zaxis = normalize(eye - at);
-	Vector3D xaxis = normalize(cross(up, zaxis));
-	Vector3D yaxis = cross(zaxis, xaxis);
+	Vector3 zaxis = normalize(eye - at);
+	Vector3 xaxis = normalize(cross(up, zaxis));
+	Vector3 yaxis = cross(zaxis, xaxis);
 
 	Matrix4D lookAtMatrix;
 
@@ -182,7 +182,7 @@ Matrix4D lookAtRH(const Vector3D& eye, const Vector3D& at, const Vector3D& up)
 	lookAtMatrix.m[2][1] = yaxis.z;
 	lookAtMatrix.m[2][2] = zaxis.z;
 
-	Vector3D negEye = Vector3D(-eye.x, -eye.y, -eye.z);
+	Vector3 negEye = Vector3(-eye.x, -eye.y, -eye.z);
 
 	lookAtMatrix.m[3][0] = dot(xaxis, negEye);
 	lookAtMatrix.m[3][1] = dot(yaxis, negEye);
@@ -258,7 +258,7 @@ Matrix4D translate(float x, float y, float z)
 		x, y, z, 1.0f);
 }
 
-Matrix4D translate(const Vector3D& vec)
+Matrix4D translate(const Vector3& vec)
 {
 	return Matrix4D(
 		1.0f, 0.0f, 0.0f, 0.0f,
@@ -276,7 +276,7 @@ Matrix4D scale(float x, float y, float z)
 		0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-Matrix4D scale(const Vector3D& vec)
+Matrix4D scale(const Vector3& vec)
 {
 	return Matrix4D(
 		vec.x, 0.0f, 0.0f, 0.0f,
@@ -326,53 +326,53 @@ Matrix4D rotate(float y, float p, float r)
 	return roll(r) * pitch(p) * yaw(y);
 }
 
-Matrix4D rotate(const Vector3D& vec)
+Matrix4D rotate(const Vector3& vec)
 {
 	return roll(vec.x) * pitch(vec.y) * yaw(vec.z);
 }
 
-Matrix4D rotateNormalAxis(float angle, const Vector3D& u)
+Matrix4D rotateNormalAxis(float angle, const Vector3& u)
 {
 	float fSinAngle = sin(angle);
 	float fCosAngle = cos(angle);
 
-	Vector4D NormalAxis = Vector4D(u.x, u.y, u.z, 1.0f);
+	Vector4 NormalAxis = Vector4(u.x, u.y, u.z, 1.0f);
 
-	Vector4D A = Vector4D(fSinAngle, fCosAngle, 1.0f - fCosAngle, 0.0f);
+	Vector4 A = Vector4(fSinAngle, fCosAngle, 1.0f - fCosAngle, 0.0f);
 
-	Vector4D C2 = splatZ(A);
-	Vector4D C1 = splatY(A);
-	Vector4D C0 = splatX(A);
+	Vector4 C2 = splatZ(A);
+	Vector4 C1 = splatY(A);
+	Vector4 C0 = splatX(A);
 
-	Vector4D N0 = Vector4D(NormalAxis.y, NormalAxis.z, NormalAxis.x, NormalAxis.w);
-	Vector4D N1 = Vector4D(NormalAxis.z, NormalAxis.x, NormalAxis.y, NormalAxis.w);
+	Vector4 N0 = Vector4(NormalAxis.y, NormalAxis.z, NormalAxis.x, NormalAxis.w);
+	Vector4 N1 = Vector4(NormalAxis.z, NormalAxis.x, NormalAxis.y, NormalAxis.w);
 
-	Vector4D V0 = multiply(C2, N0);
+	Vector4 V0 = multiply(C2, N0);
 	V0 = multiply(V0, N1);
 
-	Vector4D R0 = multiply(C2, NormalAxis);
+	Vector4 R0 = multiply(C2, NormalAxis);
 	R0 = multiplyAdd(R0, NormalAxis, C1);
 
-	Vector4D R1 = multiplyAdd(C0, NormalAxis, V0);
-	Vector4D R2 = negativeMultiplySubtract(C0, NormalAxis, V0);
+	Vector4 R1 = multiplyAdd(C0, NormalAxis, V0);
+	Vector4 R2 = negativeMultiplySubtract(C0, NormalAxis, V0);
 
-	V0 = Vector4D(R0.x, R0.y, R0.z, A.w);
+	V0 = Vector4(R0.x, R0.y, R0.z, A.w);
 
-	Vector4D V1 = Vector4D(R1.z, R2.y, R2.z, R1.x);
+	Vector4 V1 = Vector4(R1.z, R2.y, R2.z, R1.x);
 
-	Vector4D V2 = Vector4D(R1.y, R2.x, R1.y, R2.x);
+	Vector4 V2 = Vector4(R1.y, R2.x, R1.y, R2.x);
 
-	Vector4D F0, F1, F2, F3;
-	F0 = Vector4D(V0.x, V1.x, V1.y, V0.w);
-	F1 = Vector4D(V1.z, V0.y, V1.w, V0.w);
-	F2 = Vector4D(V2.x, V2.y, V0.z, V0.w);
-	F3 = Vector4D(0.0f, 0.0f, 0.0f, 1.0f);
+	Vector4 F0, F1, F2, F3;
+	F0 = Vector4(V0.x, V1.x, V1.y, V0.w);
+	F1 = Vector4(V1.z, V0.y, V1.w, V0.w);
+	F2 = Vector4(V2.x, V2.y, V0.z, V0.w);
+	F3 = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	return Matrix4D(F0, F1, F2, F3);
 }
 
-Matrix4D rotateAxis(float angle, const Vector3D& u) 
+Matrix4D rotateAxis(float angle, const Vector3& u) 
 {
-	Vector3D normal = normalize(u);
+	Vector3 normal = normalize(u);
 	return rotateNormalAxis(angle, normal);
 }

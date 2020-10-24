@@ -153,7 +153,7 @@ namespace IG
 			VE::Event::MouseMovedEvent& e = (VE::Event::MouseMovedEvent&)event;
 			if (!_imGuiMenuActive)
 			{
-				_scene->_camera.mouseUpdate(VE::Math::Vector2D(e.getXCoord(), e.getYCoord()));
+				_scene->_camera.mouseUpdate(VE::Math::Vector2(e.getXCoord(), e.getYCoord()));
 			}
 		}
 	}
@@ -190,8 +190,8 @@ namespace IG
 							if (ImGui::BeginTabItem("Transform"))
 							{
 								auto& transform = _scene->getComponent<VE::Components::Transform>(entity.id);
-								VE::Math::Vector3D pos = transform.getPosition();
-								VE::Math::Vector3D scale = transform.getScale();
+								VE::Math::Vector3 pos = transform.getPosition();
+								VE::Math::Vector3 scale = transform.getScale();
 								VE::Math::YawPitchRoll rot = transform.getYawPitchRoll();
 
 								// Position.

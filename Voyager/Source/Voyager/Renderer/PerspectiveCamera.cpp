@@ -1,7 +1,7 @@
 
 #include "Voyager/Renderer/PerspectiveCamera.h"
 #include "Voyager/Math/Matrix/Matrix3D.h"
-#include "Voyager/Math/Vector/Vector4D.h"
+#include "Voyager/Math/Vector/Vector4.h"
 
 #include "Voyager/Math/Utils.h"
 
@@ -35,7 +35,7 @@ namespace VE
 			_aspect_ratio = ratio;
 		}
 
-		void PerspectiveCamera::setPosition(const Math::Vector3D position)
+		void PerspectiveCamera::setPosition(const Math::Vector3 position)
 		{
 			_position = position;
 			recalculateViewMatrix();
@@ -92,9 +92,9 @@ namespace VE
 			recalculateViewMatrix();
 		}
 
-		void PerspectiveCamera::mouseUpdate(const Math::Vector2D& new_mouse_pos)
+		void PerspectiveCamera::mouseUpdate(const Math::Vector2& new_mouse_pos)
 		{
-			Math::Vector2D mouse_delta = new_mouse_pos - _old_mouse_pos;
+			Math::Vector2 mouse_delta = new_mouse_pos - _old_mouse_pos;
 			if (mouse_delta.magnitude() > 50.0f)
 			{
 				_old_mouse_pos = new_mouse_pos;
@@ -132,14 +132,14 @@ namespace VE
 			return _viewProjectionMatrix;
 		}
 
-		const VE::Math::Vector4D PerspectiveCamera::getDirection() const
+		const VE::Math::Vector4 PerspectiveCamera::getDirection() const
 		{
-			return VE::Math::Vector4D(_view_dir.x, _view_dir.y, _view_dir.z);
+			return VE::Math::Vector4(_view_dir.x, _view_dir.y, _view_dir.z);
 		}
 
-		const Math::Vector4D PerspectiveCamera::getPosition() const
+		const Math::Vector4 PerspectiveCamera::getPosition() const
 		{
-			return VE::Math::Vector4D(_position.x, _position.y, _position.z);
+			return VE::Math::Vector4(_position.x, _position.y, _position.z);
 		}
 
 		float PerspectiveCamera::getRotation() const
