@@ -19,15 +19,7 @@ namespace VE
 			}
 
 			inline Vector4(const Vector::Base<Vector::DescXYZW>& other);
-
-			inline Vector4& operator=(const Vector::Base<Vector::DescXYZW>& other);
-			inline Vector4& operator+=(const Vector4& right);
 		};
-
-		inline Vector4 operator+(const Vector4& left, const Vector4& right);
-		inline Vector4 operator-(const Vector4& left, const Vector4& right);
-		inline Vector4 operator*(float scalar, const Vector4& vector);
-		inline Vector4 operator*(const Vector4& vector, float scalar);
 
 		inline Vector4 multiply(const Vector4& a, const Vector4& b);
 		inline Vector4 multiplyAdd(const Vector4& a, const Vector4& b, const Vector4& c);

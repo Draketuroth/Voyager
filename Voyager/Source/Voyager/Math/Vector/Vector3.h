@@ -19,18 +19,10 @@ namespace VE
 			}
 
 			inline Vector3(const Vector::Base<Vector::DescXYZ>& other);
-
-			inline Vector3& operator=(const Vector::Base<Vector::DescXYZ>& other);
-			inline Vector3& operator+=(const Vector3& right);
-			inline Vector3& operator-=(const Vector3& right);
 		};
 
 		inline Vector3 cross(const Vector3& a, const Vector3& b);
 
-		inline Vector3 operator+(const Vector3& left, const Vector3& right);
-		inline Vector3 operator-(const Vector3& left, const Vector3& right);
-		inline Vector3 operator*(float scalar, const Vector3& vector);
-		inline Vector3 operator*(const Vector3& vector, float scalar);
 		inline Vector3 lerp(float alpha, const Vector3& source, const Vector3& target);
 
 #include "Voyager/Math/Vector/Vector3.inl"

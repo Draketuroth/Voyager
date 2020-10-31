@@ -8,43 +8,6 @@ Vector4::Vector4(const Vector::Base<Vector::DescXYZW>& other)
 	w = other.w;
 }
 
-Vector4& Vector4::operator=(const Vector::Base<Vector::DescXYZW>& other)
-{
-	x = other.x;
-	y = other.y;
-	z = other.z;
-	w = other.w;
-	return *this;
-}
-
-Vector4& Vector4::operator+=(const Vector4& right)
-{
-	this->x += right.x;
-	this->y += right.y;
-	this->z += right.z;
-	return *this;
-}
-
-Vector4 operator+(const Vector4& left, const Vector4& right)
-{
-	return Vector4(left.x + right.x, left.y + right.y, left.z + right.z, 1.0f);
-}
-
-Vector4 operator-(const Vector4& left, const Vector4& right)
-{
-	return Vector4(left.x - right.x, left.y - right.y, left.z - right.z, 1.0f);
-}
-
-Vector4 operator*(float scalar, const Vector4& vector)
-{
-	return Vector4(scalar * vector.x, scalar * vector.y, scalar * vector.z, 1.0f);
-}
-
-Vector4 operator*(const Vector4& vector, float scalar)
-{
-	return scalar * vector;
-}
-
 Vector4 multiply(const Vector4& a, const Vector4& b) 
 {
 	return Vector4(a.x * b.x,

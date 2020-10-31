@@ -9,29 +9,29 @@ namespace VE
         {
             struct DescXYZW 
             {
-                float x;
-                float y;
-                float z;
-                float w;
+                float x = 0.0f;
+                float y = 0.0f;
+                float z = 0.0f;
+                float w = 1.0f;
             };
 
             struct DescXYZ
             {
-                float x;
-                float y;
-                float z;
+                float x = 0.0f;
+                float y = 0.0f;
+                float z = 0.0f;
             };
 
             struct DescXY
             {
-                float x;
-                float y;
+                float x = 0.0f;
+                float y = 0.0f;
             };
 
             struct DescUV
             {
-                float u;
-                float v;
+                float u = 0.0f;
+                float v = 0.0f;
             };
         }
     }
