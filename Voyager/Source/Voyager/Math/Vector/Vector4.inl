@@ -7,17 +7,6 @@ Vector4& Vector4::operator+=(const Vector4& right)
 	return *this;
 }
 
-float Vector4::magnitude() const
-{
-	return sqrt(magnitudeSquared());
-	// return sqrt(x * x + y * y + z * z);
-}
-
-float Vector4::magnitudeSquared() const
-{
-	return this->dot(*this);
-}
-
 Vector4 Vector4::normalized() const
 {
 	float inverseMagnitude = 1.0f / magnitude();

@@ -18,8 +18,6 @@ namespace VE
 				w = wIn;
 			}
 			inline Vector4& operator+=(const Vector4& right);
-			inline float magnitude() const;
-			inline float magnitudeSquared() const;
 			inline Vector4 normalized() const;
 		};
 

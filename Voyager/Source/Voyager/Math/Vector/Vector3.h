@@ -19,8 +19,6 @@ namespace VE
 			}
 			inline Vector3& operator+=(const Vector3& right);
 			inline Vector3& operator-=(const Vector3& right);
-			inline float magnitude() const;
-			inline float magnitudeSquared() const;
 			inline Vector3 normalized() const;
 		};
 

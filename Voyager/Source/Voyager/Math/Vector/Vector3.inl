@@ -16,17 +16,6 @@ inline Vector3& Vector3::operator-=(const Vector3& right)
 	return *this;
 }
 
-float Vector3::magnitude() const
-{
-	return sqrt(magnitudeSquared());
-	// return sqrt(x * x + y * y + z * z);
-}
-
-float Vector3::magnitudeSquared() const
-{
-	return this->dot(*this);
-}
-
 Vector3 Vector3::normalized() const
 {
 	float inverseMagnitude = 1.0f / magnitude();

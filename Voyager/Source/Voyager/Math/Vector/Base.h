@@ -29,6 +29,8 @@ namespace VE
                     return dp;
                 }
 
+                inline float magnitude() const;
+
             private:
                 unsigned int _dimension;
             };
@@ -45,6 +47,12 @@ namespace VE
                         dp += a.evaluate(i) * b.evaluate(i);
                 }
                 return dp;
+            }
+
+            template<class T>
+            inline float Base<T>::magnitude() const
+            {
+                return sqrt(this->dot(*this));
             }
         }
     }

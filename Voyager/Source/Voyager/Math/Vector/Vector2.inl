@@ -1,14 +1,4 @@
 
-float Vector2::magnitude() const
-{
-	return sqrt(magnitudeSquared());
-	// return sqrt(x * x + y * y + z * z);
-}
-float Vector2::magnitudeSquared() const
-{
-	return this->dot(*this);
-}
-
 Vector2& Vector2::operator += (const Vector2& right)
 {
 	x += right.x;

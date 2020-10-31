@@ -16,9 +16,6 @@ namespace VE
 				y = yIn;
 			}
 
-			inline float magnitude() const;
-			inline float magnitudeSquared() const;
-
 			inline Vector2& operator += (const Vector2& right);
 			inline Vector2& operator -= (const Vector2& right);
 		};
