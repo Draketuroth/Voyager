@@ -8,7 +8,7 @@ namespace VE
 {
 	namespace Math
 	{
-		struct Vector2 : public Vector::Base<2, Vector::DescXY>
+		struct Vector2 : public Vector::Base<Vector::DescXY>
 		{
 			inline Vector2(float xIn = 0.0f, float yIn = 0.0f)
 			{
@@ -16,7 +16,6 @@ namespace VE
 				y = yIn;
 			}
 
-			inline float dot(const Vector2& other) const;
 			inline float magnitude() const;
 			inline float magnitudeSquared() const;
 

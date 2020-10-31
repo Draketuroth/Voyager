@@ -7,11 +7,6 @@ Vector4& Vector4::operator+=(const Vector4& right)
 	return *this;
 }
 
-float Vector4::dot(const Vector4& other) const
-{
-	return x * other.x + y * other.y + z * other.z;
-}
-
 float Vector4::magnitude() const
 {
 	return sqrt(magnitudeSquared());

@@ -8,7 +8,7 @@ namespace VE
 {
 	namespace Math
 	{
-		struct Vector4 : public Vector::Base<3, Vector::DescXYZW>
+		struct Vector4 : public Vector::Base<Vector::DescXYZW>
 		{
 			inline Vector4(float xIn = 0.0f, float yIn = 0.0f, float zIn = 0.0f, float wIn = 1.0f) 
 			{
@@ -18,7 +18,6 @@ namespace VE
 				w = wIn;
 			}
 			inline Vector4& operator+=(const Vector4& right);
-			inline float dot(const Vector4& other) const;
 			inline float magnitude() const;
 			inline float magnitudeSquared() const;
 			inline Vector4 normalized() const;

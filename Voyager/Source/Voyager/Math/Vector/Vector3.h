@@ -9,7 +9,7 @@ namespace VE
 {
 	namespace Math
 	{
-		struct Vector3 : public Vector::Base<3, Vector::DescXYZ>
+		struct Vector3 : public Vector::Base<Vector::DescXYZ>
 		{
 			inline Vector3(float xIn = 0.0, float yIn = 0.0, float zIn = 0.0) 
 			{
@@ -19,13 +19,11 @@ namespace VE
 			}
 			inline Vector3& operator+=(const Vector3& right);
 			inline Vector3& operator-=(const Vector3& right);
-			inline float dot(const Vector3& other) const;
 			inline float magnitude() const;
 			inline float magnitudeSquared() const;
 			inline Vector3 normalized() const;
 		};
 
-		inline float dot(const Vector3& a, const Vector3& b);
 		inline Vector3 normalize(const Vector3& vector);
 		inline Vector3 cross(const Vector3& a, const Vector3& b);
 
