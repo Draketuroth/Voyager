@@ -1,5 +1,20 @@
 #include "Vector3.h"
 
+Vector3::Vector3(const Vector::Base<Vector::DescXYZ>& other)
+{
+	x = other.x;
+	y = other.y;
+	z = other.z;
+}
+
+Vector3& Vector3::operator=(const Vector::Base<Vector::DescXYZ>& other)
+{
+	x = other.x;
+	y = other.y;
+	z = other.z;
+	return *this;
+}
+
 Vector3& Vector3::operator+=(const Vector3& right)
 {
 	this->x += right.x;
@@ -14,18 +29,6 @@ inline Vector3& Vector3::operator-=(const Vector3& right)
 	this->y -= right.y;
 	this->z -= right.z;
 	return *this;
-}
-
-Vector3 Vector3::normalized() const
-{
-	float inverseMagnitude = 1.0f / magnitude();
-	return inverseMagnitude * (*this);
-}
-
-Vector3 normalize(const Vector3& vector)
-{
-	float l = vector.magnitude();
-	return Vector3(vector.x / l, vector.y / l, vector.z / l);
 }
 
 Vector3 cross(const Vector3& a, const Vector3& b)

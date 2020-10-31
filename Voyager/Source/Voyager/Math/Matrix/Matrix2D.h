@@ -1,7 +1,7 @@
 #ifndef VE_MATH_MATRIX_2D_H
 #define VE_MATH_MATRIX_2D_H
 
-#include "Voyager/Math/Vector/Vector2D.h"
+#include "Voyager/Math/Vector/Vector2.h"
 #include <cmath>
 
 namespace VE 
@@ -22,9 +22,9 @@ namespace VE
 		};
 
 		// The left hand is a matrix.
-		inline Vector2D operator*(
+		inline Vector2 operator*(
 			const Matrix2D& matrix,
-			const Vector2D& vector);
+			const Vector2& vector);
 
 #include "Voyager/Math/Matrix/Matrix2D.inl"
 	}

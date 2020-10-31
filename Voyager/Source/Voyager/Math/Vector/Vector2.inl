@@ -1,3 +1,17 @@
+#include "Vector2.h"
+
+Vector2::Vector2(const Vector::Base<Vector::DescXY>& other)
+{
+	x = other.x;
+	y = other.y;
+}
+
+Vector2& Vector2::operator=(const Vector::Base<Vector::DescXY>& other)
+{
+	x = other.x;
+	y = other.y;
+	return *this;
+}
 
 Vector2& Vector2::operator += (const Vector2& right)
 {

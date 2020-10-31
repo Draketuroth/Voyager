@@ -17,8 +17,11 @@ namespace VE
 				z = zIn;
 				w = wIn;
 			}
+
+			inline Vector4(const Vector::Base<Vector::DescXYZW>& other);
+
+			inline Vector4& operator=(const Vector::Base<Vector::DescXYZW>& other);
 			inline Vector4& operator+=(const Vector4& right);
-			inline Vector4 normalized() const;
 		};
 
 		inline Vector4 operator+(const Vector4& left, const Vector4& right);

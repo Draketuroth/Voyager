@@ -18,10 +18,10 @@ Matrix2D Matrix2D::rotate(float radians)
 					sin_val, cos_val);
 }
 
-Vector2D operator*(
+Vector2 operator*(
 	const Matrix2D& matrix,
-	const Vector2D& vector)
+	const Vector2& vector)
 {
-	return Vector2D(matrix.m[0][0] * vector.x + matrix.m[0][1] * vector.y,
-					matrix.m[1][0] * vector.x + matrix.m[1][1] * vector.y);
+	return Vector2(matrix.m[0][0] * vector.x + matrix.m[0][1] * vector.y,
+				   matrix.m[1][0] * vector.x + matrix.m[1][1] * vector.y);
 }

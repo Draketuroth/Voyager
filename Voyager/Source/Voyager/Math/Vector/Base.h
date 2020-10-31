@@ -31,10 +31,16 @@ namespace VE
 
                 inline float magnitude() const;
 
+                template<class T>
+                inline Base<T> normalized() const 
+                {
+                    float inverseMagnitude = 1.0f / this->magnitude();
+                    return inverseMagnitude * (*this);
+                }
+
             private:
                 unsigned int _dimension;
             };
-
             
             template<class A, class B>
             inline float dot(const A& a, const B& b)
@@ -47,6 +53,13 @@ namespace VE
                         dp += a.evaluate(i) * b.evaluate(i);
                 }
                 return dp;
+            }
+
+            template<class T>
+            inline Base<T> normalize(const Base<T>& v) 
+            {
+                float inverseMagnitude = 1.0f / v.magnitude();
+                return inverseMagnitude * v;
             }
 
             template<class T>

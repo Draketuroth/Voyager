@@ -1,3 +1,21 @@
+#include "Vector4.h"
+
+Vector4::Vector4(const Vector::Base<Vector::DescXYZW>& other)
+{
+	x = other.x;
+	y = other.y;
+	z = other.z;
+	w = other.w;
+}
+
+Vector4& Vector4::operator=(const Vector::Base<Vector::DescXYZW>& other)
+{
+	x = other.x;
+	y = other.y;
+	z = other.z;
+	w = other.w;
+	return *this;
+}
 
 Vector4& Vector4::operator+=(const Vector4& right)
 {
@@ -5,12 +23,6 @@ Vector4& Vector4::operator+=(const Vector4& right)
 	this->y += right.y;
 	this->z += right.z;
 	return *this;
-}
-
-Vector4 Vector4::normalized() const
-{
-	float inverseMagnitude = 1.0f / magnitude();
-	return inverseMagnitude * (*this);
 }
 
 Vector4 operator+(const Vector4& left, const Vector4& right)

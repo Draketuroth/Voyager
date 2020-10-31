@@ -16,6 +16,9 @@ namespace VE
 				y = yIn;
 			}
 
+			inline Vector2(const Vector::Base<Vector::DescXY>& other);
+
+			inline Vector2& operator=(const Vector::Base<Vector::DescXY>& other);
 			inline Vector2& operator += (const Vector2& right);
 			inline Vector2& operator -= (const Vector2& right);
 		};

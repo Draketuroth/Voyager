@@ -17,12 +17,14 @@ namespace VE
 				y = yIn;
 				z = zIn;
 			}
+
+			inline Vector3(const Vector::Base<Vector::DescXYZ>& other);
+
+			inline Vector3& operator=(const Vector::Base<Vector::DescXYZ>& other);
 			inline Vector3& operator+=(const Vector3& right);
 			inline Vector3& operator-=(const Vector3& right);
-			inline Vector3 normalized() const;
 		};
 
-		inline Vector3 normalize(const Vector3& vector);
 		inline Vector3 cross(const Vector3& a, const Vector3& b);
 
 		inline Vector3 operator+(const Vector3& left, const Vector3& right);

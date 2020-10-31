@@ -104,7 +104,7 @@ namespace VE
 				const float ROTATIONAL_SPEED = 0.5f;
 				_right = Math::cross(_view_dir, _up);
 
-				_right = Math::normalize(_right);
+				_right = Math::Vector::normalize(_right);
 
 				Math::Matrix4D x_y_rotation = Math::rotateAxis(Math::toRadians(-mouse_delta.x) * ROTATIONAL_SPEED, _up) *
 					Math::rotateAxis(Math::toRadians(-mouse_delta.y) * ROTATIONAL_SPEED, _right);
