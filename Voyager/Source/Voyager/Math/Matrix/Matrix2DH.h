@@ -1,7 +1,7 @@
 #ifndef VE_MATH_MATRIX_2DH_H
 #define VE_MATH_MATRIX_2DH_H
 
-#include "Voyager/Math/Vector/Vector3D.h"
+#include "Voyager/Math/Vector/Vector3.h"
 
 namespace VE 
 {
@@ -20,7 +20,7 @@ namespace VE
 			inline static Matrix2DH scale(float x, float y);
 		};
 
-		inline Vector3D operator*(const Matrix2DH& matrix, const Vector3D& vector);
+		inline Vector3 operator*(const Matrix2DH& matrix, const Vector3& vector);
 		inline Matrix2DH operator*(const Matrix2DH& left, const Matrix2DH& right);
 
 #include "Voyager/Math/Matrix/Matrix2DH.inl"

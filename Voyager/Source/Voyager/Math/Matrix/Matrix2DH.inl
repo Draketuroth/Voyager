@@ -36,7 +36,7 @@ Matrix2DH Matrix2DH::scale(float x, float y)
 		0, y, 0);
 }
 
-Vector3D operator*(const Matrix2DH& matrix, const Vector3D& vector)
+Vector3 operator*(const Matrix2DH& matrix, const Vector3& vector)
 {
 	return Vector3D(
 		matrix.m[0][0] * vector.x + matrix.m[0][1] * vector.y + matrix.m[0][2] * vector.z,

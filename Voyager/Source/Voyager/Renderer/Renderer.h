@@ -9,7 +9,7 @@
 #include "Voyager/Renderer/RenderJob.h"
 
 #include "Voyager/Math/Matrix/Matrix4D.h"
-#include "Voyager/Math/Vector/Descriptor.h"
+#include "Voyager/Math/Vector/VectorLayout.h"
 
 #include <glad/glad.h>
 
@@ -37,15 +37,15 @@ namespace VE
 
 			struct SceneData
 			{
-				VE::Math::Vector::DescXYZW eye;
-				VE::Math::Vector::DescXYZW center;
+				VE::Math::Vector::LayoutXYZW eye;
+				VE::Math::Vector::LayoutXYZW center;
 				VE::Math::Matrix4D viewMatrix;
 				VE::Math::Matrix4D projectionMatrix;
 				VE::Math::Matrix4D viewProjectionMatrix;
 			};
 			struct DisplayData 
 			{
-				VE::Math::Vector::DescXY resolution;
+				VE::Math::Vector::LayoutXY resolution;
 			};
 			struct TimeData 
 			{

@@ -59,7 +59,7 @@ namespace IG
 			simplePipeline->createRenderTarget(VE::Rendering::Identifier::get("FrameBuffer", VE::Rendering::Identifier::IdentifierType::RENDERTARGET), winSizeX, winSizeY);
 
 			VE::Rendering::Renderer::DisplayData displayData;
-			displayData.resolution = VE::Math::Vector2(static_cast<double>(winSizeX), static_cast<double>(winSizeY));
+			displayData.resolution = VE::Math::Vector2(static_cast<float>(winSizeX), static_cast<float>(winSizeY));
 			simplePipeline->updateSharedBuffer(VE::Rendering::Identifier::get("DisplayData", VE::Rendering::Identifier::IdentifierType::BUFFER), sizeof(VE::Rendering::Renderer::DisplayData), &displayData);
 
 			VE::Rendering::Renderer::TimeData timeData;

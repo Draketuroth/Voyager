@@ -3,7 +3,7 @@
 
 #include "Voyager/Core/Core.h"
 #include "Voyager/Math/Vector/Vector3.h"
-#include "Voyager/Math/Vector/Rotation.h"
+#include "Voyager/Math/Vector/YawPitchRoll.h"
 #include "Voyager/Math/Matrix/Matrix4D.h"
 
 namespace VE 

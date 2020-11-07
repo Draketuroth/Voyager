@@ -1,5 +1,5 @@
-#ifndef VE_VECTOR_DESCRIPTOR_H
-#define VE_VECTOR_DESCRIPTOR_H
+#ifndef VE_VECTOR_LAYOUT_H
+#define VE_VECTOR_LAYOUT_H
 
 namespace VE
 {
@@ -7,7 +7,7 @@ namespace VE
     {
         namespace Vector 
         {
-            struct DescXYZW 
+            struct LayoutXYZW 
             {
                 float x = 0.0f;
                 float y = 0.0f;
@@ -15,20 +15,20 @@ namespace VE
                 float w = 1.0f;
             };
 
-            struct DescXYZ
+            struct LayoutXYZ
             {
                 float x = 0.0f;
                 float y = 0.0f;
                 float z = 0.0f;
             };
 
-            struct DescXY
+            struct LayoutXY
             {
                 float x = 0.0f;
                 float y = 0.0f;
             };
 
-            struct DescUV
+            struct LayoutUV
             {
                 float u = 0.0f;
                 float v = 0.0f;

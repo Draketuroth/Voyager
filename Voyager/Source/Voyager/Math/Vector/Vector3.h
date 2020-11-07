@@ -3,13 +3,13 @@
 #include <cmath>
 
 #include "Voyager/Math/Vector/Base.h"
-#include "Voyager/Math/Vector/Descriptor.h"
+#include "Voyager/Math/Vector/VectorLayout.h"
 
 namespace VE 
 {
 	namespace Math
 	{
-		struct Vector3 : public Vector::Base<Vector::DescXYZ>
+		struct Vector3 : public Vector::Base<Vector::LayoutXYZ>
 		{
 			inline Vector3(float xIn = 0.0, float yIn = 0.0, float zIn = 0.0) 
 			{
@@ -18,12 +18,10 @@ namespace VE
 				z = zIn;
 			}
 
-			inline Vector3(const Vector::Base<Vector::DescXYZ>& other);
+			inline Vector3(const Vector::Base<Vector::LayoutXYZ>& other);
 		};
 
 		inline Vector3 cross(const Vector3& a, const Vector3& b);
-
-		inline Vector3 lerp(float alpha, const Vector3& source, const Vector3& target);
 
 #include "Voyager/Math/Vector/Vector3.inl"
 	}

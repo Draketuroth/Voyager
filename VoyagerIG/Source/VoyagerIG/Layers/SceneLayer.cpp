@@ -281,7 +281,7 @@ namespace IG
 		ImGui::Text("By Fredrik Linde");
 
 		GLuint texId = static_cast<VE::Platform::OpenGL::OpenGLTexture2D*>(_logo)->getTextureId();
-		ImGui::Image((void*)(intptr_t)texId, ImVec2(_logo->getWidth(), _logo->getHeight()));
+		ImGui::Image((void*)(intptr_t)texId, ImVec2(static_cast<float>(_logo->getWidth()), static_cast<float>(_logo->getHeight())));
 
 		ImGui::End();
 	}
