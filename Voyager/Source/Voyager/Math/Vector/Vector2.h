@@ -10,7 +10,7 @@ namespace VE
 	{
 		struct Vector2 : public Vector::Base<Vector::LayoutXY>
 		{
-			inline Vector2(float xIn = 0.0f, float yIn = 0.0f)
+			inline explicit Vector2(float xIn = 0.0f, float yIn = 0.0f)
 			{
 				x = xIn;
 				y = yIn;

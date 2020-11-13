@@ -1,6 +1,6 @@
 
 #include "Voyager/Renderer/PerspectiveCamera.h"
-#include "Voyager/Math/Matrix/Matrix3D.h"
+#include "Voyager/Math/Matrix/Matrix3x3.h"
 #include "Voyager/Math/Vector/Vector4.h"
 
 #include "Voyager/Math/Utils.h"
@@ -106,10 +106,10 @@ namespace VE
 
 				_right = Math::Vector::normalize(_right);
 
-				Math::Matrix4D x_y_rotation = Math::rotateAxis(Math::toRadians(-mouse_delta.x) * ROTATIONAL_SPEED, _up) *
+				Math::Matrix4x4 x_y_rotation = Math::rotateAxis(Math::toRadians(-mouse_delta.x) * ROTATIONAL_SPEED, _up) *
 					Math::rotateAxis(Math::toRadians(-mouse_delta.y) * ROTATIONAL_SPEED, _right);
 
-				_view_dir = _view_dir * VE::Math::Matrix3D(x_y_rotation.m);
+				_view_dir = _view_dir * VE::Math::Matrix3x3(x_y_rotation.m);
 
 				_old_mouse_pos = new_mouse_pos;
 
@@ -117,17 +117,17 @@ namespace VE
 			}
 		}
 
-		const Math::Matrix4D PerspectiveCamera::getViewMatrix() const
+		const Math::Matrix4x4 PerspectiveCamera::getViewMatrix() const
 		{
 			return _viewMatrix;
 		}
 
-		const  Math::Matrix4D PerspectiveCamera::getProjectionMatrix() const
+		const  Math::Matrix4x4 PerspectiveCamera::getProjectionMatrix() const
 		{
 			return _projectionMatrix;
 		}
 
-		const  Math::Matrix4D PerspectiveCamera::getViewProjectionMatrix() const
+		const  Math::Matrix4x4 PerspectiveCamera::getViewProjectionMatrix() const
 		{
 			return _viewProjectionMatrix;
 		}

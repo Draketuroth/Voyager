@@ -11,7 +11,7 @@ namespace VE
 	{
 		struct Vector3 : public Vector::Base<Vector::LayoutXYZ>
 		{
-			inline Vector3(float xIn = 0.0, float yIn = 0.0, float zIn = 0.0) 
+			inline explicit Vector3(float xIn = 0.0, float yIn = 0.0, float zIn = 0.0) 
 			{
 				x = xIn;
 				y = yIn;

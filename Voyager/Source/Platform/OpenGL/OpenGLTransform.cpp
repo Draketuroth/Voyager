@@ -9,14 +9,14 @@ namespace VE
 		{
 			void OpenGLTransform::update()
 			{
-				VE::Math::Matrix4D scale = VE::Math::scale(_scale);
-				VE::Math::Matrix4D rotation = VE::Math::rotate(_rotation.yaw, _rotation.pitch, _rotation.roll);
-				VE::Math::Matrix4D translation = VE::Math::translate(_position);
+				VE::Math::Matrix4x4 scale = VE::Math::scale(_scale);
+				VE::Math::Matrix4x4 rotation = VE::Math::rotate(_rotation.yaw, _rotation.pitch, _rotation.roll);
+				VE::Math::Matrix4x4 translation = VE::Math::translate(_position);
 
 				// Translation order: normally you first scale, rotate and finally translate.
 				_matrix = scale * rotation * translation;
 			}
-			Math::Matrix4D OpenGLTransform::getTransformMatrix() const
+			Math::Matrix4x4 OpenGLTransform::getTransformMatrix() const
 			{
 				return _matrix;
 			}

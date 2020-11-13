@@ -6,7 +6,7 @@
 
 #include "Voyager/Math/Vector/Vector2.h"
 #include "Voyager/Math/Vector/Vector3.h"
-#include "Voyager/Math/Matrix/Matrix4D.h"
+#include "Voyager/Math/Matrix/Matrix4x4.h"
 
 namespace VE
 {
@@ -35,9 +35,9 @@ namespace VE
 			virtual void update() = 0;
 			virtual void mouseUpdate(const Math::Vector2& _mouse_pos) = 0;
 
-			virtual const Math::Matrix4D getViewMatrix() const = 0;
-			virtual const Math::Matrix4D getProjectionMatrix() const = 0;
-			virtual const Math::Matrix4D getViewProjectionMatrix() const = 0;
+			virtual const Math::Matrix4x4 getViewMatrix() const = 0;
+			virtual const Math::Matrix4x4 getProjectionMatrix() const = 0;
+			virtual const Math::Matrix4x4 getViewProjectionMatrix() const = 0;
 			virtual const Math::Vector4 getPosition() const = 0;
 			virtual const Math::Vector4 getDirection() const = 0;
 			virtual float getRotation() const = 0;

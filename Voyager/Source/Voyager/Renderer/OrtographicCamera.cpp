@@ -20,7 +20,7 @@ namespace VE
 			_right(1.0f, 0.0f, 0.0f),
 			_viewMatrix(),
 			_projectionMatrix(Math::orthoRH(left, right, bottom, top, -1.0f, 100.0f)),
-			_viewProjectionMatrix(_viewMatrix* _projectionMatrix)
+			_viewProjectionMatrix(_viewMatrix * _projectionMatrix)
 		{
 
 		}
@@ -92,15 +92,15 @@ namespace VE
 			recalculateViewMatrix();
 		}
 
-		const VE::Math::Matrix4D OrtographicCamera::getViewMatrix() const
+		const VE::Math::Matrix4x4 OrtographicCamera::getViewMatrix() const
 		{
 			return _viewMatrix;
 		}
-		const VE::Math::Matrix4D OrtographicCamera::getProjectionMatrix() const
+		const VE::Math::Matrix4x4 OrtographicCamera::getProjectionMatrix() const
 		{
 			return _projectionMatrix;
 		}
-		const VE::Math::Matrix4D OrtographicCamera::getViewProjectionMatrix() const
+		const VE::Math::Matrix4x4 OrtographicCamera::getViewProjectionMatrix() const
 		{
 			return _viewProjectionMatrix;
 		}
@@ -119,7 +119,7 @@ namespace VE
 		}
 		void OrtographicCamera::recalculateViewMatrix()
 		{
-			Math::Matrix4D transform = Math::rotateAxis(Math::toRadians(_rotation), Math::Vector3(0, 0, 1)) * Math::translate(_position);
+			Math::Matrix4x4 transform = Math::rotateAxis(Math::toRadians(_rotation), Math::Vector3(0, 0, 1)) * Math::translate(_position);
 
 			if (!Math::inverse(transform.m, _viewMatrix.m))
 			{

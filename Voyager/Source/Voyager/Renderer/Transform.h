@@ -4,7 +4,7 @@
 #include "Voyager/Core/Core.h"
 #include "Voyager/Math/Vector/Vector3.h"
 #include "Voyager/Math/Vector/YawPitchRoll.h"
-#include "Voyager/Math/Matrix/Matrix4D.h"
+#include "Voyager/Math/Matrix/Matrix4x4.h"
 
 namespace VE 
 {
@@ -19,7 +19,7 @@ namespace VE
 			virtual ~Transform() = default;
 
 			virtual void update() = 0;
-			virtual Math::Matrix4D getTransformMatrix() const = 0;
+			virtual Math::Matrix4x4 getTransformMatrix() const = 0;
 
 			virtual void setPosition(Math::Vector3& pos) = 0;
 			virtual void setScale(Math::Vector3& scale) = 0;

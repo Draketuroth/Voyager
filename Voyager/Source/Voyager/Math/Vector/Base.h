@@ -18,7 +18,7 @@ namespace VE
 
                 inline float& operator[](const int i) { return ((float*)this)[i]; }
                 inline const float evaluate(const int i) const { return ((float*)this)[i]; }
-                inline const unsigned int getDimension() const { return _dimension; }
+                // inline const unsigned int _dimension const { return _dimension; }
 
                 template<class T>
                 Base<T>& operator=(const Base<T>& other)
@@ -51,7 +51,7 @@ namespace VE
                 inline float dot(const B & b) const
                 {
                     float dp = 0.0f;
-                    if (_dimension == b.getDimension())
+                    if (_dimension == b._dimension)
                     {
                         for (unsigned int i = 0; i < _dimension; i++)
                             dp += ((float*)this)[i] * b.evaluate(i);
@@ -68,7 +68,7 @@ namespace VE
                     return inverseMagnitude * (*this);
                 }
 
-            private:
+            // protected:
                 unsigned int _dimension;
             };
 
@@ -76,7 +76,7 @@ namespace VE
             inline Base<T> operator-(const Base<T>& left, const Base<T>& right)
             {
                 Base<T> ret;
-                const unsigned int dimension = left.getDimension();
+                const unsigned int dimension = left._dimension;
                 for (unsigned int i = 0; i < dimension; i++)
                     ret[i] = left.evaluate(i) - right.evaluate(i);
                 return ret;
@@ -86,7 +86,7 @@ namespace VE
             inline Base<T> operator+(const Base<T>& left, const Base<T>& right)
             {
                 Base<T> ret;
-                const unsigned int dimension = left.getDimension();
+                const unsigned int dimension = left._dimension;
                 for (unsigned int i = 0; i < dimension; i++)
                     ret[i] = left.evaluate(i) + right.evaluate(i);
                 return ret;
@@ -96,7 +96,7 @@ namespace VE
             inline Base<T> operator*(float scalar, const Base<T>& vector)
             {
                 Base<T> ret;
-                const unsigned int dimension = vector.getDimension();
+                const unsigned int dimension = vector._dimension;
                 for (unsigned int i = 0; i < dimension; i++)
                     ret[i] = scalar * vector.evaluate(i);
                 return ret;
@@ -106,7 +106,7 @@ namespace VE
             inline Base<T> operator*(const Base<T>& left, const Base<T>& right)
             {
                 Base<T> ret;
-                const unsigned int dimension = left.getDimension();
+                const unsigned int dimension = left._dimension;
                 for (unsigned int i = 0; i < dimension; i++)
                     ret[i] = left.evaluate(i) * right.evaluate(i);
                 return ret;
@@ -116,9 +116,9 @@ namespace VE
             inline float dot(const A& a, const B& b)
             {
                 float dp = 0.0f;
-                if (a.getDimension() == b.getDimension())
+                if (a._dimension == b._dimension)
                 {
-                    const unsigned int dimension = a.getDimension();
+                    const unsigned int dimension = a._dimension;
                     for (unsigned int i = 0; i < dimension; i++)
                         dp += a.evaluate(i) * b.evaluate(i);
                 }

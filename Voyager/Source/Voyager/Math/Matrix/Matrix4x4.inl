@@ -1,32 +1,6 @@
+#include "Matrix4x4.h"
 
-Matrix4D::Matrix4D(
-	float _00, float _01, float _02, float _03,
-	float _10, float _11, float _12, float _13,
-	float _20, float _21, float _22, float _23,
-	float _30, float _31, float _32, float _33) 
-{
-	m[0][0] = _00;
-	m[0][1] = _01;
-	m[0][2] = _02;
-	m[0][3] = _03;
-
-	m[1][0] = _10;
-	m[1][1] = _11;
-	m[1][2] = _12;
-	m[1][3] = _13;
-
-	m[2][0] = _20;
-	m[2][1] = _21;
-	m[2][2] = _22;
-	m[2][3] = _23;
-
-	m[3][0] = _30;
-	m[3][1] = _31;
-	m[3][2] = _32;
-	m[3][3] = _33;
-}
-
-Matrix4D::Matrix4D(
+Matrix4x4::Matrix4x4(
 	Vector4 r0,
 	Vector4 r1,
 	Vector4 r2,
@@ -53,7 +27,7 @@ Matrix4D::Matrix4D(
 	m[3][3] = r3.w;
 }
 
-Vector4 operator*(const Matrix4D& matrix, const Vector4& vector)
+Vector4 operator*(const Matrix4x4& matrix, const Vector4& vector)
 {
 	return Vector4(
 		matrix.m[0][0] * vector.x + matrix.m[0][1] * vector.y + matrix.m[0][2] * vector.z + matrix.m[0][3] * vector.w,
@@ -63,54 +37,7 @@ Vector4 operator*(const Matrix4D& matrix, const Vector4& vector)
 	);
 }
 
-Matrix4D operator*(const Matrix4D& left, const Matrix4D& right)
-{
-	/*
-	return Matrix4D(
-		left.m[0][0] * right.m[0][0] + left.m[0][1] * right.m[1][0] + left.m[0][2] * right.m[2][0] + left.m[0][3] * right.m[3][0],
-		left.m[0][0] * right.m[0][1] + left.m[0][1] * right.m[1][1] + left.m[0][2] * right.m[2][1] + left.m[0][3] * right.m[3][1],
-		left.m[0][0] * right.m[0][2] + left.m[0][1] * right.m[1][2] + left.m[0][2] * right.m[2][2] + left.m[0][3] * right.m[3][2],
-		left.m[0][0] * right.m[0][3] + left.m[0][1] * right.m[1][3] + left.m[0][2] * right.m[2][3] + left.m[0][3] * right.m[3][3],
-
-		left.m[1][0] * right.m[0][0] + left.m[1][1] * right.m[1][0] + left.m[1][2] * right.m[2][0] + left.m[1][3] * right.m[3][0],
-		left.m[1][0] * right.m[0][1] + left.m[1][1] * right.m[1][1] + left.m[1][2] * right.m[2][1] + left.m[1][3] * right.m[3][1],
-		left.m[1][0] * right.m[0][2] + left.m[1][1] * right.m[1][2] + left.m[1][2] * right.m[2][2] + left.m[1][3] * right.m[3][2],
-		left.m[1][0] * right.m[0][3] + left.m[1][1] * right.m[1][3] + left.m[1][2] * right.m[2][3] + left.m[1][3] * right.m[3][3],
-
-		left.m[2][0] * right.m[0][0] + left.m[2][1] * right.m[1][0] + left.m[2][2] * right.m[2][0] + left.m[2][3] * right.m[3][0],
-		left.m[2][0] * right.m[0][1] + left.m[2][1] * right.m[1][1] + left.m[2][2] * right.m[2][1] + left.m[2][3] * right.m[3][1],
-		left.m[2][0] * right.m[0][2] + left.m[2][1] * right.m[1][2] + left.m[2][2] * right.m[2][2] + left.m[2][3] * right.m[3][2],
-		left.m[2][0] * right.m[0][3] + left.m[2][1] * right.m[1][3] + left.m[2][2] * right.m[2][3] + left.m[2][3] * right.m[3][3],
-
-		left.m[3][0] * right.m[0][0] + left.m[3][1] * right.m[1][0] + left.m[3][2] * right.m[2][0] + left.m[3][3] * right.m[3][0],
-		left.m[3][0] * right.m[0][1] + left.m[3][1] * right.m[1][1] + left.m[3][2] * right.m[2][1] + left.m[3][3] * right.m[3][1],
-		left.m[3][0] * right.m[0][2] + left.m[3][1] * right.m[1][2] + left.m[3][2] * right.m[2][2] + left.m[3][3] * right.m[3][2],
-		left.m[3][0] * right.m[0][3] + left.m[3][1] * right.m[1][3] + left.m[3][2] * right.m[2][3] + left.m[3][3] * right.m[3][3]);
-	*/
-
-	Matrix4D C;
-	Matrix4D A = left;
-	Matrix4D B = right;
-	C.m[0][0] = A.m[0][0] * B.m[0][0] + A.m[0][1] * B.m[1][0] + A.m[0][2] * B.m[2][0] + A.m[0][3] * B.m[3][0];
-	C.m[0][1] = A.m[0][0] * B.m[0][1] + A.m[0][1] * B.m[1][1] + A.m[0][2] * B.m[2][1] + A.m[0][3] * B.m[3][1];
-	C.m[0][2] = A.m[0][0] * B.m[0][2] + A.m[0][1] * B.m[1][2] + A.m[0][2] * B.m[2][2] + A.m[0][3] * B.m[3][2];
-	C.m[0][3] = A.m[0][0] * B.m[0][3] + A.m[0][1] * B.m[1][3] + A.m[0][2] * B.m[2][3] + A.m[0][3] * B.m[3][3];
-	C.m[1][0] = A.m[1][0] * B.m[0][0] + A.m[1][1] * B.m[1][0] + A.m[1][2] * B.m[2][0] + A.m[1][3] * B.m[3][0];
-	C.m[1][1] = A.m[1][0] * B.m[0][1] + A.m[1][1] * B.m[1][1] + A.m[1][2] * B.m[2][1] + A.m[1][3] * B.m[3][1];
-	C.m[1][2] = A.m[1][0] * B.m[0][2] + A.m[1][1] * B.m[1][2] + A.m[1][2] * B.m[2][2] + A.m[1][3] * B.m[3][2];
-	C.m[1][3] = A.m[1][0] * B.m[0][3] + A.m[1][1] * B.m[1][3] + A.m[1][2] * B.m[2][3] + A.m[1][3] * B.m[3][3];
-	C.m[2][0] = A.m[2][0] * B.m[0][0] + A.m[2][1] * B.m[1][0] + A.m[2][2] * B.m[2][0] + A.m[2][3] * B.m[3][0];
-	C.m[2][1] = A.m[2][0] * B.m[0][1] + A.m[2][1] * B.m[1][1] + A.m[2][2] * B.m[2][1] + A.m[2][3] * B.m[3][1];
-	C.m[2][2] = A.m[2][0] * B.m[0][2] + A.m[2][1] * B.m[1][2] + A.m[2][2] * B.m[2][2] + A.m[2][3] * B.m[3][2];
-	C.m[2][3] = A.m[2][0] * B.m[0][3] + A.m[2][1] * B.m[1][3] + A.m[2][2] * B.m[2][3] + A.m[2][3] * B.m[3][3];
-	C.m[3][0] = A.m[3][0] * B.m[0][0] + A.m[3][1] * B.m[1][0] + A.m[3][2] * B.m[2][0] + A.m[3][3] * B.m[3][0];
-	C.m[3][1] = A.m[3][0] * B.m[0][1] + A.m[3][1] * B.m[1][1] + A.m[3][2] * B.m[2][1] + A.m[3][3] * B.m[3][1];
-	C.m[3][2] = A.m[3][0] * B.m[0][2] + A.m[3][1] * B.m[1][2] + A.m[3][2] * B.m[2][2] + A.m[3][3] * B.m[3][2];
-	C.m[3][3] = A.m[3][0] * B.m[0][3] + A.m[3][1] * B.m[1][3] + A.m[3][2] * B.m[2][3] + A.m[3][3] * B.m[3][3];
-	return C;
-}
-
-Matrix4D transpose(const Matrix4D& in) 
+Matrix4x4 transpose(const Matrix4x4& in) 
 {
 	Vector4 M0, M1, M2, M3;
 	M0 = Vector4(in.m[0][0], in.m[0][1], in.m[0][2], in.m[0][3]);
@@ -130,16 +57,16 @@ Matrix4D transpose(const Matrix4D& in)
 	T2 = mergeXY(P2, P3); // m02m12m22m32
 	T3 = mergeZW(P2, P3); // m03m13m23m33
 
-	return Matrix4D(T0, T1, T2, T3);
+	return Matrix4x4(T0, T1, T2, T3);
 }
 
-Matrix4D perspectiveFovRH(float fovY, float ar, float zNear, float zFar) 
+Matrix4x4 perspectiveFovRH(float fovY, float ar, float zNear, float zFar) 
 {
 	float rad = fovY;
 	float h = cos(0.5f * rad) / sin(0.5 * rad);
 	float w = h * 1.0f;
 
-	Matrix4D persp;
+	Matrix4x4 persp;
 	persp.m[0][0] = w;
 	persp.m[1][1] = h;
 	persp.m[2][2] = -(zFar + zNear) / (zFar - zNear);
@@ -149,26 +76,26 @@ Matrix4D perspectiveFovRH(float fovY, float ar, float zNear, float zFar)
 	return persp;
 }
 
-Matrix4D orthoRH(float left, float right, float bottom, float top, float zNear, float zFar)
+Matrix4x4 orthoRH(float left, float right, float bottom, float top, float zNear, float zFar)
 {
 	float ReciprocalWidth = 1.0f / (right - left);
 	float ReciprocalHeight = 1.0f / (top - bottom);
 	float fRange = 1.0f / (zNear - zFar);
 
-	return Matrix4D(
+	return Matrix4x4(
 		ReciprocalWidth + ReciprocalWidth, 0.0f, 0.0f, 0.0f,
 		0.0f, ReciprocalHeight + ReciprocalHeight, 0.0f, 0.0f,
 		0.0f, 0.0f, fRange, 0.0f,
 		-(left + right) * ReciprocalWidth, -(top + bottom) * ReciprocalHeight, fRange * zNear, 1.0f);
 }
 
-Matrix4D lookAtRH(const Vector3& eye, const Vector3& at, const Vector3& up)
+Matrix4x4 lookAtRH(const Vector3& eye, const Vector3& at, const Vector3& up)
 {
 	Vector3 zaxis = normalize(eye - at);
 	Vector3 xaxis = normalize(cross(up, zaxis));
 	Vector3 yaxis = cross(zaxis, xaxis);
 
-	Matrix4D lookAtMatrix;
+	Matrix4x4 lookAtMatrix;
 
 	lookAtMatrix.m[0][0] = xaxis.x;
 	lookAtMatrix.m[0][1] = yaxis.x;
@@ -249,89 +176,89 @@ bool inverse(float(&m)[4][4], float(&invOut)[4][4])
 	return true;
 }
 
-Matrix4D translate(float x, float y, float z)
+Matrix4x4 translate(float x, float y, float z)
 {
-	return Matrix4D(
+	return Matrix4x4(
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
 		x, y, z, 1.0f);
 }
 
-Matrix4D translate(const Vector3& vec)
+Matrix4x4 translate(const Vector3& vec)
 {
-	return Matrix4D(
+	return Matrix4x4(
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
 		vec.x, vec.y, vec.z, 1.0f);
 }
 
-Matrix4D scale(float x, float y, float z)
+Matrix4x4 scale(float x, float y, float z)
 {
-	return Matrix4D(
+	return Matrix4x4(
 		x, 0.0f, 0.0f, 0.0f,
 		0.0f, y, 0.0f, 0.0f,
 		0.0f, 0.0f, z, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-Matrix4D scale(const Vector3& vec)
+Matrix4x4 scale(const Vector3& vec)
 {
-	return Matrix4D(
+	return Matrix4x4(
 		vec.x, 0.0f, 0.0f, 0.0f,
 		0.0f, vec.y, 0.0f, 0.0f,
 		0.0f, 0.0f, vec.z, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-inline Matrix4D roll(float angle) 
+inline Matrix4x4 roll(float angle) 
 {
 	float a = toRadians(angle);
 	float c = cos(a);
 	float s = sin(a);
-	return Matrix4D(
+	return Matrix4x4(
 		c, -s, 0.0f, 0.0f,
 		s, c, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-inline Matrix4D yaw(float angle) 
+inline Matrix4x4 yaw(float angle) 
 {
 	float a = toRadians(angle);
 	float c = cos(a);
 	float s = sin(a);
-	return Matrix4D(
+	return Matrix4x4(
 		c, 0.0f, s, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		-s, 0.0f, c, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-inline Matrix4D pitch(float angle) 
+inline Matrix4x4 pitch(float angle) 
 {
 	float a = toRadians(angle);
 	float c = cos(a);
 	float s = sin(a);
-	return Matrix4D(
+	return Matrix4x4(
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, c, -s, 0.0f,
 		0.0f, s, c, 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-Matrix4D rotate(float y, float p, float r) 
+Matrix4x4 rotate(float y, float p, float r) 
 {
 	return roll(r) * pitch(p) * yaw(y);
 }
 
-Matrix4D rotate(const Vector3& vec)
+Matrix4x4 rotate(const Vector3& vec)
 {
 	return roll(vec.x) * pitch(vec.y) * yaw(vec.z);
 }
 
-Matrix4D rotateNormalAxis(float angle, const Vector3& u)
+Matrix4x4 rotateNormalAxis(float angle, const Vector3& u)
 {
 	float fSinAngle = sin(angle);
 	float fCosAngle = cos(angle);
@@ -368,10 +295,10 @@ Matrix4D rotateNormalAxis(float angle, const Vector3& u)
 	F2 = Vector4(V2.x, V2.y, V0.z, V0.w);
 	F3 = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 
-	return Matrix4D(F0, F1, F2, F3);
+	return Matrix4x4(F0, F1, F2, F3);
 }
 
-Matrix4D rotateAxis(float angle, const Vector3& u) 
+Matrix4x4 rotateAxis(float angle, const Vector3& u) 
 {
 	Vector3 normal = normalize(u);
 	return rotateNormalAxis(angle, normal);

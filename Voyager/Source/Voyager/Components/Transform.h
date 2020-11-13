@@ -26,7 +26,7 @@ namespace VE
 				_transform->update();
 			}
 
-			VE::Math::Matrix4D getTransformMatrix() const 
+			VE::Math::Matrix4x4 getTransformMatrix() const 
 			{
 				return _transform->getTransformMatrix();
 			}

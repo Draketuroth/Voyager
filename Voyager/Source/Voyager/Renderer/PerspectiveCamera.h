@@ -33,9 +33,9 @@ namespace VE
 			virtual void update() override;
 			virtual void mouseUpdate(const VE::Math::Vector2& _mouse_pos) override;
 
-			virtual const VE::Math::Matrix4D getViewMatrix() const override;
-			virtual const VE::Math::Matrix4D getProjectionMatrix() const override;
-			virtual const VE::Math::Matrix4D getViewProjectionMatrix() const override;
+			virtual const VE::Math::Matrix4x4 getViewMatrix() const override;
+			virtual const VE::Math::Matrix4x4 getProjectionMatrix() const override;
+			virtual const VE::Math::Matrix4x4 getViewProjectionMatrix() const override;
 			virtual const VE::Math::Vector4 getDirection() const override;
 			virtual const VE::Math::Vector4 getPosition() const override;
 			virtual float getRotation() const override;
@@ -53,9 +53,9 @@ namespace VE
 
 			VE::Math::Vector2 _old_mouse_pos;
 
-			VE::Math::Matrix4D _viewMatrix;
-			VE::Math::Matrix4D _projectionMatrix;
-			VE::Math::Matrix4D _viewProjectionMatrix;
+			VE::Math::Matrix4x4 _viewMatrix;
+			VE::Math::Matrix4x4 _projectionMatrix;
+			VE::Math::Matrix4x4 _viewProjectionMatrix;
 		};
 	}
 }

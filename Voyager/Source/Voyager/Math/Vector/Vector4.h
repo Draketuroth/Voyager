@@ -10,7 +10,7 @@ namespace VE
 	{
 		struct Vector4 : public Vector::Base<Vector::LayoutXYZW>
 		{
-			inline Vector4(float xIn = 0.0f, float yIn = 0.0f, float zIn = 0.0f, float wIn = 1.0f) 
+			inline explicit Vector4(float xIn = 0.0f, float yIn = 0.0f, float zIn = 0.0f, float wIn = 1.0f) 
 			{
 				x = xIn;
 				y = yIn;

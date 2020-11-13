@@ -175,7 +175,7 @@ namespace VE
 				return false;
 			}
 
-			void OpenGLPipeline::updateConstantMatrix4D(const std::string& name, const VE::Math::Matrix4D& value, bool transpose)
+			void OpenGLPipeline::updateConstantMatrix4x4(const std::string& name, const VE::Math::Matrix4x4& value, bool transpose)
 			{
 				GLint location = glGetUniformLocation(_activeProgram, name.c_str());
 				glUniformMatrix4fv(location, 1, GL_FALSE, &value.m[0][0]);
