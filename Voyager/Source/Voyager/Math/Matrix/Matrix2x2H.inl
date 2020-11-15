@@ -30,16 +30,3 @@ Vector3 operator*(const Matrix2x2H& matrix, const Vector3& vector)
 		vector.z
 	);
 }
-
-Matrix2x2H operator*(const Matrix2x2H& left, const Matrix2x2H& right)
-{
-	return Matrix2x2H(
-		left.m[0][0] * right.m[0][0] + left.m[0][1] * right.m_10,
-		left.m[0][0] * right.m[0][1] + left.m[0][1] * right.m_11,
-		left.m[0][0] * right.m[0][2] + left.m[0][1] * right.m_12 + left.m_02,
-
-		left.m[1][0] * right.m[0][0] + left.m_[1][1] * right.m[1][0],
-		left.m[1][0] * right.m[0][1] + left.m_[1][1] * right.m[1][1],
-		left.m[1][0] * right.m[0][2] + left.m_[1][1] * right.m[1][2] + left.m_12
-	);
-}

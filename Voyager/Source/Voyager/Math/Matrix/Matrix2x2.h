@@ -25,6 +25,15 @@ namespace VE
 				m[1][1] = _11;
 			}
 
+			inline Matrix2x2(const Matrix::Base<Matrix::Layout2x2>& other)
+			{
+				m[0][0] = other.m[0][0];
+				m[0][1] = other.m[0][1];
+
+				m[1][0] = other.m[1][0];
+				m[1][1] = other.m[1][1];
+			}
+
 			// Factory function - feed angle in radians and will yield a matrix 
 			// that can be applied to a vector to perform a rotation.
 			inline static Matrix2x2 rotate(float radians);

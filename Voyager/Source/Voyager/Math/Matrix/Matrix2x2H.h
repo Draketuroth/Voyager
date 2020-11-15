@@ -25,13 +25,23 @@ namespace VE
 				m[1][2] = _12;
 			}
 
+			inline Matrix2x2H(const Matrix::Base<Matrix::Layout2x3>& other)
+			{
+				m[0][0] = other.m[0][0];
+				m[0][1] = other.m[0][1];
+				m[0][2] = other.m[0][2];
+
+				m[1][0] = other.m[1][0];
+				m[1][1] = other.m[1][1];
+				m[1][2] = other.m[1][2];
+			}
+
 			inline static Matrix2x2H rotateZ(float radians);
 			inline static Matrix2x2H translate(float x, float y);
 			inline static Matrix2x2H scale(float x, float y);
 		};
 
 		inline Vector3 operator*(const Matrix2x2H& matrix, const Vector3& vector);
-		inline Matrix2x2H operator*(const Matrix2x2H& left, const Matrix2x2H& right);
 
 #include "Voyager/Math/Matrix/Matrix2x2H.inl"
 	}

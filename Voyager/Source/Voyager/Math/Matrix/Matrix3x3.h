@@ -30,6 +30,21 @@ namespace VE
 				m[2][2] = _22;
 			}
 
+			inline Matrix3x3(const Matrix::Base<Matrix::Layout3x3>& other)
+			{
+				m[0][0] = other.m[0][0];
+				m[0][1] = other.m[0][1];
+				m[0][2] = other.m[0][2];
+
+				m[1][0] = other.m[1][0];
+				m[1][1] = other.m[1][1];
+				m[1][2] = other.m[1][2];
+
+				m[2][0] = other.m[2][0];
+				m[2][1] = other.m[2][1];
+				m[2][2] = other.m[2][2];
+			}
+
 			inline Matrix3x3(float(&mat)[4][4]);
 
 			inline static Matrix3x3 rotateZ(float radians);
@@ -38,7 +53,6 @@ namespace VE
 		};
 
 		inline Vector3 operator*(const Vector3& vector, const Matrix3x3& matrix);
-		inline Matrix3x3 operator*(const Matrix3x3& left, const Matrix3x3& right);
 
 #include "Voyager/Math/Matrix/Matrix3x3.inl"
 	}
