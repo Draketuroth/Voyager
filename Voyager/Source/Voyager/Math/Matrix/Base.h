@@ -3,13 +3,15 @@
 
 #include "Voyager/Math/Utils.h"
 
+#include <iostream>
+
 namespace VE
 {
     namespace Math
     {
         namespace Matrix
         {
-            enum Mode : unsigned int
+            enum class Mode : unsigned int
             {
                 ROW = 0u,
                 COLUMN = 1u
@@ -19,7 +21,7 @@ namespace VE
             struct Base : public T
             {
                 Base() {
-                    m_mode = COLUMN;
+                    m_mode = Mode::ROW;
                     m_rows = sizeof(T::m) / sizeof(T::m[0]);
                     m_columns = sizeof(T::m[0]) / sizeof(float);
                 }
@@ -34,22 +36,6 @@ namespace VE
             inline Base<T> multColumn(const Base<T>& A, const Base<T>& B) 
             {
                 Base<T> C;
-                C.m[0][0] = A.m[0][0] * B.m[0][0] + A.m[0][1] * B.m[1][0] + A.m[0][2] * B.m[2][0] + A.m[0][3] * B.m[3][0];
-                C.m[0][1] = A.m[0][0] * B.m[0][1] + A.m[0][1] * B.m[1][1] + A.m[0][2] * B.m[2][1] + A.m[0][3] * B.m[3][1];
-                C.m[0][2] = A.m[0][0] * B.m[0][2] + A.m[0][1] * B.m[1][2] + A.m[0][2] * B.m[2][2] + A.m[0][3] * B.m[3][2];
-                C.m[0][3] = A.m[0][0] * B.m[0][3] + A.m[0][1] * B.m[1][3] + A.m[0][2] * B.m[2][3] + A.m[0][3] * B.m[3][3];
-                C.m[1][0] = A.m[1][0] * B.m[0][0] + A.m[1][1] * B.m[1][0] + A.m[1][2] * B.m[2][0] + A.m[1][3] * B.m[3][0];
-                C.m[1][1] = A.m[1][0] * B.m[0][1] + A.m[1][1] * B.m[1][1] + A.m[1][2] * B.m[2][1] + A.m[1][3] * B.m[3][1];
-                C.m[1][2] = A.m[1][0] * B.m[0][2] + A.m[1][1] * B.m[1][2] + A.m[1][2] * B.m[2][2] + A.m[1][3] * B.m[3][2];
-                C.m[1][3] = A.m[1][0] * B.m[0][3] + A.m[1][1] * B.m[1][3] + A.m[1][2] * B.m[2][3] + A.m[1][3] * B.m[3][3];
-                C.m[2][0] = A.m[2][0] * B.m[0][0] + A.m[2][1] * B.m[1][0] + A.m[2][2] * B.m[2][0] + A.m[2][3] * B.m[3][0];
-                C.m[2][1] = A.m[2][0] * B.m[0][1] + A.m[2][1] * B.m[1][1] + A.m[2][2] * B.m[2][1] + A.m[2][3] * B.m[3][1];
-                C.m[2][2] = A.m[2][0] * B.m[0][2] + A.m[2][1] * B.m[1][2] + A.m[2][2] * B.m[2][2] + A.m[2][3] * B.m[3][2];
-                C.m[2][3] = A.m[2][0] * B.m[0][3] + A.m[2][1] * B.m[1][3] + A.m[2][2] * B.m[2][3] + A.m[2][3] * B.m[3][3];
-                C.m[3][0] = A.m[3][0] * B.m[0][0] + A.m[3][1] * B.m[1][0] + A.m[3][2] * B.m[2][0] + A.m[3][3] * B.m[3][0];
-                C.m[3][1] = A.m[3][0] * B.m[0][1] + A.m[3][1] * B.m[1][1] + A.m[3][2] * B.m[2][1] + A.m[3][3] * B.m[3][1];
-                C.m[3][2] = A.m[3][0] * B.m[0][2] + A.m[3][1] * B.m[1][2] + A.m[3][2] * B.m[2][2] + A.m[3][3] * B.m[3][2];
-                C.m[3][3] = A.m[3][0] * B.m[0][3] + A.m[3][1] * B.m[1][3] + A.m[3][2] * B.m[2][3] + A.m[3][3] * B.m[3][3];
                 return C;
             }
 
@@ -57,6 +43,27 @@ namespace VE
             inline Base<T> multRow(const Base<T>& A, const Base<T>& B)
             {
                 Base<T> C;
+                if (A.m_columns == B.m_rows) 
+                {
+                    unsigned int ra = A.m_rows;
+                    unsigned int ca = A.m_columns;
+
+                    unsigned int rb = B.m_rows;
+                    unsigned int cb = B.m_columns;
+
+                    for (unsigned int i = 0u; i < ra; ++i)
+                    {
+                        for (unsigned int j = 0u; j < cb; ++j)
+                        {
+                            float val = 0.0f;
+                            for (unsigned int k = 0u; k < ca; ++k)
+                            {
+                                val += A.m[i][k] * B.m[k][j];
+                            }
+                            C.m[i][j] = val;
+                        }
+                    }
+                }  
                 return C;
             }
 
@@ -69,7 +76,7 @@ namespace VE
             template<class T>
             inline Base<T> operator*(const Base<T>& a, const Base<T>& b)
             {
-                return a.m_mode == COLUMN ? multiply(a, b, multColumn) : multiply(a, b, multRow);
+                return a.m_mode == Mode::COLUMN ? multiply(a, b, multColumn) : multiply(a, b, multRow);
             }
             
         }
