@@ -20,7 +20,7 @@ namespace VE
 			_right(1.0f, 0.0f, 0.0f),
 			_viewMatrix(),
 			_projectionMatrix(Math::orthoRH(left, right, bottom, top, -1.0f, 100.0f)),
-			_viewProjectionMatrix(_viewMatrix* _projectionMatrix)
+			_viewProjectionMatrix(_viewMatrix * _projectionMatrix)
 		{
 
 		}
@@ -30,7 +30,7 @@ namespace VE
 			_aspect_ratio = ratio;
 		}
 
-		void OrtographicCamera::setPosition(const VE::Math::Vector3D position)
+		void OrtographicCamera::setPosition(const VE::Math::Vector3 position)
 		{
 			_position = position;
 			recalculateViewMatrix();
@@ -87,32 +87,31 @@ namespace VE
 			recalculateViewMatrix();
 		}
 
-		void OrtographicCamera::mouseUpdate(const VE::Math::Vector2D& 
-			_mouse_pos)
+		void OrtographicCamera::mouseUpdate(const VE::Math::Vector2& _mouse_pos)
 		{
 			recalculateViewMatrix();
 		}
 
-		const VE::Math::Matrix4D OrtographicCamera::getViewMatrix() const
+		const VE::Math::Matrix4x4 OrtographicCamera::getViewMatrix() const
 		{
 			return _viewMatrix;
 		}
-		const VE::Math::Matrix4D OrtographicCamera::getProjectionMatrix() const
+		const VE::Math::Matrix4x4 OrtographicCamera::getProjectionMatrix() const
 		{
 			return _projectionMatrix;
 		}
-		const VE::Math::Matrix4D OrtographicCamera::getViewProjectionMatrix() const
+		const VE::Math::Matrix4x4 OrtographicCamera::getViewProjectionMatrix() const
 		{
 			return _viewProjectionMatrix;
 		}
-		const VE::Math::Vector4D OrtographicCamera::getDirection() const
+		const VE::Math::Vector4 OrtographicCamera::getDirection() const
 		{
-			return VE::Math::Vector4D(_view_dir.x, _view_dir.y, _view_dir.z);
+			return VE::Math::Vector4(_view_dir.x, _view_dir.y, _view_dir.z);
 		}
 
-		const Math::Vector4D OrtographicCamera::getPosition() const
+		const Math::Vector4 OrtographicCamera::getPosition() const
 		{
-			return VE::Math::Vector4D(_position.x, _position.y, _position.z);
+			return VE::Math::Vector4(_position.x, _position.y, _position.z);
 		}
 		float OrtographicCamera::getRotation() const
 		{
@@ -120,7 +119,7 @@ namespace VE
 		}
 		void OrtographicCamera::recalculateViewMatrix()
 		{
-			Math::Matrix4D transform = Math::rotateAxis(Math::toRadians(_rotation), Math::Vector3D(0, 0, 1)) * Math::translate(_position);
+			Math::Matrix4x4 transform = Math::rotateAxis(Math::toRadians(_rotation), Math::Vector3(0, 0, 1)) * Math::translate(_position);
 
 			if (!Math::inverse(transform.m, _viewMatrix.m))
 			{

@@ -257,10 +257,10 @@ namespace VE
 			for (unsigned int i = 0; i < inDataPosCount; i++)
 			{
 				unsigned int index = i * 2;
-				Math::Vector3D& v1 = outData.positions[index];
-				Math::Vector3D& v2 = outData.positions[index + 1];
-				const Math::Vector3D& inDataPos = data.positions[i];
-				const Math::Vector3D& inDataNormal = data.normals[i];
+				Math::Vector3& v1 = outData.positions[index];
+				Math::Vector3& v2 = outData.positions[index + 1];
+				const Math::Vector3& inDataPos = data.positions[i];
+				const Math::Vector3& inDataNormal = data.normals[i];
 				v1 = inDataPos;
 				v2 = inDataPos + inDataNormal;
 			}
@@ -281,9 +281,9 @@ namespace VE
 				data->barycentric.clear();
 				for (unsigned int index = 0; index < numPositions; index += 3)
 				{
-					data->barycentric.push_back(Math::Vector3D(1.0f, 0.0f, 0.0f));
-					data->barycentric.push_back(Math::Vector3D(0.0f, 1.0f, 0.0f));
-					data->barycentric.push_back(Math::Vector3D(0.0f, 0.0f, 1.0f));
+					data->barycentric.push_back(Math::Vector3(1.0f, 0.0f, 0.0f));
+					data->barycentric.push_back(Math::Vector3(0.0f, 1.0f, 0.0f));
+					data->barycentric.push_back(Math::Vector3(0.0f, 0.0f, 1.0f));
 				}
 			}
 			else 

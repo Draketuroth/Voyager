@@ -147,16 +147,28 @@ source_group("Voyager\\Image" FILES ${Voyager_Folder_Image})
 set(Voyager_Folder_Math
 	Source/Voyager/Math/Constants.h
 	Source/Voyager/Math/Utils.h
-	Source/Voyager/Math/Matrix/Matrix2D.h
-	Source/Voyager/Math/Matrix/Matrix2DH.h
-	Source/Voyager/Math/Matrix/Matrix3D.h
-	Source/Voyager/Math/Matrix/Matrix4D.h
-	Source/Voyager/Math/Vector/Rotation.h
-	Source/Voyager/Math/Vector/Vector2D.h
-	Source/Voyager/Math/Vector/Vector3D.h
-	Source/Voyager/Math/Vector/Vector4D.h
 )
 source_group("Voyager\\Math" FILES ${Voyager_Folder_Math})
+
+set(Voyager_Folder_Math_Vector
+	Source/Voyager/Math/Vector/Base.h
+	Source/Voyager/Math/Vector/VectorLayout.h
+	Source/Voyager/Math/Vector/YawPitchRoll.h
+	Source/Voyager/Math/Vector/Vector2.h
+	Source/Voyager/Math/Vector/Vector3.h
+	Source/Voyager/Math/Vector/Vector4.h
+)
+source_group("Voyager\\Math\\Vector" FILES ${Voyager_Folder_Math_Vector})
+
+set(Voyager_Folder_Math_Matrix
+    Source/Voyager/Math/Matrix/MatrixLayout.h
+	Source/Voyager/Math/Matrix/Matrix2x2.h
+	Source/Voyager/Math/Matrix/Matrix2x2H.h
+	Source/Voyager/Math/Matrix/Matrix3x3.h
+	Source/Voyager/Math/Matrix/Matrix4x4.h
+)
+source_group("Voyager\\Math\\Matrix" FILES ${Voyager_Folder_Math_Matrix})
+
 
 set(Platform_Folder_Window
 	Source/Platform/Window/Win32Window.h
@@ -206,6 +218,8 @@ set(ALL_FILES
 	${Voyager_Folder_Geometry}
 	${Voyager_Folder_Image}
 	${Voyager_Folder_Math}
+	${Voyager_Folder_Math_Vector}
+	${Voyager_Folder_Math_Matrix}
 	${Platform_Folder_Window}
 	${Platform_Folder_OpenGL}
 )

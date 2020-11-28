@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "Voyager/Math/Vector/Vector3D.h"
-#include "Voyager/Math/Vector/Vector2D.h"
+#include "Voyager/Math/Vector/Vector3.h"
+#include "Voyager/Math/Vector/Vector2.h"
 
 namespace VE 
 {
@@ -34,10 +34,10 @@ namespace VE
 			}
 
 			// Use for geometry manipulation, not to be sent to GPU!
-			std::vector<Math::Vector3D> positions;
-			std::vector<Math::Vector3D> normals;
-			std::vector<Math::Vector3D> barycentric;
-			std::vector<Math::Vector2D> uvs;
+			std::vector<Math::Vector3> positions;
+			std::vector<Math::Vector3> normals;
+			std::vector<Math::Vector3> barycentric;
+			std::vector<Math::Vector2> uvs;
 
 			std::vector<float> vertices; // interleaved
 			std::vector<unsigned int> indices;

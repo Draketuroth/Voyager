@@ -23,7 +23,7 @@ namespace VE
 			RenderCommand::setViewport(0, 0, width, height);
 
 			DisplayData displayData;
-			displayData.resolution = Math::Vector2D(width, height);
+			displayData.resolution = Math::Vector2(width, height);
 
 			VE::Rendering::Pipeline* simplePipeline = getPipeline(VE::Rendering::Identifier::get("Simple", VE::Rendering::Identifier::IdentifierType::PIPELINE));
 			if (simplePipeline)
@@ -91,7 +91,7 @@ namespace VE
 
 							unsigned int shaderId = material->getShaderIdentifier();
 							pipeline->setActiveShader(shaderId);
-							pipeline->updateConstantMatrix4D("model_to_world", renderable.transform->getTransformMatrix(), true);
+							pipeline->updateConstantMatrix4x4("model_to_world", renderable.transform->getTransformMatrix(), true);
 							pipeline->updateConstantInt("wireframe", static_cast<unsigned int>(renderable.renderMode));
 
 							RenderCommand::draw(renderable.geometry);

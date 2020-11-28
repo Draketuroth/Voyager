@@ -1,7 +1,7 @@
 #ifndef VE_MATERIAL_STANDARD_H
 #define VE_MATERIAL_STANDARD_H
 
-#include "Voyager/Math/Vector/Vector3D.h"
+#include "Voyager/Math/Vector/Vector3.h"
 
 #include "Voyager/Renderer/Material.h"
 

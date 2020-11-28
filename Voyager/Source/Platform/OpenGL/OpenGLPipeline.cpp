@@ -175,25 +175,25 @@ namespace VE
 				return false;
 			}
 
-			void OpenGLPipeline::updateConstantMatrix4D(const std::string& name, const VE::Math::Matrix4D& value, bool transpose)
+			void OpenGLPipeline::updateConstantMatrix4x4(const std::string& name, const VE::Math::Matrix4x4& value, bool transpose)
 			{
 				GLint location = glGetUniformLocation(_activeProgram, name.c_str());
 				glUniformMatrix4fv(location, 1, GL_FALSE, &value.m[0][0]);
 			}
 
-			void OpenGLPipeline::updateConstantVector4D(const std::string& name, const VE::Math::Vector4D& value)
+			void OpenGLPipeline::updateConstantVector4(const std::string& name, const VE::Math::Vector4& value)
 			{
 				GLint location = glGetUniformLocation(_activeProgram, name.c_str());
 				glUniform4f(location, value.x, value.y, value.z, value.w);
 			}
 
-			void OpenGLPipeline::updateConstantVector3D(const std::string& name, const VE::Math::Vector3D& value)
+			void OpenGLPipeline::updateConstantVector3(const std::string& name, const VE::Math::Vector3& value)
 			{
 				GLint location = glGetUniformLocation(_activeProgram, name.c_str());
 				glUniform3f(location, value.x, value.y, value.z);
 			}
 
-			void OpenGLPipeline::updateConstantVector2D(const std::string& name, const VE::Math::Vector2D& value)
+			void OpenGLPipeline::updateConstantVector2D(const std::string& name, const VE::Math::Vector2& value)
 			{
 				GLint location = glGetUniformLocation(_activeProgram, name.c_str());
 				glUniform2f(location, value.x, value.y);

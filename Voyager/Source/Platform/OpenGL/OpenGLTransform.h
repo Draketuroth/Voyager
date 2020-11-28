@@ -2,7 +2,7 @@
 #define VE_OPENGL_TRANSFORM_H
 
 #include "Voyager/Renderer/Transform.h"
-#include "Voyager/Math/Matrix/Matrix4D.h"
+#include "Voyager/Math/Matrix/Matrix4x4.h"
 
 namespace VE 
 {
@@ -17,21 +17,21 @@ namespace VE
 				virtual ~OpenGLTransform() {};
 
 				virtual void update() override;
-				virtual Math::Matrix4D getTransformMatrix() const override;
+				virtual Math::Matrix4x4 getTransformMatrix() const override;
 
-				virtual Math::Vector3D getPosition() const override;
-				virtual Math::Vector3D getScale() const override;
+				virtual Math::Vector3 getPosition() const override;
+				virtual Math::Vector3 getScale() const override;
 				virtual Math::YawPitchRoll getYawPitchRoll() const override;
 
-				virtual void setPosition(Math::Vector3D& pos) override;
-				virtual void setScale(Math::Vector3D& scale) override;
+				virtual void setPosition(Math::Vector3& pos) override;
+				virtual void setScale(Math::Vector3& scale) override;
 				virtual void setRotation(Math::YawPitchRoll& rot) override;
 
 			private:
 
-				Math::Matrix4D _matrix;
-				Math::Vector3D _position;
-				Math::Vector3D _scale;
+				Math::Matrix4x4 _matrix;
+				Math::Vector3 _position;
+				Math::Vector3 _scale;
 				Math::YawPitchRoll _rotation;
 			};
 		}

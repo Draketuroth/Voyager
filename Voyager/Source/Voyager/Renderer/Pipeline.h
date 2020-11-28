@@ -3,9 +3,9 @@
 
 #include "Voyager/Core/Core.h"
 
-#include "Voyager/Math/Matrix/Matrix4D.h"
-#include "Voyager/Math/Vector/Vector4D.h"
-#include "Voyager/Math/Vector/Vector2D.h"
+#include "Voyager/Math/Matrix/Matrix4x4.h"
+#include "Voyager/Math/Vector/Vector4.h"
+#include "Voyager/Math/Vector/Vector2.h"
 
 #include "Voyager/Renderer/Shaderset.h"
 
@@ -34,10 +34,10 @@ namespace VE
 
 			virtual bool resizeRenderTarget(unsigned int targetId, unsigned int width, unsigned height) = 0;
 
-			virtual void updateConstantMatrix4D(const std::string& name, const VE::Math::Matrix4D& value, bool transpose) = 0;
-			virtual void updateConstantVector4D(const std::string& name, const VE::Math::Vector4D& value) = 0;
-			virtual void updateConstantVector3D(const std::string& name, const VE::Math::Vector3D& value) = 0;
-			virtual void updateConstantVector2D(const std::string& name, const VE::Math::Vector2D& value) = 0;
+			virtual void updateConstantMatrix4x4(const std::string& name, const VE::Math::Matrix4x4& value, bool transpose) = 0;
+			virtual void updateConstantVector4(const std::string& name, const VE::Math::Vector4& value) = 0;
+			virtual void updateConstantVector3(const std::string& name, const VE::Math::Vector3& value) = 0;
+			virtual void updateConstantVector2D(const std::string& name, const VE::Math::Vector2& value) = 0;
 			virtual void updateConstantInt(const std::string& name, int value) = 0;
 
 			static Pipeline* create();
