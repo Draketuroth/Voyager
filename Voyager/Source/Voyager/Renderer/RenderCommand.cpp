@@ -4,8 +4,8 @@
 
 namespace VE
 {
-	namespace Rendering 
+	namespace Rendering
 	{
-		RendererAPI* RenderCommand::_renderAPI = new Platform::OpenGL::OpenGLRendererAPI;
+		RendererAPIHandler* RenderCommand::_renderAPI = new Platform::OpenGL::OpenGLRendererAPI;
 	}
 };

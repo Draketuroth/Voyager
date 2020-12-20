@@ -29,7 +29,7 @@
 static bool showEntityWidget = false;
 static bool showAboutWidget = false;
 
-VE::Rendering::RendererAPI::API api = VE::Rendering::Renderer::getAPI();
+VE::Platform::API::RenderAPI api = VE::Rendering::Renderer::getAPI();
 
 namespace IG
 {
@@ -234,7 +234,7 @@ namespace IG
 										auto diffuseTextureResource = material.getTexture(VE::Rendering::Material::TextureSlot::DIFFUSE);
 
 										// Reset diffuse
-										if (api == VE::Rendering::RendererAPI::API::OpenGL)
+										if (api == VE::Platform::API::RenderAPI::OpenGL)
 										{
 											static_cast<VE::Platform::OpenGL::OpenGLTexture2D*>(diffuseTextureResource)->reset(0);
 										}

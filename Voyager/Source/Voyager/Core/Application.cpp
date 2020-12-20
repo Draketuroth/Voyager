@@ -18,16 +18,16 @@ namespace VE
 {
 	namespace Core 
 	{
-	# define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+	# define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)d
 
-		Application* Application::_instance = nullptr;
+		Application* Application::instance = nullptr;
 
 		Application::Application()
 		{
-			VE_ASSERT(!_instance, "Application already exist!");
-			_instance = this;
+			VE_ASSERT(!instance, "Application already exist!");
+			instance = this;
 
-			_timer.initTimer();
+			timer.initTimer();
 
 			WindowProperties windowProps;
 
@@ -39,63 +39,63 @@ namespace VE
 			if (!viewConfig.isNull())
 			{
 				auto displayNode = viewConfig["display"].asObject();
-				windowProps._title = displayNode["title"].asString();
-				windowProps._fullscreen = displayNode["fullscreen"].asBoolean();
-				windowProps._width = displayNode["width"].asNumber();
-				windowProps._height = displayNode["height"].asNumber();
+				windowProps.title = displayNode["title"].asString();
+				windowProps.fullscreen = displayNode["fullscreen"].asBoolean();
+				windowProps.width = displayNode["width"].asNumber();
+				windowProps.height = displayNode["height"].asNumber();
 			}
 			else
 			{
 				VE_CORE_WARN("Failed reading Views.json, defaulting to standard config. Error: " + errorCode);
 			}
 
-			_window = VE::Core::Scope<Window>(Window::create(windowProps));
-			_window->setEventCallback(BIND_EVENT_FN(onEvent));
+			windowInterface = VE::Core::Scope<IWindow>(IWindow::create(windowProps));
+			windowInterface->setEventCallback(BIND_EVENT_FN(onEvent));
 
-			_imGuiLayer = new ImGuiLayer();
-			pushOverlay(_imGuiLayer);
+			imguiLayer = new ImGuiLayer();
+			pushOverlay(imguiLayer);
 		}
 
 		Application::~Application()
 		{
-			popOverlay(_imGuiLayer);
-			delete _imGuiLayer;
+			popOverlay(imguiLayer);
+			delete imguiLayer;
 
-			if (!_layerStack.empty()) 
+			if (!layer_stack.empty()) 
 			{
 				// TODO: Raise warning.
 			}
 
-			_instance = nullptr;
+			instance = nullptr;
 		}
 
 		void Application::execute()
 		{
-			while (_running)
+			while (running)
 			{
-				double timeMs = _timer.getTime();
+				double timeMs = timer.getTime();
 
-				Timestep deltaTime = timeMs - _lastFrameTimeMs;
+				Timestep deltaTime = timeMs - lastFrameTimeMs;
 				Timestep timeStamp = timeMs;
 
-				_lastFrameTimeMs = timeMs;
+				lastFrameTimeMs = timeMs;
 
-				if (!_minimized)
+				if (!minimized)
 				{
-					for (Layer* layer : _layerStack)
+					for (Layer* layer : layer_stack)
 					{
 						layer->onUpdate(deltaTime, timeStamp.toSeconds());
 					}
 				}
 
-				_imGuiLayer->begin();
-				for (Layer* layer : _layerStack)
+				imguiLayer->begin();
+				for (Layer* layer : layer_stack)
 				{
 					layer->onImGuiRender();
 				}
-				_imGuiLayer->end();
+				imguiLayer->end();
 
-				_window->onUpdate();
+				windowInterface->onUpdate();
 			}
 		}
 
@@ -106,7 +106,7 @@ namespace VE
 			handler.execute<Event::WindowResizeEvent>(BIND_EVENT_FN(onWindowResize));
 			handler.execute<Event::KeyPressedEvent>(BIND_EVENT_FN(onMouseCaptured));
 
-			for (auto it = _layerStack.end(); it != _layerStack.begin(); )
+			for (auto it = layer_stack.end(); it != layer_stack.begin(); )
 			{
 				(*--it)->onEvent(e);
 				if (e.handled)
@@ -118,27 +118,27 @@ namespace VE
 
 		void Application::pushLayer(Layer* layer)
 		{
-			_layerStack.pushLayer(layer);
+			layer_stack.pushLayer(layer);
 		}
 
 		void Application::pushOverlay(Layer* layer)
 		{
-			_layerStack.pushOverlay(layer);
+			layer_stack.pushOverlay(layer);
 		}
 
 		void Application::popLayer(Layer* layer)
 		{
-			_layerStack.popLayer(layer);
+			layer_stack.popLayer(layer);
 		}
 
 		void Application::popOverlay(Layer* layer)
 		{
-			_layerStack.popOverlay(layer);
+			layer_stack.popOverlay(layer);
 		}
 
 		bool Application::onWindowClose(Event::WindowCloseEvent& e)
 		{
-			_running = false;
+			running = false;
 			return true;
 		}
 
@@ -146,10 +146,10 @@ namespace VE
 		{
 			if (e.getWidth() == 0 || e.getHeight() == 0)
 			{
-				_minimized = true;
+				minimized = true;
 				return false;
 			}
-			_minimized = false;
+			minimized = false;
 			Rendering::Renderer::onWindowResize(e.getWidth(), e.getHeight());
 
 			return false;
@@ -159,23 +159,23 @@ namespace VE
 		{
 			if (e.getKeyCode() == VE_KEY_TAB)
 			{
-				_window->toggleCaptureMouse();
+				windowInterface->toggleCaptureMouse();
 			}
 			if (e.getKeyCode() == VE_KEY_F)
 			{
-				_window->toggleFullscreen();
-				if (_window->isFullscreen())
+				windowInterface->toggleFullscreen();
+				if (windowInterface->isFullscreen())
 				{
-					Rendering::Renderer::onWindowResize(_window->getMonitorWidth(), _window->getMonitorHeight());
+					Rendering::Renderer::onWindowResize(windowInterface->getMonitorWidth(), windowInterface->getMonitorHeight());
 				}
 				else
 				{
-					Rendering::Renderer::onWindowResize(_window->getWidth(), _window->getHeight());
+					Rendering::Renderer::onWindowResize(windowInterface->getWidth(), windowInterface->getHeight());
 				}
 			}
 			if (e.getKeyCode() == VE_KEY_ESCAPE)
 			{
-				_running = false;
+				running = false;
 				return true;
 			}
 

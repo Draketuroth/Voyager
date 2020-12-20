@@ -5,6 +5,7 @@
   },
   "display" : { 
 		"title" : "VoyagerIG (Gremlin-2020-Dev1)",
+		"api" : "GLFW",
 		"fullscreen" : false,
 		"width" : 1024,
 		"height" : 768

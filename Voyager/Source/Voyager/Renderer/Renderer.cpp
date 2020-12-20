@@ -81,7 +81,7 @@ namespace VE
 						if (material) 
 						{
 							Texture2D* diffuse = material->getTexture(VE::Rendering::Material::TextureSlot::DIFFUSE);
-							if (getAPI() == VE::Rendering::RendererAPI::API::OpenGL)
+							if (getAPI() == Platform::API::RenderAPI::OpenGL)
 							{
 								if (diffuse)
 								{

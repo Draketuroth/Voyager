@@ -8,28 +8,56 @@ namespace VE
 {
 	namespace Core 
 	{
+		using EventCallbackFn = std::function<void(Event::Event&)>;
+
 		struct WindowProperties
 		{
-			std::string _title;
-			unsigned int _width;
-			unsigned int _height;
-			bool _fullscreen;
+			std::string title;
+			unsigned int width;
+			unsigned int height;
+			bool fullscreen;
 
 			WindowProperties(const std::string& windowTitle = "VoyagerEngine", unsigned int windowWidth = 1280, unsigned int windowHeight = 760) :
-				_title(windowTitle),
-				_width(windowWidth),
-				_height(windowHeight),
-				_fullscreen(false)
+				title(windowTitle),
+				width(windowWidth),
+				height(windowHeight),
+				fullscreen(false)
 			{
+			}
+
+			WindowProperties(const WindowProperties& other)
+			{
+				title = other.title;
+				width = other.width;
+				height = other.height;
+				fullscreen = other.fullscreen;
 			}
 		};
 
-		class VOYAGER_API Window
+		struct WindowData
+		{
+			std::string title;
+			unsigned int width;
+			unsigned int height;
+			int x;
+			int y;
+			bool vsync;
+			bool mouseCaptured;
+			bool fullScreen;
+
+			EventCallbackFn eventCallback;
+		};
+
+		struct MonitorData
+		{
+			unsigned int width;
+			unsigned int height;
+		};
+
+		class VOYAGER_API IWindow
 		{
 		public:
-			using EventCallbackFn = std::function<void(Event::Event&)>;
-
-			virtual ~Window() {}
+			virtual ~IWindow() = default;
 
 			virtual void onUpdate() = 0;
 
@@ -49,7 +77,7 @@ namespace VE
 
 			virtual void* getNativeWindow() const = 0;
 
-			static Window* create(const WindowProperties& props = WindowProperties());
+			static IWindow* create(const WindowProperties& props = WindowProperties());
 		};
 	}
 };

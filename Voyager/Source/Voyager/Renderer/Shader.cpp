@@ -3,6 +3,8 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
+#include "Platform/APIType.h"
+
 #include <fstream>
 
 #include <glad/glad.h>
@@ -15,10 +17,10 @@ namespace VE
 		{
 			switch (Renderer::getAPI())
 			{
-				case RendererAPI::API::None: 
+				case Platform::API::RenderAPI::None:
 					VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
 					break;
-				case RendererAPI::API::OpenGL: 
+				case Platform::API::RenderAPI::OpenGL:
 					*resource = new Platform::OpenGL::OpenGLShader(path);
 			}
 
@@ -29,8 +31,8 @@ namespace VE
 		{
 			switch (Renderer::getAPI())
 			{
-				case RendererAPI::API::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
-				case RendererAPI::API::OpenGL: return new Platform::OpenGL::OpenGLShader(filepath);
+				case Platform::API::RenderAPI::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
+				case Platform::API::RenderAPI::OpenGL: return new Platform::OpenGL::OpenGLShader(filepath);
 			}
 
 			VE_CORE_ASSERT(false, "Unknown RendererAPI!");

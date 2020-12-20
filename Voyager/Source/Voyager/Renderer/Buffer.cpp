@@ -3,6 +3,8 @@
 #include "Voyager/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
+#include "Platform/APIType.h"
+
 #include "Voyager/Core/Log.h"
 
 namespace VE
@@ -13,8 +15,8 @@ namespace VE
 		{
 			switch (Renderer::getAPI())
 			{
-			case RendererAPI::API::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
-			case RendererAPI::API::OpenGL: return new Platform::OpenGL::OpenGLVertexBuffer(vertices, size, count);
+			case Platform::API::RenderAPI::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
+			case Platform::API::RenderAPI::OpenGL: return new Platform::OpenGL::OpenGLVertexBuffer(vertices, size, count);
 			}
 
 			VE_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -25,8 +27,8 @@ namespace VE
 		{
 			switch (Renderer::getAPI())
 			{
-			case RendererAPI::API::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
-			case RendererAPI::API::OpenGL: return new Platform::OpenGL::OpenGLIndexBuffer(indices, count);
+			case Platform::API::RenderAPI::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
+			case Platform::API::RenderAPI::OpenGL: return new Platform::OpenGL::OpenGLIndexBuffer(indices, count);
 			}
 
 			VE_CORE_ASSERT(false, "Unknown RendererAPI!");

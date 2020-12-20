@@ -3,7 +3,7 @@
 
 #include "Voyager/Core/Core.h"
 
-#include "Voyager/Core/Window.h"
+#include "Voyager/Core/IWindow.h"
 #include "Voyager/Core/LayerStack.h"
 #include "Voyager/Core/Timestep.h"
 #include "Voyager/Core/Timer.h"
@@ -43,9 +43,9 @@ namespace VE
 			void popLayer(Layer* layer);
 			void popOverlay(Layer* layer);
 
-			inline Window& getWindow() { return *_window; }
+			inline IWindow& getWindow() { return *windowInterface; }
 
-			inline static Application& Get() { return *_instance; }
+			inline static Application& Get() { return *instance; }
 
 		private:
 			bool onWindowClose(Event::WindowCloseEvent& e);
@@ -53,18 +53,18 @@ namespace VE
 			bool onMouseCaptured(Event::KeyPressedEvent& e);
 
 		protected:
-			VE::Core::Scope<Window> _window;
+			VE::Core::Scope<IWindow> windowInterface;
 
 		private:
-			ImGuiLayer* _imGuiLayer;
-			static Application* _instance;
+			ImGuiLayer* imguiLayer;
+			static Application* instance;
 
-			bool _running = true;
-			bool _minimized = false;
-			LayerStack _layerStack;
-			Timer _timer;
+			bool running = true;
+			bool minimized = false;
+			LayerStack layer_stack;
+			Timer timer;
 
-			double _lastFrameTimeMs = 0.0;
+			double lastFrameTimeMs = 0.0;
 		};
 
 		// To be defined in client.

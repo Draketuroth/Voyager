@@ -1,4 +1,4 @@
-# VOYAGER
+# Voyager Module
 
 The Voyager module is the heart of the engine.
 
@@ -26,6 +26,5 @@ These are the third-party libraries currently used in the project:
  - Glad
  - spdlog
  - dear ImGui
- - RapidJSON
  
  Voyager ships with ready to use CMake projects for each library, but the user is required to clone or download the repository themselves. It is also possible to remove the CMake projects and add them as git submodules instead.

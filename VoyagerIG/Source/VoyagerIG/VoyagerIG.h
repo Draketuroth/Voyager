@@ -15,10 +15,10 @@ namespace IG
 		~VoyagerIG();
 
 	private:
-		Scene* _scene;
-		VE::Core::Layer* _baseLayer;
-		VE::Core::Layer* _resourceLayer;
-		VE::Core::Layer* _renderLayer;
+		Scene* scene;
+		VE::Core::Layer* baseLayer;
+		VE::Core::Layer* resourceLayer;
+		VE::Core::Layer* renderLayer;
 	};
 }
 

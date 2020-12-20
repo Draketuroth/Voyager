@@ -5,6 +5,8 @@ project(Voyager C CXX)
 ################################################################################
 set(Voyager_Folder_Source
 	Source/Voyager.h
+	Source/pch.h
+	Source/pch.cpp
 )
 source_group("Voyager" FILES ${Voyager_Folder_Source})
 
@@ -32,7 +34,8 @@ set(Voyager_Folder_Core
 	Source/Voyager/Core/Log.h
 	Source/Voyager/Core/Log.cpp
     Source/Voyager/Core/Entrypoint.h
-	Source/Voyager/Core/Window.h
+	Source/Voyager/Core/IWindow.cpp
+	Source/Voyager/Core/IWindow.h
 	Source/Voyager/Core/Input.h
 	Source/Voyager/Core/Timestep.h
 	Source/Voyager/Core/Timer.h
@@ -95,8 +98,8 @@ set(Voyager_Folder_Renderer
 	Source/Voyager/Renderer/Geometry.cpp
 	Source/Voyager/Renderer/Renderer.h
 	Source/Voyager/Renderer/Renderer.cpp
-	Source/Voyager/Renderer/RendererAPI.h
-	Source/Voyager/Renderer/RendererAPI.cpp
+	Source/Voyager/Renderer/RendererAPIHandler.h
+	Source/Voyager/Renderer/RendererAPIHandler.cpp
 	Source/Voyager/Renderer/RenderCommand.h
 	Source/Voyager/Renderer/RenderCommand.cpp
 	Source/Voyager/Renderer/Pipeline.h
@@ -112,6 +115,7 @@ set(Voyager_Folder_Renderer
 	Source/Voyager/Renderer/Identifier.cpp
 	Source/Voyager/Renderer/Identifier.h
 	Source/Voyager/Renderer/RenderFlags.h
+	Source/Voyager/Renderer/RenderSettings.h
 )
 source_group("Voyager\\Renderer" FILES ${Voyager_Folder_Renderer})
 
@@ -169,14 +173,30 @@ set(Voyager_Folder_Math_Matrix
 )
 source_group("Voyager\\Math\\Matrix" FILES ${Voyager_Folder_Math_Matrix})
 
+set(Platform_Folder
+	Source/Platform/APIType.h
+)
+source_group("Platform" FILES ${Platform_Folder})
 
 set(Platform_Folder_Window
-	Source/Platform/Window/Win32Window.h
-	Source/Platform/Window/Win32Window.cpp
+	Source/Platform/Window/WindowAPIHandler.h
+	Source/Platform/Window/WindowAPIHandler.cpp
 	Source/Platform/Window/WindowsInput.h
 	Source/Platform/Window/WindowsInput.cpp
 )
 source_group("Platform\\Window" FILES ${Platform_Folder_Window})
+
+set(Platform_Folder_Window_GLFW
+	Source/Platform/Window/GLFW/GLFWHandler.h
+	Source/Platform/Window/GLFW/GLFWHandler.cpp
+)
+source_group("Platform\\Window\\GLFW" FILES ${Platform_Folder_Window_GLFW})
+
+set(Platform_Folder_Window_WIN
+	Source/Platform/Window/WIN/Win32Handler.h
+	Source/Platform/Window/WIN/Win32Handler.cpp
+)
+source_group("Platform\\Window\\WIN" FILES ${Platform_Folder_Window_WIN})
 
 set(Platform_Folder_OpenGL
 	Source/Platform/OpenGL/OpenGLPipeline.h
@@ -205,6 +225,11 @@ set(Platform_Folder_OpenGL
 )
 source_group("Platform\\OpenGL" FILES ${Platform_Folder_OpenGL})
 
+set(Platform_Folder_DirectX
+
+)
+source_group("Platform\\DirectX" FILES ${Platform_Folder_DirectX})
+
 set(ALL_FILES
 	${Contrib_Folder_STB}
 	${Voyager_Folder_Components}
@@ -220,8 +245,12 @@ set(ALL_FILES
 	${Voyager_Folder_Math}
 	${Voyager_Folder_Math_Vector}
 	${Voyager_Folder_Math_Matrix}
+	${Platform_Folder}
 	${Platform_Folder_Window}
+	${Platform_Folder_Window_GLFW}
+	${Platform_Folder_Window_WIN}
 	${Platform_Folder_OpenGL}
+	${Platform_Folder_DirectX}
 )
 
 ################################################################################

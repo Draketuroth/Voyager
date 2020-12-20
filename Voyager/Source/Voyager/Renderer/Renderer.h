@@ -12,6 +12,8 @@
 #include "Voyager/Math/Vector/VectorLayout.h"
 #include "Voyager/Math/Matrix/MatrixLayout.h"
 
+#include "Platform/APIType.h"
+
 #include <glad/glad.h>
 
 namespace VE
@@ -34,7 +36,7 @@ namespace VE
 
 			static Pipeline* getPipeline(unsigned int pipelineId);
 
-			inline static RendererAPI::API getAPI() { return RendererAPI::GetAPI(); }
+			inline static Platform::API::RenderAPI getAPI() { return RendererAPIHandler::getAPI(); }
 
 			struct SceneData
 			{

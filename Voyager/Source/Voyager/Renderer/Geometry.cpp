@@ -3,6 +3,8 @@
 #include "Voyager/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
+#include "Platform/APIType.h"
+
 namespace VE
 {
 	namespace Rendering 
@@ -11,10 +13,10 @@ namespace VE
 		{
 			switch (Renderer::getAPI())
 			{
-			case RendererAPI::API::None:
+			case Platform::API::RenderAPI::None:
 				VE_CORE_ASSERT(false, "RenderAPI::None is not supported!");
 				break;
-			case RendererAPI::API::OpenGL:
+			case Platform::API::RenderAPI::OpenGL:
 				*resource = new Platform::OpenGL::OpenGLVertexArray();
 				break;
 			}
@@ -23,8 +25,8 @@ namespace VE
 		{
 			switch (Renderer::getAPI())
 			{
-				case RendererAPI::API::None: VE_CORE_ASSERT(false, "RenderAPI::None is not supported!");
-				case RendererAPI::API::OpenGL: return new Platform::OpenGL::OpenGLVertexArray();
+				case Platform::API::RenderAPI::None: VE_CORE_ASSERT(false, "RenderAPI::None is not supported!");
+				case Platform::API::RenderAPI::OpenGL: return new Platform::OpenGL::OpenGLVertexArray();
 			}
 
 			VE_CORE_ASSERT(false, "Unknown RenderAPI!");

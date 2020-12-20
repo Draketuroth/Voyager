@@ -3,6 +3,8 @@
 #include "Voyager/Renderer/Shaderset.h"
 #include "Platform/OpenGL/OpenGLShaderset.h"
 
+#include "Platform/APIType.h"
+
 namespace VE 
 {
 	namespace Rendering
@@ -11,8 +13,8 @@ namespace VE
 		{
 			switch (Renderer::getAPI())
 			{
-			case RendererAPI::API::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
-			case RendererAPI::API::OpenGL: return new Platform::OpenGL::OpenGLShaderSet(shaders);
+			case Platform::API::RenderAPI::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
+			case Platform::API::RenderAPI::OpenGL: return new Platform::OpenGL::OpenGLShaderSet(shaders);
 			}
 
 			VE_CORE_ASSERT(false, "Unknown RendererAPI!");

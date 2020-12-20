@@ -3,6 +3,8 @@
 #include "Voyager/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
+#include "Platform/APIType.h"
+
 #include "Voyager/IO/Parsing.h"
 
 namespace VE 
@@ -14,10 +16,10 @@ namespace VE
 			bool flip = (flags & VE::IO::Setting::FlipTexture) ? true : false;
 			switch (Renderer::getAPI())
 			{
-				case RendererAPI::API::None: 
+				case Platform::API::RenderAPI::None:
 					VE_CORE_ASSERT(false, "RenderAPI::None is not supported!");
 					break;
-				case RendererAPI::API::OpenGL: 
+				case Platform::API::RenderAPI::OpenGL:
 					*resource = new Platform::OpenGL::OpenGLTexture2D(VE::IO::readImage(path, flip));
 					break;
 			}
@@ -27,8 +29,8 @@ namespace VE
 		{
 			switch (Renderer::getAPI())
 			{
-				case RendererAPI::API::None: VE_CORE_ASSERT(false, "RenderAPI::None is not supported!");
-				case RendererAPI::API::OpenGL: return new Platform::OpenGL::OpenGLTexture2D(data);
+				case Platform::API::RenderAPI::None: VE_CORE_ASSERT(false, "RenderAPI::None is not supported!");
+				case Platform::API::RenderAPI::OpenGL: return new Platform::OpenGL::OpenGLTexture2D(data);
 			}
 
 			VE_CORE_ASSERT(false, "Unknown RenderAPI!");

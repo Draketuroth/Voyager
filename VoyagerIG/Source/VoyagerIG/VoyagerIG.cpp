@@ -28,27 +28,31 @@ namespace IG
 {
 	VoyagerIG::VoyagerIG()
 	{
-		_scene = new Scene();
+		
+		scene = new Scene();
 
-		_baseLayer = new SceneLayer(_scene);
-		pushLayer(_baseLayer);
+		baseLayer = new SceneLayer(scene);
+		pushLayer(baseLayer);
 
-		_resourceLayer = new ResourceLayer(_scene, _window->getWidth(), _window->getHeight());
-		pushLayer(_resourceLayer);
+		resourceLayer = new ResourceLayer(scene, windowInterface->getWidth(), windowInterface->getHeight());
+		pushLayer(resourceLayer);
 
-		_renderLayer = new RenderLayer(_scene);
-		pushLayer(_renderLayer);
+		renderLayer = new RenderLayer(scene);
+		pushLayer(renderLayer);
+		
 	}
 
 	VoyagerIG::~VoyagerIG()
 	{
+		
 		// Will trigger OnDetach for each layer.
-		popLayer(_renderLayer);
-		popLayer(_resourceLayer);
-		popLayer(_baseLayer);
+		popLayer(renderLayer);
+		popLayer(resourceLayer);
+		popLayer(baseLayer);
 
-		delete _renderLayer;
-		delete _resourceLayer;
-		delete _baseLayer;
+		delete renderLayer;
+		delete resourceLayer;
+		delete baseLayer;
+		
 	}
 }

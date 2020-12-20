@@ -1,7 +1,7 @@
 #ifndef VE_OPENGL_RENDERER_API_H
 #define VE_OPENGL_RENDERER_API_H
 
-#include "Voyager/Renderer/RendererAPI.h"
+#include "Voyager/Renderer/RendererAPIHandler.h"
 
 namespace VE
 {
@@ -9,7 +9,7 @@ namespace VE
 	{
 		namespace OpenGL 
 		{
-			class OpenGLRendererAPI : public Rendering::RendererAPI
+			class OpenGLRendererAPI : public Rendering::RendererAPIHandler
 			{
 			public:
 				virtual void setViewport(std::uint32_t x, std::uint32_t y, std::uint32_t width, std::uint32_t height) override;
