@@ -6,7 +6,7 @@
 
 #include "Voyager/Renderer/Shaderset.h"
 
-#include "Platform/OpenGL/OpenGLProgram.h"
+#include "Platform/Renderer/OpenGL/OpenGLProgram.h"
 
 #include "Voyager/IO/Parsing.h"
 

@@ -59,6 +59,8 @@ namespace VE
 		public:
 			virtual ~IWindow() = default;
 
+			virtual bool initialize(const WindowProperties& props = WindowProperties()) = 0;
+
 			virtual void onUpdate() = 0;
 
 			virtual unsigned int getWidth() const = 0;
@@ -77,7 +79,7 @@ namespace VE
 
 			virtual void* getNativeWindow() const = 0;
 
-			static IWindow* create(const WindowProperties& props = WindowProperties());
+			static IWindow* create();
 		};
 	}
 };

@@ -12,7 +12,7 @@ namespace VE
 {
 	namespace Rendering 
 	{
-		class VOYAGER_API RendererAPIHandler
+		class VOYAGER_API RendererAPI
 		{
 
 		public:
@@ -25,10 +25,6 @@ namespace VE
 			virtual void draw(unsigned int numVertices) = 0;
 			virtual void draw(Rendering::Geometry* geometry) = 0;
 
-			inline static Platform::API::RenderAPI getAPI() { return api; }
-
-		private:
-			static Platform::API::RenderAPI api;
 		};
 	}
 };

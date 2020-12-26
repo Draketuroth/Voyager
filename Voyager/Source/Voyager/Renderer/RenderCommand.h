@@ -1,11 +1,12 @@
 #ifndef VE_RENDER_COMMAND_H
 #define VE_RENDER_COMMAND_H
 
-#include "Voyager/Renderer/RendererAPIHandler.h"
+#include "Voyager/Renderer/RendererAPI.h"
 #include "Voyager/Renderer/RenderFlags.h"
 
 #include "Voyager/Core/Bitmask.h"
 
+#include "Platform/Renderer/RendererAPIHandler.h"
 #include "Platform/APIType.h"
 
 namespace VE
@@ -40,7 +41,7 @@ namespace VE
 				unsigned int flags = 0x00000000;
 
 				// TODO: Improve api checking and eliminate magic bit values.
-				Platform::API::RenderAPI api = _renderAPI->getAPI();
+				Platform::API::RenderAPI api = VE::Platform::Renderer::RendererAPIHandler::getAPI();
 				if (api == Platform::API::RenderAPI::OpenGL)
 				{
 					if (clearFlags & ClearFlags::COLOR)
@@ -71,7 +72,7 @@ namespace VE
 			}
 
 		private:
-			static RendererAPIHandler* _renderAPI;
+			static RendererAPI* _renderAPI;
 		};
 	}
 };

@@ -15,8 +15,10 @@ namespace VE
 			class GLFWHandler : public Core::IWindow
 			{
 			public:
-				GLFWHandler(const Core::WindowProperties& props);
+				GLFWHandler() {};
 				virtual ~GLFWHandler();
+
+				virtual bool initialize(const Core::WindowProperties& props) override;
 
 				void onUpdate() override;
 
@@ -37,16 +39,15 @@ namespace VE
 				inline virtual void* getNativeWindow() const { return window; }
 
 			private:
-				virtual void init(const Core::WindowProperties& props);
 				virtual void shutdown();
 
 				unsigned int originalWidth;
 				unsigned int originalHeight;
 
-				Core::MonitorData monitorData;
-				Core::WindowData windowData;
-				GLFWwindow* window;
-				Rendering::GraphicsContext* graphicsContext;
+				Core::MonitorData monitorData = {};
+				Core::WindowData windowData = {};
+				GLFWwindow* window = nullptr;
+				Rendering::GraphicsContext* graphicsContext = nullptr;
 			};
 		}
 	}

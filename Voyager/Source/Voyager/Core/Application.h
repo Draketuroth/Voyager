@@ -15,11 +15,7 @@
 #include "Voyager/Event/EntityEvent.h"
 #include "Voyager/Event/ComponentEvent.h"
 
-#include "Platform/OpenGL/OpenGLShaderset.h"
-
 #include "Voyager/ImGui/ImGuiLayer.h"
-
-#include "Voyager/Renderer/Camera.h"
 
 #include <memory>
 
@@ -56,7 +52,7 @@ namespace VE
 			VE::Core::Scope<IWindow> windowInterface;
 
 		private:
-			ImGuiLayer* imguiLayer;
+			// ImGuiLayer* imguiLayer;
 			static Application* instance;
 
 			bool running = true;

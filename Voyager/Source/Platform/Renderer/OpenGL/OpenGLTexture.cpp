@@ -1,5 +1,5 @@
 
-#include "Platform/OpenGL/OpenGLTexture.h"
+#include "Platform/Renderer/OpenGL/OpenGLTexture.h"
 #include "Voyager/Core/Log.h"
 
 #include <stb_image.h>

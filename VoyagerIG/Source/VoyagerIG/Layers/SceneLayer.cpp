@@ -14,7 +14,7 @@
 #include "Voyager/Event/MouseEvent.h"
 #include "Voyager/Event/KeyEvent.h"
 
-#include "Platform/OpenGL/OpenGLTexture.h"
+#include "Platform/Renderer/OpenGL/OpenGLTexture.h"
 
 #include "Voyager/Renderer/Renderer.h"
 
@@ -29,7 +29,7 @@
 static bool showEntityWidget = false;
 static bool showAboutWidget = false;
 
-VE::Platform::API::RenderAPI api = VE::Rendering::Renderer::getAPI();
+VE::Platform::API::RenderAPI api = VE::Platform::Renderer::RendererAPIHandler::getAPI();
 
 namespace IG
 {

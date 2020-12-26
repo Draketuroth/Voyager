@@ -3,7 +3,7 @@
 
 #include "Voyager/Renderer/Pipeline.h"
 
-#include "Platform/OpenGL/OpenGLShaderset.h"
+#include "Platform/Renderer/OpenGL/OpenGLShaderset.h"
 
 #include <string>
 #include <unordered_map>

@@ -3,7 +3,7 @@
 
 #include "Voyager/Renderer/Shader.h"
 
-#include "Platform/OpenGL/OpenGLStatus.h"
+#include "Platform/Renderer/OpenGL/OpenGLStatus.h"
 
 #include "Voyager/Core/Core.h"
 

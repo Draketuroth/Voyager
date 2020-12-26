@@ -6,7 +6,7 @@
 
 #include "Voyager/Core/Log.h"
 
-#include "Platform/OpenGL/OpenGLContext.h"
+#include "Platform/Renderer/OpenGL/OpenGLContext.h"
 #include "Voyager/Renderer/RenderCommand.h"
 
 #include <stb_image.h>
@@ -24,114 +24,19 @@ namespace VE
 	{
 		namespace Window
 		{
-			GLFWHandler::GLFWHandler(const Core::WindowProperties& props)
-			{
-				init(props);
-			}
-
-			GLFWHandler::~GLFWHandler()
-			{
-				shutdown();
-			}
-
-			void GLFWHandler::onUpdate()
-			{
-				glfwPollEvents();
-				graphicsContext->swapBuffers();
-			}
-
-			void GLFWHandler::toggleFullscreen()
-			{
-				GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-				const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
-				if (!windowData.fullScreen)
-				{
-					// Store previous window position for repositioning when exiting fullscreen mode.
-					glfwGetWindowPos(window, &windowData.x, &windowData.y);
-
-					glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
-					windowData.fullScreen = !windowData.fullScreen;
-				}
-				else
-				{
-					windowData.width = originalWidth;
-					windowData.height = originalHeight;
-					glfwSetWindowMonitor(window, nullptr, windowData.x, windowData.y, windowData.width, windowData.height, mode->refreshRate);
-					windowData.fullScreen = !windowData.fullScreen;
-				}
-			}
-
-			void GLFWHandler::toggleCaptureMouse()
-			{
-				if (!windowData.mouseCaptured)
-				{
-					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-					windowData.mouseCaptured = !windowData.mouseCaptured;
-				}
-				else
-				{
-					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-					windowData.mouseCaptured = false;
-				}
-			}
-
-			void GLFWHandler::setCaptureMouse(bool enabled)
-			{
-				if (enabled)
-				{
-					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-				}
-				else
-				{
-					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-				}
-				windowData.mouseCaptured = enabled;
-			}
-
-			void GLFWHandler::setVSync(bool enabled)
-			{
-				if (enabled)
-				{
-					glfwSwapInterval(1);
-				}
-				else
-				{
-					glfwSwapInterval(0);
-				}
-				windowData.vsync = enabled;
-			}
-
-			bool GLFWHandler::isVSync() const
-			{
-				return windowData.vsync;
-			}
-
-			bool GLFWHandler::isMouseCaptured() const
-			{
-				return windowData.mouseCaptured;
-			}
-
-			bool GLFWHandler::isFullscreen() const
-			{
-				return windowData.fullScreen;
-			}
-
-			void GLFWHandler::init(const Core::WindowProperties& props)
+			bool GLFWHandler::initialize(const Core::WindowProperties& props)
 			{
 				windowData.title = props.title;
 				originalWidth = windowData.width = props.width;
 				originalHeight = windowData.height = props.height;
 				windowData.fullScreen = props.fullscreen;
 
-				VE_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width, props.height);
-
 				if (!glfwInitialized)
 				{
 					int success = glfwInit();
 					if (!success)
 					{
-						exit(-1);
+						return false;
 					}
 					glfwSetErrorCallback(GLFWErrorCallback);
 
@@ -266,6 +171,96 @@ namespace VE
 						Event::MouseMovedEvent event((float)xpos, (float)ypos);
 						data.eventCallback(event);
 					});
+
+				return true;
+			}
+
+			GLFWHandler::~GLFWHandler()
+			{
+				shutdown();
+			}
+
+			void GLFWHandler::onUpdate()
+			{
+				glfwPollEvents();
+				graphicsContext->swapBuffers();
+			}
+
+			void GLFWHandler::toggleFullscreen()
+			{
+				GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+				const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+				if (!windowData.fullScreen)
+				{
+					// Store previous window position for repositioning when exiting fullscreen mode.
+					glfwGetWindowPos(window, &windowData.x, &windowData.y);
+
+					glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+					windowData.fullScreen = !windowData.fullScreen;
+				}
+				else
+				{
+					windowData.width = originalWidth;
+					windowData.height = originalHeight;
+					glfwSetWindowMonitor(window, nullptr, windowData.x, windowData.y, windowData.width, windowData.height, mode->refreshRate);
+					windowData.fullScreen = !windowData.fullScreen;
+				}
+			}
+
+			void GLFWHandler::toggleCaptureMouse()
+			{
+				if (!windowData.mouseCaptured)
+				{
+					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+					windowData.mouseCaptured = !windowData.mouseCaptured;
+				}
+				else
+				{
+					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+					windowData.mouseCaptured = false;
+				}
+			}
+
+			void GLFWHandler::setCaptureMouse(bool enabled)
+			{
+				if (enabled)
+				{
+					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				}
+				else
+				{
+					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				}
+				windowData.mouseCaptured = enabled;
+			}
+
+			void GLFWHandler::setVSync(bool enabled)
+			{
+				if (enabled)
+				{
+					glfwSwapInterval(1);
+				}
+				else
+				{
+					glfwSwapInterval(0);
+				}
+				windowData.vsync = enabled;
+			}
+
+			bool GLFWHandler::isVSync() const
+			{
+				return windowData.vsync;
+			}
+
+			bool GLFWHandler::isMouseCaptured() const
+			{
+				return windowData.mouseCaptured;
+			}
+
+			bool GLFWHandler::isFullscreen() const
+			{
+				return windowData.fullScreen;
 			}
 
 			void GLFWHandler::shutdown()

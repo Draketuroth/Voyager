@@ -1,8 +1,10 @@
-#ifndef VE_WIN32WINDOW_H
-#define VE_WIN32WINDOW_H
+#ifndef VE_WIN32_HANDLER_H
+#define VE_WIN32_HANDLER_H
 
 #include "Voyager/Core/IWindow.h"
 #include "Voyager/Renderer/GraphicsContext.h"
+
+#include "Platform/Window/WinAPI/Win32BaseWindow.h"
 
 namespace VE
 {
@@ -10,11 +12,13 @@ namespace VE
 	{
 		namespace Window 
 		{
-			class Win32Handler : public Core::IWindow
+			class Win32Handler : public Core::IWindow, public Win32BaseWindow<Win32Handler>
 			{
 			public:
-				Win32Handler(const Core::WindowProperties& props);
+				Win32Handler() {};
 				virtual ~Win32Handler();
+
+				virtual bool initialize(const Core::WindowProperties& props) override;
 
 				void onUpdate() override;
 
@@ -32,18 +36,21 @@ namespace VE
 				bool isMouseCaptured() const override;
 				bool isFullscreen() const override;
 
-				inline virtual void* getNativeWindow() const { return nullptr; }
+				inline virtual void* getNativeWindow() const { return hwnd; }
+
+				LPCSTR className() const { return "Voyager_Win32_Window_Class"; }
+				LRESULT handleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 			private:
-				virtual void init(const Core::WindowProperties& props);
 				virtual void shutdown();
 
-				unsigned int originalWidth;
-				unsigned int originalHeight;
+				unsigned int originalWidth = 0;
+				unsigned int originalHeight = 0;
 
-				Core::MonitorData monitorData;
-				Core::WindowData windowData;
-				Rendering::GraphicsContext* graphicsContext;
+				Core::MonitorData monitorData = {};
+				Core::WindowData windowData = {};
+
+				Rendering::GraphicsContext* graphicsContext = nullptr;
 			};
 		}
 	}

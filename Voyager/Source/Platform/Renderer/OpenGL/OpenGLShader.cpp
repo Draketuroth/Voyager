@@ -1,6 +1,6 @@
 #include "Voyager/Renderer/Shader.h"
-#include "Platform/OpenGL/OpenGLShader.h"
-#include "Platform/OpenGL/OpenGLStatus.h"
+#include "Platform/Renderer/OpenGL/OpenGLShader.h"
+#include "Platform/Renderer/OpenGL/OpenGLStatus.h"
 
 #include <fstream>
 #include <iostream>

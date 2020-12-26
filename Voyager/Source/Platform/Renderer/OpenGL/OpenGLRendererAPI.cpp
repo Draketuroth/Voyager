@@ -1,8 +1,8 @@
 
-#include "Platform/OpenGL/OpenGLRendererAPI.h"
-#include "Platform/OpenGL/OpenGLVertexArray.h"
+#include "Platform/Renderer/OpenGL/OpenGLRendererAPI.h"
+#include "Platform/Renderer/OpenGL/OpenGLVertexArray.h"
 
-#include "Platform/OpenGL/OpenGLStatus.h"
+#include "Platform/Renderer/OpenGL/OpenGLStatus.h"
 
 #include "Voyager/Renderer/RenderFlags.h"
 

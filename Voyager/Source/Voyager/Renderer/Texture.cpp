@@ -1,8 +1,9 @@
 
 #include "Voyager/Renderer/Texture.h"
 #include "Voyager/Renderer/Renderer.h"
-#include "Platform/OpenGL/OpenGLTexture.h"
+#include "Platform/Renderer/OpenGL/OpenGLTexture.h"
 
+#include "Platform/Renderer/RendererAPIHandler.h"
 #include "Platform/APIType.h"
 
 #include "Voyager/IO/Parsing.h"
@@ -14,7 +15,7 @@ namespace VE
 		void Texture2D::createResource(Texture2D** resource, const std::string path = "./", VE::IO::Setting flags = VE::IO::Setting::None)
 		{
 			bool flip = (flags & VE::IO::Setting::FlipTexture) ? true : false;
-			switch (Renderer::getAPI())
+			switch (Platform::Renderer::RendererAPIHandler::getAPI())
 			{
 				case Platform::API::RenderAPI::None:
 					VE_CORE_ASSERT(false, "RenderAPI::None is not supported!");
@@ -27,7 +28,7 @@ namespace VE
 
 		Texture2D* Texture2D::create(const VE::Image::ImageData& data)
 		{
-			switch (Renderer::getAPI())
+			switch (Platform::Renderer::RendererAPIHandler::getAPI())
 			{
 				case Platform::API::RenderAPI::None: VE_CORE_ASSERT(false, "RenderAPI::None is not supported!");
 				case Platform::API::RenderAPI::OpenGL: return new Platform::OpenGL::OpenGLTexture2D(data);

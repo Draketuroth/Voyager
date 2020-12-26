@@ -7,7 +7,7 @@ namespace VE
 	{
 		namespace Window 
 		{
-			API::WindowAPI WindowAPIHandler::api = API::WindowAPI::GLFW;
+			API::WindowAPI WindowAPIHandler::api = API::WindowAPI::None;
 		}
 	}
 };

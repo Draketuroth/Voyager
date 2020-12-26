@@ -6,8 +6,10 @@
 
 #include "Voyager/Renderer/Identifier.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
-#include "Platform/OpenGL/OpenGLTexture.h"
+#include "Platform/Renderer/OpenGL/OpenGLShader.h"
+#include "Platform/Renderer/OpenGL/OpenGLTexture.h"
+
+#include "Platform/Renderer/RendererAPIHandler.h"
 
 #include "Voyager/Core/Bitmask.h"
 
@@ -81,7 +83,7 @@ namespace VE
 						if (material) 
 						{
 							Texture2D* diffuse = material->getTexture(VE::Rendering::Material::TextureSlot::DIFFUSE);
-							if (getAPI() == Platform::API::RenderAPI::OpenGL)
+							if (Platform::Renderer::RendererAPIHandler::getAPI() == Platform::API::RenderAPI::OpenGL)
 							{
 								if (diffuse)
 								{

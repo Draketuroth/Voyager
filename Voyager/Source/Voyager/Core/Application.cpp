@@ -9,6 +9,7 @@
 #include "Voyager/Core/KeyCodes.h"
 
 #include "Voyager/IO/JSONParser.h"
+#include "Voyager/IO/Parsing.h"
 
 #include <fstream>
 
@@ -18,7 +19,7 @@ namespace VE
 {
 	namespace Core 
 	{
-	# define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)d
+	# define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 		Application* Application::instance = nullptr;
 
@@ -49,17 +50,26 @@ namespace VE
 				VE_CORE_WARN("Failed reading Views.json, defaulting to standard config. Error: " + errorCode);
 			}
 
-			windowInterface = VE::Core::Scope<IWindow>(IWindow::create(windowProps));
+			VE_CORE_INFO("Creating window {0} ({1}, {2})", windowProps.title, windowProps.width, windowProps.height);
+			windowInterface = VE::Core::Scope<IWindow>(IWindow::create());
+			if (!windowInterface) 
+			{
+				VE_CORE_ERROR("Failed to create window interface");
+			}
+			if (!windowInterface->initialize(windowProps)) 
+			{
+				VE_CORE_ERROR("Failed to create window backend");
+			}
 			windowInterface->setEventCallback(BIND_EVENT_FN(onEvent));
 
-			imguiLayer = new ImGuiLayer();
-			pushOverlay(imguiLayer);
+			// imguiLayer = new ImGuiLayer();
+			// pushOverlay(imguiLayer);
 		}
 
 		Application::~Application()
 		{
-			popOverlay(imguiLayer);
-			delete imguiLayer;
+			// popOverlay(imguiLayer);
+			// delete imguiLayer;
 
 			if (!layer_stack.empty()) 
 			{
@@ -88,12 +98,14 @@ namespace VE
 					}
 				}
 
+				/*
 				imguiLayer->begin();
 				for (Layer* layer : layer_stack)
 				{
 					layer->onImGuiRender();
 				}
 				imguiLayer->end();
+				*/
 
 				windowInterface->onUpdate();
 			}

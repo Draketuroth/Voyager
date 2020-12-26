@@ -9,15 +9,16 @@ namespace VE
         {
             enum class WindowAPI
             {
-                GLFW = 0,
-                WIN = 1
+                None = 0,
+                GLFW = 1,
+                Win32 = 2
             };
 
             enum class RenderAPI
             {
                 None = 0,
                 OpenGL = 1,
-                DirectX = 2,
+                DirectX12 = 2,
                 Vulcan = 3
             };
         }

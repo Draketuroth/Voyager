@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <set>
 
-#include "Platform/OpenGL/OpenGLShaderSet.h"
-#include "Platform/OpenGL/OpenGLStatus.h"
+#include "Platform/Renderer/OpenGL/OpenGLShaderSet.h"
+#include "Platform/Renderer/OpenGL/OpenGLStatus.h"
 
 namespace VE 
 {

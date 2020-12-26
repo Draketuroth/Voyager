@@ -98,8 +98,7 @@ set(Voyager_Folder_Renderer
 	Source/Voyager/Renderer/Geometry.cpp
 	Source/Voyager/Renderer/Renderer.h
 	Source/Voyager/Renderer/Renderer.cpp
-	Source/Voyager/Renderer/RendererAPIHandler.h
-	Source/Voyager/Renderer/RendererAPIHandler.cpp
+	Source/Voyager/Renderer/RendererAPI.h
 	Source/Voyager/Renderer/RenderCommand.h
 	Source/Voyager/Renderer/RenderCommand.cpp
 	Source/Voyager/Renderer/Pipeline.h
@@ -192,43 +191,51 @@ set(Platform_Folder_Window_GLFW
 )
 source_group("Platform\\Window\\GLFW" FILES ${Platform_Folder_Window_GLFW})
 
-set(Platform_Folder_Window_WIN
-	Source/Platform/Window/WIN/Win32Handler.h
-	Source/Platform/Window/WIN/Win32Handler.cpp
+set(Platform_Folder_Window_WinAPI
+	Source/Platform/Window/WinAPI/Win32Handler.h
+	Source/Platform/Window/WinAPI/Win32Handler.cpp
+	Source/Platform/Window/WinAPI/Win32BaseWindow.h
 )
-source_group("Platform\\Window\\WIN" FILES ${Platform_Folder_Window_WIN})
+source_group("Platform\\Window\\WinAPI" FILES ${Platform_Folder_Window_WinAPI})
 
-set(Platform_Folder_OpenGL
-	Source/Platform/OpenGL/OpenGLPipeline.h
-	Source/Platform/OpenGL/OpenGLPipeline.cpp
-	Source/Platform/OpenGL/OpenGLContext.h
-	Source/Platform/OpenGL/OpenGLContext.cpp
-	Source/Platform/OpenGL/OpenGLAssert.h
-	Source/Platform/OpenGL/OpenGLProgram.h
-	Source/Platform/OpenGL/OpenGLProgram.cpp
-	Source/Platform/OpenGL/OpenGLShader.h
-	Source/Platform/OpenGL/OpenGLShader.cpp
-	Source/Platform/OpenGL/OpenGLBuffer.h
-	Source/Platform/OpenGL/OpenGLBuffer.cpp
-	Source/Platform/OpenGL/OpenGLVertexArray.h
-	Source/Platform/OpenGL/OpenGLVertexArray.cpp
-	Source/Platform/OpenGL/OpenGLShaderset.h
-	Source/Platform/OpenGL/OpenGLShaderset.cpp
-	Source/Platform/OpenGL/OpenGLStatus.h
-	Source/Platform/OpenGL/OpenGLStatus.cpp
-	Source/Platform/OpenGL/OpenGLRendererAPI.h
-	Source/Platform/OpenGL/OpenGLRendererAPI.cpp
-	Source/Platform/OpenGL/OpenGLTexture.h
-	Source/Platform/OpenGL/OpenGLTexture.cpp
-	Source/Platform/OpenGL/OpenGLTransform.h
-	Source/Platform/OpenGL/OpenGLTransform.cpp
+set(Platform_Folder_Renderer
+	Source/Platform/Renderer/RendererAPIHandler.h
+	Source/Platform/Renderer/RendererAPIHandler.cpp
 )
-source_group("Platform\\OpenGL" FILES ${Platform_Folder_OpenGL})
+source_group("Platform\\Renderer" FILES ${Platform_Folder_Renderer})
 
-set(Platform_Folder_DirectX
-
+set(Platform_Folder_Renderer_OpenGL
+	Source/Platform/Renderer/OpenGL/OpenGLPipeline.h
+	Source/Platform/Renderer/OpenGL/OpenGLPipeline.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLContext.h
+	Source/Platform/Renderer/OpenGL/OpenGLContext.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLAssert.h
+	Source/Platform/Renderer/OpenGL/OpenGLProgram.h
+	Source/Platform/Renderer/OpenGL/OpenGLProgram.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLShader.h
+	Source/Platform/Renderer/OpenGL/OpenGLShader.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLBuffer.h
+	Source/Platform/Renderer/OpenGL/OpenGLBuffer.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLVertexArray.h
+	Source/Platform/Renderer/OpenGL/OpenGLVertexArray.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLShaderset.h
+	Source/Platform/Renderer/OpenGL/OpenGLShaderset.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLStatus.h
+	Source/Platform/Renderer/OpenGL/OpenGLStatus.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLRendererAPI.h
+	Source/Platform/Renderer/OpenGL/OpenGLRendererAPI.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLTexture.h
+	Source/Platform/Renderer/OpenGL/OpenGLTexture.cpp
+	Source/Platform/Renderer/OpenGL/OpenGLTransform.h
+	Source/Platform/Renderer/OpenGL/OpenGLTransform.cpp
 )
-source_group("Platform\\DirectX" FILES ${Platform_Folder_DirectX})
+source_group("Platform\\Renderer\\OpenGL" FILES ${Platform_Folder_Renderer_OpenGL})
+
+set(Platform_Folder_Renderer_DirectX12
+	Source/Platform/Renderer/DirectX12/DirectX12Context.h
+	Source/Platform/Renderer/DirectX12/DirectX12Context.cpp
+)
+source_group("Platform\\Renderer\\DirectX12" FILES ${Platform_Folder_Renderer_DirectX12})
 
 set(ALL_FILES
 	${Contrib_Folder_STB}
@@ -248,9 +255,10 @@ set(ALL_FILES
 	${Platform_Folder}
 	${Platform_Folder_Window}
 	${Platform_Folder_Window_GLFW}
-	${Platform_Folder_Window_WIN}
-	${Platform_Folder_OpenGL}
-	${Platform_Folder_DirectX}
+	${Platform_Folder_Window_WinAPI}
+	${Platform_Folder_Renderer}
+	${Platform_Folder_Renderer_OpenGL}
+	${Platform_Folder_Renderer_DirectX12}
 )
 
 ################################################################################
@@ -346,6 +354,9 @@ endif()
 
 string(CONCAT ADDITIONAL_LIBRARY_DEPENDENCIES
     "$<$<CONFIG:Debug>:"
+	    "D3d12;"
+		"dxgi;"
+		"D3DCompiler;"
         "glfw3;"
         "opengl32;"
         "glu32;"
@@ -353,6 +364,9 @@ string(CONCAT ADDITIONAL_LIBRARY_DEPENDENCIES
 		"imgui;"
     ">"
     "$<$<CONFIG:Release>:"
+	    "D3d12;"
+		"dxgi;"
+		"D3DCompiler;"
         "glfw3;"
         "opengl32;"
         "glu32;"

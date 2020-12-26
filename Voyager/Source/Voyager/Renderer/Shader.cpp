@@ -1,8 +1,9 @@
 #include "Voyager/Renderer/Shader.h"
 #include "Voyager/Renderer/Renderer.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
+#include "Platform/Renderer/OpenGL/OpenGLShader.h"
 
+#include "Platform/Renderer/RendererAPIHandler.h"
 #include "Platform/APIType.h"
 
 #include <fstream>
@@ -15,7 +16,7 @@ namespace VE
 
 		void Shader::createResource(Shader** resource, const std::string path, VE::IO::Setting flags)
 		{
-			switch (Renderer::getAPI())
+			switch (Platform::Renderer::RendererAPIHandler::getAPI())
 			{
 				case Platform::API::RenderAPI::None:
 					VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
@@ -29,7 +30,7 @@ namespace VE
 
 		Shader* Shader::create(const std::string& filepath)
 		{
-			switch (Renderer::getAPI())
+			switch (Platform::Renderer::RendererAPIHandler::getAPI())
 			{
 				case Platform::API::RenderAPI::None: VE_CORE_ASSERT(false, "RendererAPI::None is not supported");
 				case Platform::API::RenderAPI::OpenGL: return new Platform::OpenGL::OpenGLShader(filepath);

@@ -1,5 +1,5 @@
 
-#include "Platform/OpenGL/OpenGLStatus.h"
+#include "Platform/Renderer/OpenGL/OpenGLStatus.h"
 
 namespace VE 
 {

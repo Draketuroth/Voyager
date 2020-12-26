@@ -36,8 +36,6 @@ namespace VE
 
 			static Pipeline* getPipeline(unsigned int pipelineId);
 
-			inline static Platform::API::RenderAPI getAPI() { return RendererAPIHandler::getAPI(); }
-
 			struct SceneData
 			{
 				VE::Math::Vector::LayoutXYZW eye;

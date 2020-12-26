@@ -1,5 +1,5 @@
 
-#include "Platform/OpenGL/OpenGLBuffer.h"
+#include "Platform/Renderer/OpenGL/OpenGLBuffer.h"
 
 namespace VE
 {
