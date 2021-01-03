@@ -16,7 +16,7 @@ namespace VE
 			public:
 				OpenGLContext(GLFWwindow* windowHandle);
 
-				virtual void init() override;
+				virtual bool init() override;
 				virtual void swapBuffers() override;
 
 			private:

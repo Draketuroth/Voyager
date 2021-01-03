@@ -1,30 +1,30 @@
 
-#include "WindowsInput.h"
+#include "Platform/Window/GLFW/GLFWInput.h"
 
 #include "Voyager/Core/Application.h"
 #include <glfw3.h>
 
+#include <WinUser.h>
+
 namespace VE
 {
-	VE::Core::Scope<Core::Input> Core::Input::_instance(new Platform::Window::WindowsInput());
-
 	namespace Platform 
 	{
 		namespace Window 
 		{
-			bool WindowsInput::isKeyPressedImpl(int keycode)
+			bool GLFWInput::isKeyPressedImpl(int keycode)
 			{
 				auto window = static_cast<GLFWwindow*>(Core::Application::Get().getWindow().getNativeWindow());
 				auto state = glfwGetKey(window, keycode);
 				return state == GLFW_PRESS || state == GLFW_REPEAT;
 			}
-			bool WindowsInput::isMouseButtonPressedImpl(int button)
+			bool GLFWInput::isMouseButtonPressedImpl(int button)
 			{
 				auto window = static_cast<GLFWwindow*>(Core::Application::Get().getWindow().getNativeWindow());
 				auto state = glfwGetMouseButton(window, button);
 				return state == GLFW_PRESS;
 			}
-			std::pair<float, float> WindowsInput::getMousePositionImpl()
+			std::pair<float, float> GLFWInput::getMousePositionImpl()
 			{
 				auto window = static_cast<GLFWwindow*>(Core::Application::Get().getWindow().getNativeWindow());
 				double xpos, ypos;
@@ -32,12 +32,12 @@ namespace VE
 
 				return { (float)xpos, (float)ypos };
 			}
-			float WindowsInput::getMouseXImpl()
+			float GLFWInput::getMouseXImpl()
 			{
 				auto mousePos = getMousePositionImpl();
 				return mousePos.first;
 			}
-			float WindowsInput::getMouseYImpl()
+			float GLFWInput::getMouseYImpl()
 			{
 				auto mousePos = getMousePositionImpl();
 				return mousePos.second;

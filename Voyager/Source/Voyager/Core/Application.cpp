@@ -13,8 +13,6 @@
 
 #include <fstream>
 
-#include <glfw3.h>
-
 namespace VE
 {
 	namespace Core 
@@ -54,11 +52,15 @@ namespace VE
 			windowInterface = VE::Core::Scope<IWindow>(IWindow::create());
 			if (!windowInterface) 
 			{
-				VE_CORE_ERROR("Failed to create window interface");
+				VE_CORE_ERROR("Failed to create window interface!");
 			}
 			if (!windowInterface->initialize(windowProps)) 
 			{
-				VE_CORE_ERROR("Failed to create window backend");
+				VE_CORE_ERROR("Failed to create window backend!");
+			}
+			if (!Input::initialize()) 
+			{
+				VE_CORE_ERROR("Failed to determine input api!");
 			}
 			windowInterface->setEventCallback(BIND_EVENT_FN(onEvent));
 

@@ -16,11 +16,16 @@ namespace VE
 			{
 				VE_ASSERT(windowHandle, "Window handle is null!");
 			}
-			void OpenGLContext::init()
+			bool OpenGLContext::init()
 			{
 				glfwMakeContextCurrent(_windowHandle);
 				int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 				VE_CORE_ASSERT(status, "Failed to initialize Glad!");
+				if (status == 0) 
+				{
+					// Print last error...
+					return false;
+				}
 
 				VE_CORE_INFO("OpenGL Info:");
 				VE_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));

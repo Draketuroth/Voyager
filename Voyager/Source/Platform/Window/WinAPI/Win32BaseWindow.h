@@ -15,6 +15,8 @@ namespace VE
             class Win32BaseWindow 
             {
             public:
+                // Base window callback to catch Win32 window creation and provide handling for
+                // multiple windows - in the future. 
                 static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
                 {
                     T* pThis = NULL;
@@ -59,6 +61,7 @@ namespace VE
                     wc.lpfnWndProc = T::WindowProc;
                     wc.hInstance = GetModuleHandle(NULL);
                     wc.lpszClassName = className();
+                    wc.hIcon = (HICON)LoadImage(NULL, "Textures\\logo.ico", IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_LOADFROMFILE);
 
                     RegisterClass(&wc);
 

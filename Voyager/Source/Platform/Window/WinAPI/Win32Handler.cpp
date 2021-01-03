@@ -1,10 +1,13 @@
-#include "Win32Handler.h"
+#include "Platform/Window/WinAPI/Win32Handler.h"
 
 #include "Voyager/Event/ApplicationEvent.h"
 #include "Voyager/Event/KeyEvent.h"
 #include "Voyager/Event/MouseEvent.h"
 
 #include "Voyager/Core/Log.h"
+#include "Voyager/Core/Input.h"
+
+#include "Voyager/IO/Parsing.h"
 
 #include "Platform/Renderer/DirectX12/DirectX12Context.h"
 #include "Voyager/Renderer/RenderCommand.h"
@@ -22,6 +25,9 @@ namespace VE
 				originalHeight = windowData.height = props.height;
 				windowData.fullScreen = props.fullscreen;
 
+				monitorData.width = GetSystemMetrics(SM_CXFULLSCREEN);
+				monitorData.height = GetSystemMetrics(SM_CYFULLSCREEN);
+
 				bool status = createWin32Window(windowData.title.c_str(),
 					WS_OVERLAPPEDWINDOW,
 					0,
@@ -37,9 +43,13 @@ namespace VE
 				}
 
 				ShowWindow(hwnd, SW_SHOWNORMAL);
+				SetCapture(hwnd);
 
-				graphicsContext = new DirectX::DirectX12Context();
-				graphicsContext->init();
+				graphicsContext = new Renderer::DirectX::DirectX12Context();
+				if (!graphicsContext->init()) 
+				{
+					return false;
+				}
 
 				return true;
 			}
@@ -141,8 +151,11 @@ namespace VE
 				case WM_CLOSE: 
 				{
 					Win32Handler& data = *(Win32Handler*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-					Event::WindowCloseEvent event;
-					data.windowData.eventCallback(event);
+					if (data.windowData.eventCallback)
+					{
+						Event::WindowCloseEvent event;
+						data.windowData.eventCallback(event);
+					}
 					return 0;
 				}
 

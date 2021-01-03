@@ -1,5 +1,5 @@
-#ifndef VE_WINDOWS_INPUT
-#define VE_WINDOWS_INPUT
+#ifndef VE_GLFW_INPUT
+#define VE_GLFW_INPUT
 
 #include "Voyager/Core/Input.h"
 
@@ -9,7 +9,7 @@ namespace VE
 	{
 		namespace Window 
 		{
-			class WindowsInput : public Core::Input
+			class GLFWInput : public Core::Input
 			{
 			protected:
 				virtual bool isKeyPressedImpl(int keycode) override;

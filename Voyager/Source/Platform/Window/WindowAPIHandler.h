@@ -13,7 +13,6 @@ namespace VE
 		{
 			class VOYAGER_API WindowAPIHandler
 			{
-
 			public:
 				inline static void setAPI(const API::WindowAPI winapi) { api = winapi; }
 				inline static API::WindowAPI getAPI() { return api; }

@@ -21,17 +21,5 @@ Voyager is a program suite in development for the purpose of easy framework setu
 	mkdir build
 	cd build
     cmake -G "Ninja" ..\"path_to_source"\
-	
-	
-## Version History
-
-### Dev1 2020: 
-* Changed default Window API from Qt to GLFW
-* Added ImGui support
-* Introduced high-level interfaces for abstract 3D programming
-
-### Prototype 2018
-* Intial prototype for default OpenGL backend 
-* Custom math library using row major notation
  
  

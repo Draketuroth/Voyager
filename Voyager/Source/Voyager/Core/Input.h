@@ -10,12 +10,13 @@ namespace VE
 		class VOYAGER_API Input
 		{
 		public:
-			inline static bool isKeyPressed(int keycode) { return _instance->isKeyPressedImpl(keycode); }
+			inline static bool initialize();
 
-			inline static bool isMouseButtonPressed(int button) { return _instance->isMouseButtonPressedImpl(button); }
-			inline static std::pair<float, float> getMousePosition() { return _instance->getMousePositionImpl(); }
-			inline static float getMouseX() { return _instance->getMouseXImpl(); }
-			inline static float getMouseY() { return _instance->getMouseYImpl(); }
+			inline static bool isKeyPressed(int keycode) { return instance->isKeyPressedImpl(keycode); }
+			inline static bool isMouseButtonPressed(int button) { return instance->isMouseButtonPressedImpl(button); }
+			inline static std::pair<float, float> getMousePosition() { return instance->getMousePositionImpl(); }
+			inline static float getMouseX() { return instance->getMouseXImpl(); }
+			inline static float getMouseY() { return instance->getMouseYImpl(); }
 
 		protected:
 			virtual bool isKeyPressedImpl(int keycode) = 0;
@@ -26,7 +27,7 @@ namespace VE
 			virtual float getMouseYImpl() = 0;
 
 		private:
-			static VE::Core::Scope<Input> _instance;
+			static VE::Core::Scope<Input> instance;
 		};
 	}
 };
